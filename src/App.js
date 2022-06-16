@@ -4,8 +4,33 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Badge from 'react-bootstrap/Badge';
+import { useEffect, useState } from 'react';
 
 function App() {
+  
+const [sidebarData  , setSideBarData] = useState();
+
+  useEffect(() => {
+    fetch(`https://www.talabulilm.com/profileapi/aamilsaheb/filters/170`, {
+      method: "GET",
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+      },
+    } , [])
+    .then((response) => response.json())
+    .then((result) => {
+      setSideBarData(result)
+    })
+    .catch((error) => {
+      console.log(error)
+    }) 
+
+  }, []);
+
+
+
   return (
     <>
     <Navbar   style={{backgroundColor:"#002147" }} >
@@ -23,14 +48,25 @@ function App() {
 <Row style={{backgroundColor:"#E5E5E5" , margin:"0px"}} >
 <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
   <div className='m-4' >
-    <div style={{backgroundColor:"#00336D" , color:"#fff" , borderRadius:"4px" , padding:"5px", marginBottom:"4px"}} >
-      Drop outs
+    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#00336D", color:"#fff" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+    <div className='d-flex justify-content-between' style={{width:"100%"}} >
+     <div>{Object.keys(sidebarData)[0]}</div> 
+      <Badge bg="secondary">{Object.values(sidebarData)[0]}</Badge>
     </div>
-    <div style={{backgroundColor:"#EDEDED ", color:"#000" , borderRadius:"4px" , padding:"5px" ,  marginBottom:"4px"}}>
-      Migrated outs
     </div>
-    <div style={{backgroundColor:"#EDEDED ", color:"#000" , borderRadius:"4px" , padding:"5px" ,  marginBottom:"4px"}}>
-      Migrated in
+
+    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+    <div className='d-flex justify-content-between' style={{width:"100%"}} >
+     <div>{Object.keys(sidebarData)[1]}</div> 
+      <Badge bg="secondary">{Object.values(sidebarData)[1]}</Badge>
+    </div>
+    </div>
+
+    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+    <div className='d-flex justify-content-between' style={{width:"100%"}} >
+     <div>{Object.keys(sidebarData)[2]}</div> 
+      <Badge bg="secondary">{Object.values(sidebarData)[2]}</Badge>
+    </div>
     </div>
   </div>
 
