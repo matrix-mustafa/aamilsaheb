@@ -29,7 +29,7 @@ const [sidebarData  , setSideBarData] = useState();
 
   }, []);
 
-
+  console.log("")
 
   return (
     <>
@@ -50,22 +50,22 @@ const [sidebarData  , setSideBarData] = useState();
   <div className='m-4' >
     <div className='d-flex ' style={{width:"100%" , backgroundColor:"#00336D", color:"#fff" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{Object.keys(sidebarData)[0]}</div> 
-      <Badge bg="secondary">{Object.values(sidebarData)[0]}</Badge>
+     <div>{sidebarData ? Object.keys(sidebarData)[0] : ""}</div> 
+      <Badge bg="secondary">{ sidebarData ?  Object.values(sidebarData)[0] : ""}</Badge>
     </div>
     </div>
 
     <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{Object.keys(sidebarData)[1]}</div> 
-      <Badge bg="secondary">{Object.values(sidebarData)[1]}</Badge>
+     <div>{ sidebarData ? Object.keys(sidebarData)[1] : ""}</div> 
+      <Badge bg="secondary">{ sidebarData ? Object.values(sidebarData)[1] : ''}</Badge>
     </div>
     </div>
 
     <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{Object.keys(sidebarData)[2]}</div> 
-      <Badge bg="secondary">{Object.values(sidebarData)[2]}</Badge>
+     <div>{ sidebarData?  Object.keys(sidebarData)[2] : ""}</div> 
+      <Badge bg="secondary">{sidebarData ? Object.values(sidebarData)[2] :""}</Badge>
     </div>
     </div>
   </div>
