@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react';
 
 function App() {
   
-const [sidebarData  , setSideBarData] = useState();
+const [sidebarData  , setSideBarData] = useState(null);
+
+const [streamData , setStreamData] = useState(null);
 
   useEffect(() => {
     fetch(`https://www.talabulilm.com/profileapi/aamilsaheb/filters/170`, {
@@ -22,6 +24,7 @@ const [sidebarData  , setSideBarData] = useState();
     .then((response) => response.json())
     .then((result) => {
       setSideBarData(result)
+      setStreamData(Object.entries(result.Stream))
     })
     .catch((error) => {
       console.log(error)
@@ -29,7 +32,7 @@ const [sidebarData  , setSideBarData] = useState();
 
   }, []);
 
-  console.log("")
+  console.log(streamData)
 
   return (
     <>
@@ -74,12 +77,15 @@ const [sidebarData  , setSideBarData] = useState();
     <div style={{  color:"#000" , borderBottom:"1px solid #000" , padding:"5px"}} >
       Stream:
     </div>
-    <div style={{backgroundColor:"#EDEDED ", color:"#000" , borderRadius:"4px" , padding:"5px" ,  marginBottom:"4px"}}>
-      Migrated outs
-    </div>
-    <div style={{backgroundColor:"#EDEDED ", color:"#000" , borderRadius:"4px" , padding:"5px" ,  marginBottom:"4px"}}>
-      Migrated in
-    </div>
+    { streamData && streamData.map((item) => (
+   <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+   <div className='d-flex justify-content-between' style={{width:"100%"}} >
+    <div>{item[0]}</div> 
+     <Badge bg="secondary">{item[1]}</Badge>
+   </div>
+   </div>
+    )
+    )} 
   </div>
 
   <div className='m-4' >
