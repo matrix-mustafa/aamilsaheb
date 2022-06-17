@@ -12,7 +12,10 @@ function App() {
 const [sidebarData  , setSideBarData] = useState(null);
 const [streamData , setStreamData] = useState(null);
 const [dropoutList , setDropoutList] = useState(null);
-// const [razaData , setRazaData] = useEffect(null);
+const [razaData , setRazaData] = useState(null);
+const [quranSanad , setquranSanad] = useState(null);
+const [active , setActive] = useState(0);
+const [EduStatus , setEduStatus] = useState("Drop Outs");
 
   useEffect(() => {
     fetch(`https://www.talabulilm.com/profileapi/aamilsaheb/filters/170`, {
@@ -26,8 +29,10 @@ const [dropoutList , setDropoutList] = useState(null);
     .then((result) => {
       setSideBarData(result)
       setStreamData(Object.entries(result.Stream))
-      // setRazaData(Object.entries(result.Raza))
-      // console.log(Object.entries(result.Raza))
+      // console.log(Object.entries(result.raza_status))
+      setRazaData(Object.entries(result.raza_status))
+      setquranSanad(Object.entries(result.quran_sanad))
+
       console.log(result)
     })
     .catch((error) => {
@@ -36,7 +41,7 @@ const [dropoutList , setDropoutList] = useState(null);
 
   }, []);
 
-  useEffect(() => {
+  const handleDropOut = () => {
     fetch(`https://www.talabulilm.com/profileapi/aamilsaheb/dropOutUserList/170`, {
       method: "GET",
       headers: {
@@ -52,16 +57,74 @@ const [dropoutList , setDropoutList] = useState(null);
       console.log(error)
     }) 
 
-  }, []);
+    setActive(0)
+    setEduStatus("Drop Outs");
+  }
 
-  // console.log(Object.values(sidebarData)[2].lable, "hr")
+  
+
+
+
+  const handleMigratedOut = () => {
+    fetch(`https://www.talabulilm.com/api2022/profile/aamilsaheb/migratedOutUserList/170`, {
+      method: "GET",
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+      },
+    } , [])
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result)
+      setDropoutList(result)
+    })
+    .catch((error) => {
+      console.log(error)
+    }) 
+
+    setActive(2);
+    setEduStatus("Migrated In");
+  }
+
+  const handleMigratedIn = () => {
+    fetch(`https://www.talabulilm.com/api2022/profile/aamilsaheb/migratedOutUserList/170`, {
+      method: "GET",
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+      },
+    } , [])
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result)
+      setDropoutList(result)
+    })
+    .catch((error) => {
+      console.log(error)
+    }) 
+
+    setActive(1)
+    setEduStatus("Migrated Out");
+  }
+
+
+const darkColor = {
+  background:"#00336D",
+  color:"#fff"
+}
+
+const whiteColor = {
+  background:"#EDEDED",
+  color:"#000"
+}
+  // console.log(razaData, "hr")
 
   return (
     <>
     <Navbar   style={{backgroundColor:"#002147" }} >
       <Container fluid >
         <div style={{width:"40%"}} ></div>
-      <div className="d-flex justify-content-around" style={{width:"100%" , color:"#fff" , alignItems:"center"}} >
+      <div className="d-flex justify-content-around" style={{width:"100%" , color:"#fff" , alignItems:"center" , cursor:"pointer" }} >
         <div  style={{fontWeight:700 , fontSize:"18px" , lineHeight:"24px" , fontFamily:"Inter"}} >Talabulilm Aamil Saheb Dashboard - Surat Jamaat</div>
         <div className='d-flex'>
       <div className="p-2 " style={{fontWeight:700 , fontSize:"14px" , lineHeight:"17px" , fontFamily:"Roboto"}}>Flex item 1</div>
@@ -73,24 +136,24 @@ const [dropoutList , setDropoutList] = useState(null);
 <Row style={{backgroundColor:"#E5E5E5" , margin:"0px"}} >
 <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
   <div className='m-4' >
-    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#00336D", color:"#fff" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+    <div className='d-flex '  style={{width:"100%" , ...(active === 0 ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleDropOut}   >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
      <div>{sidebarData ? Object.values(sidebarData)[2].lable  : ""}</div> 
-      <Badge bg="secondary">{ sidebarData ?  Object.values(sidebarData)[2].count : ""}</Badge>
+      <Badge bg={active === 1  ?"light": 'secondary' } text={active === 1 ? "dark" : "light"}>{ sidebarData ?  Object.values(sidebarData)[2].count : ""}</Badge>
     </div>
     </div>
 
-    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+    <div className='d-flex ' style={{width:"100%" , ...(active === 1 ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleMigratedIn}>
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
      <div>{ sidebarData ? Object.values(sidebarData)[0].lable : ""}</div> 
-      <Badge bg="secondary">{ sidebarData ? Object.values(sidebarData)[0].count : ''}</Badge>
+      <Badge bg={active === 1  ?"light": 'secondary' } text={active === 1 ? "dark" : "light"}>{ sidebarData ? Object.values(sidebarData)[0].count : ''}</Badge>
     </div>
     </div>
 
-    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+    <div className='d-flex ' style={{width:"100%" ,...(active === 2 ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleMigratedOut} >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
      <div>{ sidebarData?  Object.values(sidebarData)[1].lable : ""}</div> 
-      <Badge bg="secondary">{sidebarData ? Object.values(sidebarData)[1].count :""}</Badge>
+      <Badge bg={active === 2  ?"light": 'secondary' } text={active === 2 ? "dark" : "light"}>{sidebarData ? Object.values(sidebarData)[1].count :""}</Badge>
     </div>
     </div>
   </div>
@@ -110,7 +173,7 @@ const [dropoutList , setDropoutList] = useState(null);
     )} 
   </div>
 
-  {/* <div className='m-4' >
+  <div className='m-4' >
     <div style={{  color:"#000" , borderBottom:"1px solid #000" , padding:"5px"}} >
       Raza:
     </div>
@@ -123,22 +186,25 @@ const [dropoutList , setDropoutList] = useState(null);
    </div>
     )
     )} 
-  </div> */}
+  </div>
 
-  {/* <div className='m-4' >
+  <div className='m-4' >
     <div style={{  color:"#000" , borderBottom:"1px solid #000" , padding:"5px"}} >
-      Raza:
+    Quran Sanad:
     </div>
-    <div style={{backgroundColor:"#EDEDED ", color:"#000" , borderRadius:"4px" , padding:"5px" ,  marginBottom:"4px"}}>
-      Migrated outs
-    </div>
-    <div style={{backgroundColor:"#EDEDED ", color:"#000" , borderRadius:"4px" , padding:"5px" ,  marginBottom:"4px"}}>
-      Migrated in
-    </div>
-  </div> */}
+    { quranSanad && quranSanad.map((item) => (
+   <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+   <div className='d-flex justify-content-between' style={{width:"100%"}} >
+    <div>{item[0]}</div> 
+     <Badge bg="secondary">{item[1]}</Badge>
+   </div>
+   </div>
+    )
+    )} 
+  </div>
 </Col>
 <Col xs={9} style={{marginTop:"20px"}}  >
-   <h5>Showing results for "Drop outs" in Surat Jamaat</h5>
+   <h5>Showing results for "{EduStatus}" in Surat Jamaat</h5>
   {
    dropoutList &&  dropoutList.map((item) => (
   <div style={{backgroundColor:"#E2E7EC" , width:"858px", height:"153px" , border:"0.5px solid #000000" , borderRadius:"4px" , marginBottom:"20px"}} >
