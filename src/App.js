@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import { useEffect, useState } from 'react';
+import useFetch from "./useFetch";
 
 function App() {
   
@@ -16,6 +17,8 @@ const [razaData , setRazaData] = useState(null);
 const [quranSanad , setquranSanad] = useState(null);
 const [active , setActive] = useState(0);
 const [EduStatus , setEduStatus] = useState("Drop Outs");
+
+const [data, setData] = useFetch(null);
 
   useEffect(() => {
     fetch(`https://www.talabulilm.com/profileapi/aamilsaheb/filters/170`, {
@@ -29,7 +32,6 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     .then((result) => {
       setSideBarData(result)
       setStreamData(Object.entries(result.Stream))
-      // console.log(Object.entries(result.raza_status))
       setRazaData(Object.entries(result.raza_status))
       setquranSanad(Object.entries(result.quran_sanad))
 
@@ -41,71 +43,55 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
 
   }, []);
 
-  const handleDropOut = () => {
+
+  useEffect(() => {
     fetch(`https://www.talabulilm.com/profileapi/aamilsaheb/dropOutUserList/170`, {
       method: "GET",
       headers: {
         'Content-Type': "application/json",
         'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
       },
-    } , [])
+    })
     .then((response) => response.json())
     .then((result) => {
-      setDropoutList(result)
+       setDropoutList(result)
+       setActive(0)
+       setEduStatus("Drop Outs");
     })
     .catch((error) => {
       console.log(error)
-    }) 
+    })
 
+  } , [])
+
+
+  const handleDropOut = () => {
+    setData("profileapi/aamilsaheb/dropOutUserList/170");
+    console.log(data)
+    setDropoutList(data)
     setActive(0)
     setEduStatus("Drop Outs");
   }
 
-  
-
-
-
-  const handleMigratedOut = () => {
-    fetch(`https://www.talabulilm.com/api2022/profile/aamilsaheb/migratedOutUserList/170`, {
-      method: "GET",
-      headers: {
-        'Content-Type': "application/json",
-        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
-      },
-    } , [])
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result)
-      setDropoutList(result)
-    })
-    .catch((error) => {
-      console.log(error)
-    }) 
-
-    setActive(2);
-    setEduStatus("Migrated In");
-  }
 
   const handleMigratedIn = () => {
-    fetch(`https://www.talabulilm.com/api2022/profile/aamilsaheb/migratedOutUserList/170`, {
-      method: "GET",
-      headers: {
-        'Content-Type': "application/json",
-        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
-      },
-    } , [])
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result)
-      setDropoutList(result)
-    })
-    .catch((error) => {
-      console.log(error)
-    }) 
-
+    setData("api2022/profile/aamilsaheb/migratedInUserList/170");
+    console.log(data)
+    setDropoutList(data)
     setActive(1)
     setEduStatus("Migrated Out");
   }
+
+  const handleMigratedOut = () => {
+    setData("api2022/profile/aamilsaheb/migratedOutUserList/170");
+    console.log(data)
+    setDropoutList(data)
+    setActive(2);
+    setEduStatus("Migrated In");
+
+  }
+
+
 
 
 const darkColor = {
