@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import useFetch from "./useFetch";
 
 function App() {
-  
+
 const [sidebarData  , setSideBarData] = useState(null);
 const [streamData , setStreamData] = useState(null);
 const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/profileapi/aamilsaheb/dropOutUserList/170');
@@ -39,13 +39,13 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     })
     .catch((error) => {
       console.log(error)
-    }) 
+    })
 
   }, []);
 
 
   const handleDropOut = () => {
-    setDropoutList("profileapi/aamilsaheb/dropOutUserList/170");
+    setDropoutList("api2022/profileapi/aamilsaheb/dropOutUserList/170");
     setActive(0)
     setEduStatus("Drop Outs");
   }
@@ -153,21 +153,21 @@ const whiteColor = {
   <div className='m-4' >
     <div className='d-flex '  style={{width:"100%" , ...(active === 0 ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleDropOut}   >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{sidebarData ? Object.values(sidebarData)[2].lable  : ""}</div> 
+     <div>{sidebarData ? Object.values(sidebarData)[2].lable  : ""}</div>
       <Badge bg={active === 0  ?"light": 'secondary' } text={active === 0 ? "dark" : "light"}>{ sidebarData ?  Object.values(sidebarData)[2].count : ""}</Badge>
     </div>
     </div>
 
     <div className='d-flex ' style={{width:"100%" , ...(active === 1 ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleMigratedIn}>
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{ sidebarData ? Object.values(sidebarData)[0].lable : ""}</div> 
+     <div>{ sidebarData ? Object.values(sidebarData)[0].lable : ""}</div>
       <Badge bg={active === 1  ?"light": 'secondary' } text={active === 1 ? "dark" : "light"}>{ sidebarData ? Object.values(sidebarData)[0].count : ''}</Badge>
     </div>
     </div>
 
     <div className='d-flex ' style={{width:"100%" ,...(active === 2 ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleMigratedOut} >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{ sidebarData?  Object.values(sidebarData)[1].lable : ""}</div> 
+     <div>{ sidebarData?  Object.values(sidebarData)[1].lable : ""}</div>
       <Badge bg={active === 2  ?"light": 'secondary' } text={active === 2 ? "dark" : "light"}>{sidebarData ? Object.values(sidebarData)[1].count :""}</Badge>
     </div>
     </div>
@@ -180,12 +180,12 @@ const whiteColor = {
     { streamData && streamData.map((item) => (
    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleStream(item[0])}>
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item[0]}</div> 
+    <div>{item[0]}</div>
      <Badge bg="secondary">{item[1]}</Badge>
    </div>
    </div>
     )
-    )} 
+    )}
   </div>
 
   <div className='m-4' >
@@ -195,12 +195,12 @@ const whiteColor = {
     { razaData && razaData.map((item) => (
    <div className='d-flex ' onClick={() => handleAraz(item[0])} style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item[0]}</div> 
+    <div>{item[0]}</div>
      <Badge bg="secondary">{item[1]}</Badge>
    </div>
    </div>
     )
-    )} 
+    )}
   </div>
 
   <div className='m-4' >
@@ -210,12 +210,12 @@ const whiteColor = {
     { quranSanad && quranSanad.map((item) => (
    <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleQuranSanad(item[0])} >
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item[0]}</div> 
+    <div>{item[0]}</div>
      <Badge bg="secondary">{item[1]}</Badge>
    </div>
    </div>
     )
-    )} 
+    )}
   </div>
 </Col>
 <Col xs={9} style={{marginTop:"20px"}}  >
@@ -243,13 +243,13 @@ const whiteColor = {
        </div>
      </div>
      <div>
-    
+
    </div>
-  
+
    </div>
 
    <div style={{width:"50%"}} >{
-     dropoutList.current_edu_course ?  
+     dropoutList.current_edu_course ?
      <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding:"10px 2px 9px 2px" , background: "#BFE2B2"}}>
      <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Current Education</div>
      <div>
