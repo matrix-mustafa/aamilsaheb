@@ -30,12 +30,13 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     } , [])
     .then((response) => response.json())
     .then((result) => {
-      setSideBarData(result)
-      setStreamData(Object.entries(result.Stream))
-      setRazaData(Object.entries(result.raza_status))
-      setquranSanad(Object.entries(result.quran_sanad))
+      // console.log(result)
+      setSideBarData(result.main_menu)
+      setStreamData(result.Stream)
+      setRazaData(result.Raza_Status)
+      setquranSanad(result.Quran_Sanad)
 
-      console.log(result)
+      // console.log()
     })
     .catch((error) => {
       console.log(error)
@@ -44,112 +45,11 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
   }, []);
 
 
-  const handleDropOut = () => {
-    setDropoutList("api2022/profile/aamilsaheb/dropOutUserList/170");
-    setActive(0)
-    setEduStatus("Drop Outs");
-    setStreamActive(null)
+  const handleRequest = (verb , lable) => {
+    console.log(verb , lable)
+    setDropoutList(`api2022/profile/aamilsaheb/${verb}`);
+    setEduStatus(lable);
   }
-
-
-  const handleMigratedIn = () => {
-    setDropoutList("api2022/profile/aamilsaheb/migratedInUserList/170");
-    setActive(1)
-    setEduStatus("Migrated In");
-    setStreamActive(null)
-  }
-
-  const handleMigratedOut = () => {
-    setDropoutList("api2022/profile/aamilsaheb/migratedOutUserList/170");
-    setActive(2);
-    setEduStatus("Migrated Out");
-    setStreamActive(null)
-  }
-
-  const handleStream = (arg) => {
-       if(arg === "Arts courses"){
-        setDropoutList("api2022/profile/aamilsaheb/streamUserList/Arts courses");
-      setEduStatus("Arts courses");
-      setStreamActive("Arts courses");
-      setActive(null);
-       }else if(arg === "Commerce courses"){
-        setDropoutList("api2022/profile/aamilsaheb/streamUserList/Commerce courses");
-        setEduStatus("Commerce courses");
-        setStreamActive("Commerce courses");
-        setActive(null);
-       }else if(arg === "IT COURSE"){
-        setDropoutList("api2022/profile/aamilsaheb/streamUserList/IT COURSE");
-        setEduStatus("IT COURSE");
-        setStreamActive("IT COURSE");
-        setActive(null);
-       }else if(arg === "Management courses"){
-        setDropoutList("api2022/profile/aamilsaheb/streamUserList/Management courses");
-        setEduStatus("Management courses");
-        setStreamActive("Management courses");
-        setActive(null);
-       }else if(arg === "Vocational Courses"){
-        setDropoutList("api2022/profile/aamilsaheb/streamUserList/Vocational Courses");
-        setEduStatus("Vocational Courses");
-        setStreamActive("Vocational Courses");
-        setActive(null);
-       }
-  }
-
-  const handleAraz = (arg) => {
-    console.log(arg)
-    if(arg === "Araz done"){
-      setDropoutList("api2022/profile/aamilsaheb/arazDoneUserList/436");
-      setEduStatus("Araz done");
-      setStreamActive("Araz done");
-        setActive(null);
-    }else if(arg === "Araz not done"){
-      setDropoutList("api2022/profile/aamilsaheb/arazNotDoneUserList/436");
-      setEduStatus("Araz not done");
-      setStreamActive("Araz not done");
-        setActive(null);
-    }
-
-  }
-
-  const handleQuranSanad = (arg) => {
-        if(arg  === "Hafiz"){
-      setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Hafiz");
-      setEduStatus("Hafiz");
-      setStreamActive("Hafiz");
-      setActive(null);
-        }else if(arg  === "Juz Amma") {
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Juz Amma");
-          setEduStatus("Juz Amma");
-          setStreamActive("Juz Amma");
-      setActive(null);
-        }else if(arg  === "Sanah Salesah"){
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Salesah");
-          setEduStatus("Sanah Salesah");
-          setStreamActive("Sanah Salesah");
-      setActive(null);
-        }else if(arg === "Sanah Salesah"){
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Saniyah");
-          setEduStatus("Sanah Saniyah");
-          setStreamActive("Sanah Saniyah");
-          setActive(null);
-        }else if(arg === "Sanah Ula"){
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Ula");
-          setEduStatus("Sanah Ula");
-          setStreamActive("Sanah Ula");
-          setActive(null);
-        }else if(arg === "Surah al-Balad"){
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Surah al-Balad");
-          setEduStatus("Surah al-Balad");
-          setStreamActive("Surah al-Balad");
-          setActive(null);
-        }else if(arg === "Surah al-Inshiqaq"){
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Surah al-Inshiqaq");
-          setEduStatus("Surah al-Inshiqaq");
-          setStreamActive("Surah al-Inshiqaq");
-          setActive(null);
-        }
-  }
-
 
 const darkColor = {
   background:"#00336D",
@@ -161,7 +61,7 @@ const whiteColor = {
   color:"#000"
 }
 
-
+console.log(dropoutList)
 
   return (
     <>
@@ -180,26 +80,17 @@ const whiteColor = {
 <Row style={{backgroundColor:"#E5E5E5" , margin:"0px"}} >
 <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
   <div className='m-4' >
-    <div className='d-flex '  style={{width:"100%" , ...(active === 0 ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleDropOut}   >
-    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{sidebarData ? Object.values(sidebarData)[2].lable  : ""}</div>
-      <Badge bg={active === 0  ?"light": 'secondary' } text={active === 0 ? "dark" : "light"}>{ sidebarData ?  Object.values(sidebarData)[2].count : ""}</Badge>
-    </div>
-    </div>
 
-    <div className='d-flex ' style={{width:"100%" , ...(active === 1 ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleMigratedIn}>
+    {
+      sidebarData && sidebarData.map((item) => (
+    <div className='d-flex '  style={{width:"100%" , ...(EduStatus === item.lable ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.lable)}   >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{ sidebarData ? Object.values(sidebarData)[0].lable : ""}</div>
-      <Badge bg={active === 1  ?"light": 'secondary' } text={active === 1 ? "dark" : "light"}>{ sidebarData ? Object.values(sidebarData)[0].count : ''}</Badge>
+     <div>{item.lable}</div>
+      <Badge bg={EduStatus === item.lable  ?"light": 'secondary' } text={EduStatus  === item.lable ? "dark" : "light"}>{ item.count}</Badge>
     </div>
     </div>
-
-    <div className='d-flex ' style={{width:"100%" ,...(active === 2 ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={handleMigratedOut} >
-    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{ sidebarData?  Object.values(sidebarData)[1].lable : ""}</div>
-      <Badge bg={active === 2  ?"light": 'secondary' } text={active === 2 ? "dark" : "light"}>{sidebarData ? Object.values(sidebarData)[1].count :""}</Badge>
-    </div>
-    </div>
+      ))
+    }
   </div>
 
   <div className='m-4' >
@@ -207,10 +98,10 @@ const whiteColor = {
       Stream:
     </div>
     { streamData && streamData.map((item) => (
-   <div className='d-flex ' style={{width:"100%" , ...(streamActive == item[0] ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleStream(item[0])}>
+   <div className='d-flex ' style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.label)}>
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item[0]}</div>
-     <Badge bg={streamActive === item[0]  ?"light": 'secondary' } text={streamActive === item[0] ? "dark" : "light"}>{item[1]}</Badge>
+    <div>{item.label}</div>
+     <Badge bg={EduStatus === item.label ?"light": 'secondary' } text={EduStatus === item.label ? "dark" : "light"}>{item.count}</Badge>
    </div>
    </div>
     )
@@ -222,10 +113,10 @@ const whiteColor = {
       Raza:
     </div>
     { razaData && razaData.map((item) => (
-   <div className='d-flex ' onClick={() => handleAraz(item[0])} style={{width:"100%" , ...(streamActive == item[0] ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+   <div className='d-flex ' onClick={() => handleRequest(item.verb , item.label)} style={{width:"100%" ,...(EduStatus === item.label ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item[0]}</div>
-     <Badge bg={streamActive === item[0]  ?"light": 'secondary' } text={streamActive === item[0] ? "dark" : "light"}>{item[1]}</Badge>
+    <div>{item.label}</div>
+     <Badge bg={EduStatus === item.label ?"light": 'secondary'  } text={EduStatus === item.label ? "dark" : "light"}>{item.count}</Badge>
    </div>
    </div>
     )
@@ -237,10 +128,10 @@ const whiteColor = {
     Quran Sanad:
     </div>
     { quranSanad && quranSanad.map((item) => (
-   <div className='d-flex ' style={{width:"100%" ,  ...(streamActive == item[0] ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleQuranSanad(item[0])} >
+   <div className='d-flex ' style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.label)} >
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item[0]}</div>
-     <Badge bg={streamActive === item[0]  ?"light": 'secondary' } text={streamActive === item[0] ? "dark" : "light"}>{item[1]}</Badge>
+    <div>{item.label}</div>
+     <Badge bg={EduStatus === item.label ?"light": 'secondary'} text={EduStatus === item.label ? "dark" : "light"}>{item.count}</Badge>
    </div>
    </div>
     )
@@ -277,8 +168,7 @@ const whiteColor = {
 
    </div>
 
-   <div style={{width:"50%"}} >{
-     dropoutList.current_edu_course ?
+   <div style={{width:"50%"}} >
      <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding:"10px 2px 9px 2px" , background: "#BFE2B2"}}>
      <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Current Education</div>
      <div>
@@ -289,11 +179,11 @@ const whiteColor = {
        South Gujarat University
        </div>
        </div>
-       <div style={{background: "#6F6B1F" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div>
-    </div> :""
-   }
-   {
-     dropoutList.future_edu_course ?
+       {
+        item.current_edu_jawab === " " ? <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div> : <div style={{background: "#315A23" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>view Araz</div>
+       }
+       
+    </div> 
      <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding:"10px 2px 8px 2px" , background: "#E2E0B2"}}>
       <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Future Education</div>
       <div>
@@ -304,9 +194,11 @@ const whiteColor = {
         South Gujarat University
         </div>
         </div>
-        <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div>
-     </div> :""
-   }
+        {
+          item.future_edu_jawab === "" ? <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div> : <div style={{background: "#315A23"  , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div>
+        }
+        
+     </div>
      <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding: "10px 2px 8px 2px" , background: "#E2C9B2"}}>
       <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Last Education</div>
       <div>
@@ -317,7 +209,7 @@ const whiteColor = {
         {item.last_edu_institute}
         </div>
         </div>
-        <div style={{background: "#315A23" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}} >No Araz</div>
+        {item.last_edu_jawab === "" ?  <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}} >No Araz</div> : <div style={{background: "#315A23" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}} >View Araz</div> }
      </div>
     </div>
     </div>
