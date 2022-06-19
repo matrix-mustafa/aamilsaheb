@@ -5,8 +5,25 @@ import { useState } from "react";
 
 function useFetch(url){
     // debugger;
-    console.log(typeof(url))
     const [data, setData] = useState(null);
+
+    useEffect(() => {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+        setData(result)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+  } , [])
 
   const apiFn = (url) => {
     console.log(url)
@@ -19,13 +36,12 @@ function useFetch(url){
       })
       .then((response) => response.json())
       .then((result) => {
-         return setData(result);
+         setData(result);
       })
       .catch((error) => {
         console.log(error)
       }) 
   }
-
 
     return [data,apiFn]
 
