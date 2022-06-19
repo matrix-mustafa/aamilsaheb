@@ -48,6 +48,7 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     setDropoutList("profileapi/aamilsaheb/dropOutUserList/170");
     setActive(0)
     setEduStatus("Drop Outs");
+    setStreamActive(null)
   }
 
 
@@ -55,32 +56,42 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     setDropoutList("api2022/profile/aamilsaheb/migratedInUserList/170");
     setActive(1)
     setEduStatus("Migrated In");
+    setStreamActive(null)
   }
 
   const handleMigratedOut = () => {
     setDropoutList("api2022/profile/aamilsaheb/migratedOutUserList/170");
     setActive(2);
     setEduStatus("Migrated Out");
+    setStreamActive(null)
   }
 
   const handleStream = (arg) => {
        if(arg === "Arts courses"){
         setDropoutList("api2022/profile/aamilsaheb/streamUserList/Arts courses");
       setEduStatus("Arts courses");
-      // setStreamActive("")
-      setActive(3);
+      setStreamActive("Arts courses");
+      setActive(null);
        }else if(arg === "Commerce courses"){
         setDropoutList("api2022/profile/aamilsaheb/streamUserList/Commerce courses");
         setEduStatus("Commerce courses");
+        setStreamActive("Commerce courses");
+        setActive(null);
        }else if(arg === "IT COURSE"){
         setDropoutList("api2022/profile/aamilsaheb/streamUserList/IT COURSE");
         setEduStatus("IT COURSE");
+        setStreamActive("IT COURSE");
+        setActive(null);
        }else if(arg === "Management courses"){
         setDropoutList("api2022/profile/aamilsaheb/streamUserList/Management courses");
         setEduStatus("Management courses");
+        setStreamActive("Management courses");
+        setActive(null);
        }else if(arg === "Vocational Courses"){
         setDropoutList("api2022/profile/aamilsaheb/streamUserList/Vocational Courses");
         setEduStatus("Vocational Courses");
+        setStreamActive("Vocational Courses");
+        setActive(null);
        }
   }
 
@@ -89,9 +100,13 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     if(arg === "Araz done"){
       setDropoutList("api2022/profile/aamilsaheb/arazDoneUserList/436");
       setEduStatus("Araz done");
+      setStreamActive("Araz done");
+        setActive(null);
     }else if(arg === "Araz not done"){
       setDropoutList("api2022/profile/aamilsaheb/arazNotDoneUserList/436");
       setEduStatus("Araz not done");
+      setStreamActive("Araz not done");
+        setActive(null);
     }
 
   }
@@ -100,24 +115,38 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
         if(arg  === "Hafiz"){
       setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Hafiz");
       setEduStatus("Hafiz");
+      setStreamActive("Hafiz");
+      setActive(null);
         }else if(arg  === "Juz Amma") {
           setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Juz Amma");
           setEduStatus("Juz Amma");
+          setStreamActive("Juz Amma");
+      setActive(null);
         }else if(arg  === "Sanah Salesah"){
           setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Salesah");
           setEduStatus("Sanah Salesah");
+          setStreamActive("Sanah Salesah");
+      setActive(null);
         }else if(arg === "Sanah Salesah"){
-          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Salesah");
-          setEduStatus("Sanah Salesah");
+          setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Saniyah");
+          setEduStatus("Sanah Saniyah");
+          setStreamActive("Sanah Saniyah");
+          setActive(null);
         }else if(arg === "Sanah Ula"){
           setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Sanah Ula");
           setEduStatus("Sanah Ula");
+          setStreamActive("Sanah Ula");
+          setActive(null);
         }else if(arg === "Surah al-Balad"){
           setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Surah al-Balad");
           setEduStatus("Surah al-Balad");
+          setStreamActive("Surah al-Balad");
+          setActive(null);
         }else if(arg === "Surah al-Inshiqaq"){
           setDropoutList("api2022/profile/aamilsaheb/quranSanadUserList/Surah al-Inshiqaq");
           setEduStatus("Surah al-Inshiqaq");
+          setStreamActive("Surah al-Inshiqaq");
+          setActive(null);
         }
   }
 
@@ -178,10 +207,10 @@ const whiteColor = {
       Stream:
     </div>
     { streamData && streamData.map((item) => (
-   <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleStream(item[0])}>
+   <div className='d-flex ' style={{width:"100%" , ...(streamActive == item[0] ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleStream(item[0])}>
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
     <div>{item[0]}</div> 
-     <Badge bg="secondary">{item[1]}</Badge>
+     <Badge bg={streamActive === item[0]  ?"light": 'secondary' } text={streamActive === item[0] ? "dark" : "light"}>{item[1]}</Badge>
    </div>
    </div>
     )
@@ -193,10 +222,10 @@ const whiteColor = {
       Raza:
     </div>
     { razaData && razaData.map((item) => (
-   <div className='d-flex ' onClick={() => handleAraz(item[0])} style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
+   <div className='d-flex ' onClick={() => handleAraz(item[0])} style={{width:"100%" , ...(streamActive == item[0] ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
     <div>{item[0]}</div> 
-     <Badge bg="secondary">{item[1]}</Badge>
+     <Badge bg={streamActive === item[0]  ?"light": 'secondary' } text={streamActive === item[0] ? "dark" : "light"}>{item[1]}</Badge>
    </div>
    </div>
     )
@@ -208,10 +237,10 @@ const whiteColor = {
     Quran Sanad:
     </div>
     { quranSanad && quranSanad.map((item) => (
-   <div className='d-flex ' style={{width:"100%" , backgroundColor:"#EDEDED", color:"#000" , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleQuranSanad(item[0])} >
+   <div className='d-flex ' style={{width:"100%" ,  ...(streamActive == item[0] ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleQuranSanad(item[0])} >
    <div className='d-flex justify-content-between' style={{width:"100%"}} >
     <div>{item[0]}</div> 
-     <Badge bg="secondary">{item[1]}</Badge>
+     <Badge bg={streamActive === item[0]  ?"light": 'secondary' } text={streamActive === item[0] ? "dark" : "light"}>{item[1]}</Badge>
    </div>
    </div>
     )
