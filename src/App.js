@@ -12,7 +12,7 @@ function App() {
 
 const [sidebarData  , setSideBarData] = useState(null);
 const [streamData , setStreamData] = useState(null);
-const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2022/profileapi/aamilsaheb/dropOutUserList/170');
+const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/dropOutUserList/170');
 const [razaData , setRazaData] = useState(null);
 const [quranSanad , setquranSanad] = useState(null);
 const [active , setActive] = useState(0);
@@ -21,7 +21,7 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
 
 
   useEffect(() => {
-    fetch(`https://www.talabulilm.com/api2022/profileapi/aamilsaheb/filters/170`, {
+    fetch(`https://www.talabulilm.com/api2022/profile/aamilsaheb/filters/170`, {
       method: "GET",
       headers: {
         'Content-Type': "application/json",
@@ -45,7 +45,7 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
 
 
   const handleDropOut = () => {
-    setDropoutList("api2022/profileapi/aamilsaheb/dropOutUserList/170");
+    setDropoutList("api2022/profile/aamilsaheb/dropOutUserList/170");
     setActive(0)
     setEduStatus("Drop Outs");
     setStreamActive(null)
