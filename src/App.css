@@ -28,6 +28,34 @@
   color: #61dafb;
 }
 
+.user-card {
+    background-color: #f9f9f9;
+    border: 0.5px solid rgb(189, 189, 189);
+    box-shadow: 2px 2px 2px #c9c9c9;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .user-img {
+    border: 0.5px solid #bdbdbd;
+    max-height:118px;
+    box-shadow: 2px 2px 2px #ddd;
+    margin: 1em;
+  }
+
+  .user-details {
+    font-weight: 700;
+    font-size: 14px;
+    font-family: Inter;
+    color: #00336D;
+    line-height: 17px;
+  }
+
+  .user-details p {
+    margin: 0;
+    line-height: 1.5em;
+  }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
