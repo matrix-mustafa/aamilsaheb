@@ -29,32 +29,75 @@
 }
 
 .user-card {
-    background-color: #f9f9f9;
-    border: 0.5px solid rgb(189, 189, 189);
-    box-shadow: 2px 2px 2px #c9c9c9;
-    border-radius: 4px;
-    margin-bottom: 20px;
-  }
+  background-color: #f9f9f9;
+  border: 0.5px solid rgb(189, 189, 189);
+  box-shadow: 2px 2px 2px #c9c9c9;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
 
-  .user-img {
-    border: 0.5px solid #bdbdbd;
-    max-height:118px;
-    box-shadow: 2px 2px 2px #ddd;
-    margin: 1em;
-  }
+.user-img {
+  border: 0.5px solid #bdbdbd;
+  max-height:118px;
+  box-shadow: 2px 2px 2px #ddd;
+  margin: 1em;
+}
 
-  .user-details {
-    font-weight: 700;
-    font-size: 14px;
-    font-family: Inter;
-    color: #00336D;
-    line-height: 17px;
-  }
+.user-details {
+  font-weight: 700;
+  font-size: 14px;
+  font-family: Inter;
+  color: #00336D;
+  line-height: 17px;
+}
 
-  .user-details p {
-    margin: 0;
-    line-height: 1.5em;
-  }
+.user-details p {
+  margin: 0;
+  line-height: 1.5em;
+}
+
+.user-courses-container {
+  justify-content: space-around;
+  border: 0.5px solid #5A7651;
+  align-items: center;
+  padding: 10px 2px 9px 2px;
+}
+
+.future {
+  background-color: #BFE2B2;
+}
+
+.current {
+  background-color: #E2E0B2;
+}
+
+.last {
+  background-color: #E2C9B2;
+}
+
+.course-text{
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  font-family:"Inter";
+}
+
+.jawab-button {
+  padding: 5px 15px 5px 15px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+  font-family: 'Inter';
+}
+
+.danger-btn {
+  background-color: #6B3B26;
+}
+
+.success-btn {
+  background-color: #315A23;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -143,7 +143,7 @@ console.log(dropoutList)
   {
    dropoutList &&  dropoutList.map((item) => (
   <div className='user-card'>
-    <div className='d-flex' >
+    <div className='d-flex'>
       <div className='d-flex' style={{alignItems:"center" , height:"100%" , width:"50%"}} >
         <img src={`https://www.talabulilm.com/mumin_images/${item.its_id}.png`} className="user-img"/>
         <div className='user-details'>
@@ -156,48 +156,54 @@ console.log(dropoutList)
       </div>
 
    <div style={{width:"50%"}} >
-     <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding:"10px 2px 9px 2px" , background: "#BFE2B2"}}>
-     <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Current Education</div>
-     <div>
-       <div style={{fontWeight:700 , fontSize:"12px" , lineHeight:"15px" , fontFamily:"Inter"}} >
-       Masters in Business Management
-       </div>
-       <div style={{fontWeight:700 , fontSize:"12px" , lineHeight:"15px" , fontFamily:"Inter"}}>
-       South Gujarat University
-       </div>
-       </div>
-       {
-        item.current_edu_jawab === " " ? <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div> : <div style={{background: "#315A23" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>view Araz</div>
-       }
-
-    </div>
-     <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding:"10px 2px 8px 2px" , background: "#E2E0B2"}}>
+    {item.future_edu_course !== " " &&
+    <div className='d-flex user-courses-container future'>
       <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Future Education</div>
       <div>
-        <div style={{fontWeight:700 , fontSize:"12px" , lineHeight:"15px" , fontFamily:"Inter"}} >
-        Masters in Business Management
+        <div className='course-text'>
+          {item.future_edu_course}
         </div>
-        <div style={{fontWeight:700 , fontSize:"12px" , lineHeight:"15px" , fontFamily:"Inter"}}>
-        South Gujarat University
+        <div className='course-text'>
+          {item.future_edu_institute}
         </div>
+        <div className={`jawab-button ${item.future_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
+          {item.future_edu_jawab === "" ? "No Araz" : "View Jawab"}
         </div>
-        {
-          item.future_edu_jawab === "" ? <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div> : <div style={{background: "#315A23"  , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}}>No Araz</div>
-        }
-
-     </div>
-     <div className='d-flex' style={{justifyContent:"space-around"  , border: "0.5px solid #5A7651" , alignItems:"center" , padding: "10px 2px 8px 2px" , background: "#E2C9B2"}}>
+      </div>
+    </div>
+    }
+    {item.current_edu_course !== " " &&
+    <div className='d-flex user-courses-container current'>
+      <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Current Education</div>
+      <div>
+        <div className='course-text'>
+          {item.current_edu_course}
+        </div>
+        <div className='course-text'>
+          {item.current_edu_institute}
+        </div>
+        <div className={`jawab-button ${item.current_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
+          {item.current_edu_jawab === "" ? "No Araz" : "View Jawab"}
+        </div>
+      </div>
+    </div>
+    }
+    {item.last_edu_course !== " " &&
+    <div className='d-flex user-courses-container last'>
       <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Last Education</div>
       <div>
-        <div style={{fontWeight:700 , fontSize:"12px" , lineHeight:"15px" , fontFamily:"Inter"}} >
-        {item.last_edu_course}
+        <div className='course-text'>
+          {item.last_edu_course}
         </div>
-        <div style={{fontWeight:700 , fontSize:"12px" , lineHeight:"15px" , fontFamily:"Inter"}}>
-        {item.last_edu_institute}
+        <div className='course-text'>
+          {item.last_edu_institute}
         </div>
+        <div className={`jawab-button ${item.last_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
+          {item.last_edu_jawab === "" ? "No Araz" : "View Jawab"}
         </div>
-        {item.last_edu_jawab === "" ?  <div style={{background: "#6B3B26" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}} >No Araz</div> : <div style={{background: "#315A23" , padding:"5px 15px 5px 15px" , color:"#fff" , fontSize:"10px" , fontWeight:700 , lineHeight:'12px' , fontFamily: 'Inter'}} >View Araz</div> }
-     </div>
+      </div>
+    </div>
+    }
     </div>
     </div>
   </div>
