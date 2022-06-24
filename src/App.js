@@ -4,12 +4,10 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {Suspense , useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from "./useFetch";
 import EducationDetail from './components/EducationDetail';
 import Sidebar from './components/Sidebar';
-import Loader from "react-loaders";
-import Spinner from './components/Spinner';
 import HashLoader from "react-spinners/HashLoader";
 
 function App() {
@@ -56,6 +54,8 @@ useEffect(() => {
   const onLoad = {
     height: "100vh"
   }
+
+  console.log( dropoutList && dropoutList.length)
 
 
   return (
@@ -111,12 +111,12 @@ useEffect(() => {
 <Col xs={9} style={{marginTop:"20px"}}  >
    <h5>Showing results for "{EduStatus}" in Surat Jamaat</h5>
     {
-      dropoutList ?  <EducationDetail dropoutList={dropoutList} /> :
+      dropoutList && dropoutList.length !== 0 ?  <EducationDetail dropoutList={dropoutList} /> :
+      dropoutList && dropoutList.length  === 0 ? <div className='loader-content'>No data found ....</div> :
       <div className='loader-content' >
        <HashLoader color={color} size={78} />
       </div>
     }
-
 </Col>
 </Row>
 </>

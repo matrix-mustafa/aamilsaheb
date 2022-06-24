@@ -38,9 +38,11 @@ function useFetch(url){
       })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result)
          setData(result);
       })
       .catch((error) => {
+        setData([])
         console.log(error)
       }) 
   }
