@@ -33,20 +33,23 @@ export default function (props) {
              <div  >
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.future_edu_course}</Tooltip>}>
              <div className='course-text'>
-               {item.future_edu_course.slice(0,40) +  "...."}
+               { item.future_edu_course ? item.future_edu_course.slice(0,40) +  "...." : "No data available"}
              </div>
              </OverlayTrigger>    
              <div className='course-text'>
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.future_edu_course}</Tooltip>}>
              <div className='course-text'>
-             {item.future_edu_institute.slice(0,40) + "...."}
+             { item.future_edu_course ? item.future_edu_institute.slice(0,40) + "...." : "No data available"}
              </div>
              </OverlayTrigger>  
              </div>
              </div>
-             <div className={`jawab-button ${item.future_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
-               {item.future_edu_jawab === "" ? "No Araz" : "View Jawab"}
-             </div>
+             {
+                item.future_edu_course ?   <div className={`jawab-button ${item.future_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
+                {item.future_edu_jawab === "" ? "No Araz" : "View Jawab"}
+              </div> : ""
+             }
+            
            </div>
          </div>
          }
@@ -58,18 +61,21 @@ export default function (props) {
      
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.current_edu_course}</Tooltip>}>
              <div className='course-text'>
-             {item.current_edu_course.slice(0,40) +  "...."}
+             { item.current_edu_course ? item.current_edu_course.slice(0,40) +  "...." : "No data available"}
              </div>
              </OverlayTrigger> 
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.current_edu_institute}</Tooltip>}>
              <div className='course-text'>
-             {item.current_edu_institute.slice(0,40) + "...."}
+             {item.current_edu_course ? item.current_edu_institute.slice(0,40) + "...." : "No data available"}
              </div>
              </OverlayTrigger> 
              </div>
-             <div className={`jawab-button ${item.current_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
-               {item.current_edu_jawab === "" ? "No Araz" : "View Jawab"}
-             </div>
+             {
+              item.current_edu_course ?  <div className={`jawab-button ${item.current_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
+              {item.current_edu_jawab === "" ? "No Araz" : "View Jawab"}
+            </div> : ""
+             }
+            
            </div>
          </div>
          }
@@ -77,22 +83,25 @@ export default function (props) {
          <div className='d-flex user-courses-container last'>
            <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Last Education</div>
            <div className='course-container'>
-             <div>
+             <div  >
                
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.last_edu_institute}</Tooltip>}>
              <div className='course-text'>
-             {item.last_edu_institute.slice(0,40) +  "...."}
+             { item.last_edu_institute ? item.last_edu_institute.slice(0,40) +  "...." : "No data available"}
              </div>
              </OverlayTrigger> 
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.last_edu_course}</Tooltip>}>
              <div className='course-text'>
-             {item.last_edu_course.slice(0,40) +  "...."}
+             { item.last_edu_course ? item.last_edu_course.slice(0,40) +  "...." : "No data available"}
              </div>
              </OverlayTrigger> 
              </div>
-             <div className={`jawab-button ${item.last_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
-               {item.last_edu_jawab === "" ? "No Araz" : "View Jawab"}
-             </div>
+             {
+              item.last_edu_course ?   <div className={`jawab-button ${item.last_edu_jawab === "" ? "danger-btn" : "success-btn"}`}>
+              {item.last_edu_jawab === "" ?  "No Araz" : "View Jawab"}
+            </div> : ""
+             }
+           
            </div>
          </div>
          }

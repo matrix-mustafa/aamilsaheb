@@ -4,13 +4,13 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Badge from 'react-bootstrap/Badge';
-import { useEffect, useState } from 'react';
+import {Suspense , useEffect, useState } from 'react';
 import useFetch from "./useFetch";
 import EducationDetail from './components/EducationDetail';
+import Sidebar from './components/Sidebar';
+import Loader from "react-loaders";
 
 function App() {
-
 const [sidebarData  , setSideBarData] = useState(null);
 const [streamData , setStreamData] = useState(null);
 const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/dropOutUserList/170');
@@ -19,7 +19,7 @@ const [quranSanad , setquranSanad] = useState(null);
 const [EduStatus , setEduStatus] = useState("Drop Outs");
 
 
-  useEffect(() => {
+useEffect(() => {
     fetch(`https://www.talabulilm.com/api2022/profile/aamilsaheb/filters/170`, {
       method: "GET",
       headers: {
@@ -29,13 +29,11 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     } , [])
     .then((response) => response.json())
     .then((result) => {
-      // console.log(result)
       setSideBarData(result.main_menu)
       setStreamData(result.Stream)
       setRazaData(result.Raza_Status)
       setquranSanad(result.Quran_Sanad)
 
-      // console.log()
     })
     .catch((error) => {
       console.log(error)
@@ -50,17 +48,15 @@ const [EduStatus , setEduStatus] = useState("Drop Outs");
     setEduStatus(lable);
   }
 
-const darkColor = {
-  background:"#00336D",
-  color:"#fff"
-}
-
-const whiteColor = {
-  background:"#EDEDED",
-  color:"#000"
-}
-
-console.log(dropoutList)
+  const suspenseFallback = (
+    <div className="loader-container">
+      <div className="loader-container-inner">
+        <h6 className="mt-3">
+          Please wait while we load all the Applications examples
+        </h6>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -79,62 +75,30 @@ console.log(dropoutList)
 <Row style={{backgroundColor:"#E5E5E5" , margin:"0px"}} >
 <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
   <div className='m-4' >
-
-    {
-      sidebarData && sidebarData.map((item) => (
-    <div className='d-flex '  style={{width:"100%" , ...(EduStatus === item.lable ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.lable)}   >
-    <div className='d-flex justify-content-between' style={{width:"100%"}} >
-     <div>{item.lable}</div>
-      <Badge bg={EduStatus === item.lable  ?"light": 'secondary' } text={EduStatus  === item.lable ? "dark" : "light"}>{ item.count}</Badge>
-    </div>
-    </div>
-      ))
-    }
+  <Suspense fallback={<h1>Loading profile...</h1>}>
+    <Sidebar sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
+    </Suspense>
   </div>
 
   <div className='m-4' >
-    <div style={{  color:"#000" , borderBottom:"1px solid #000" , padding:"5px"}} >
+    <div className='sidebar-content' >
       Stream:
     </div>
-    { streamData && streamData.map((item) => (
-   <div className='d-flex ' style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.label)}>
-   <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item.label}</div>
-     <Badge bg={EduStatus === item.label ?"light": 'secondary' } text={EduStatus === item.label ? "dark" : "light"}>{item.count}</Badge>
-   </div>
-   </div>
-    )
-    )}
+    <Sidebar sidebarData={streamData} handleRequest={handleRequest} EduStatus={EduStatus}/>
   </div>
 
   <div className='m-4' >
-    <div style={{  color:"#000" , borderBottom:"1px solid #000" , padding:"5px"}} >
+    <div className='sidebar-content'  >
       Raza:
     </div>
-    { razaData && razaData.map((item) => (
-   <div className='d-flex ' onClick={() => handleRequest(item.verb , item.label)} style={{width:"100%" ,...(EduStatus === item.label ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} >
-   <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item.label}</div>
-     <Badge bg={EduStatus === item.label ?"light": 'secondary'  } text={EduStatus === item.label ? "dark" : "light"}>{item.count}</Badge>
-   </div>
-   </div>
-    )
-    )}
+    <Sidebar sidebarData={razaData} handleRequest={handleRequest} EduStatus={EduStatus}/>
   </div>
 
   <div className='m-4' >
-    <div style={{  color:"#000" , borderBottom:"1px solid #000" , padding:"5px"}} >
+    <div className='sidebar-content' >
     Quran Sanad:
     </div>
-    { quranSanad && quranSanad.map((item) => (
-   <div className='d-flex ' style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor) , borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.label)} >
-   <div className='d-flex justify-content-between' style={{width:"100%"}} >
-    <div>{item.label}</div>
-     <Badge bg={EduStatus === item.label ?"light": 'secondary'} text={EduStatus === item.label ? "dark" : "light"}>{item.count}</Badge>
-   </div>
-   </div>
-    )
-    )}
+    <Sidebar sidebarData={quranSanad} handleRequest={handleRequest} EduStatus={EduStatus}/>
   </div>
 </Col>
 <Col xs={9} style={{marginTop:"20px"}}  >
