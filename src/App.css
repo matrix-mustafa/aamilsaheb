@@ -90,6 +90,7 @@
   font-family: 'Inter';
   width: 82px;
   text-align: center;
+  cursor:pointer
 }
 
 .course-container{
@@ -100,10 +101,12 @@
 
 .danger-btn {
   background-color: #6B3B26;
+  cursor:pointer
 }
 
 .success-btn {
   background-color: #315A23;
+  cursor:pointer
 }
 
 .sidebar-content{
