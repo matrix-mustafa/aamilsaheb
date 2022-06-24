@@ -19,19 +19,16 @@ export default function CourseDetails({course, institute, jawab, period})
                 </OverlayTrigger> :
                 <div className='course-text'>---</div>
                 }
-
-                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{course}</Tooltip>}>
-                    <div className='course-text'>
-                        {institute ? institute.slice(0,40) + "...." : "---"}
-                    </div>
-                </OverlayTrigger>
-                {course &&
-                <div className={`jawab-button ${jawab === "" ? "danger-btn" : "success-btn"}`}>
-                    {jawab === "" ? "No Araz" : "View Jawab"}
-                </div>
+                {institute ?
+                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{institute}</Tooltip>}>
+                    <div className='course-text'>{instituteName}</div>
+                </OverlayTrigger> :
+                <div className='course-text'>---</div>
                 }
-
-           </div>
-         </div>
+            </div>
+            <div className={`jawab-button ${jawab === "" ? "danger-btn" : "success-btn"} ${!course && "hide"}`}>
+                {jawab === "" ? "No Araz" : "View Jawab"}
+            </div>
+        </div>
     )
 }

@@ -25,3 +25,23 @@
     font-size: 16px;
     line-height: 19px;
 }
+
+.course-container {
+    display: grid;
+    justify-content: space-between;
+}
+
+.jawab-button {
+    padding: 5px 15px 5px 15px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'Inter';
+    width: 82px;
+    text-align: center;
+    cursor: pointer
+}
+
+.hide {
+    display: none;
+}
