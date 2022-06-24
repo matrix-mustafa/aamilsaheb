@@ -122,6 +122,13 @@
     align-items: center;
 }
 
+.loader-content{
+  display:flex;
+  height: 100%;
+  justify-content:center;
+  align-items: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

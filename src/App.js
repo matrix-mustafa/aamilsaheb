@@ -9,6 +9,8 @@ import useFetch from "./useFetch";
 import EducationDetail from './components/EducationDetail';
 import Sidebar from './components/Sidebar';
 import Loader from "react-loaders";
+import Spinner from './components/Spinner';
+import HashLoader from "react-spinners/HashLoader";
 
 function App() {
 const [sidebarData  , setSideBarData] = useState(null);
@@ -17,6 +19,7 @@ const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2
 const [razaData , setRazaData] = useState(null);
 const [quranSanad , setquranSanad] = useState(null);
 const [EduStatus , setEduStatus] = useState("Drop Outs");
+let [color, setColor] = useState("#00336D");
 
 
 useEffect(() => {
@@ -27,7 +30,7 @@ useEffect(() => {
         'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
       },
     } , [])
-    .then((response) => response.json())
+    .then((response) => response?.json())
     .then((result) => {
       setSideBarData(result.main_menu)
       setStreamData(result.Stream)
@@ -48,15 +51,11 @@ useEffect(() => {
     setEduStatus(lable);
   }
 
-  const suspenseFallback = (
-    <div className="loader-container">
-      <div className="loader-container-inner">
-        <h6 className="mt-3">
-          Please wait while we load all the Applications examples
-        </h6>
-      </div>
-    </div>
-  );
+
+  const onLoad = {
+    height: "100vh"
+  }
+
 
   return (
     <>
@@ -72,38 +71,52 @@ useEffect(() => {
     </div>
       </Container>
     </Navbar>
-<Row style={{backgroundColor:"#E5E5E5" , margin:"0px"}} >
+<Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }} >
 <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
-  <div className='m-4' >
-  <Suspense fallback={<h1>Loading profile...</h1>}>
-    <Sidebar sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
-    </Suspense>
-  </div>
+  {
+     sidebarData  ?
+     <>
+       <div className='m-4' >
+     <Sidebar sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
+ </div>
 
-  <div className='m-4' >
-    <div className='sidebar-content' >
-      Stream:
-    </div>
-    <Sidebar sidebarData={streamData} handleRequest={handleRequest} EduStatus={EduStatus}/>
-  </div>
+ <div className='m-4' >
+   <div className='sidebar-content' >
+     Stream:
+   </div>
+   <Sidebar sidebarData={streamData} handleRequest={handleRequest} EduStatus={EduStatus}/>
+ </div>
 
-  <div className='m-4' >
-    <div className='sidebar-content'  >
-      Raza:
-    </div>
-    <Sidebar sidebarData={razaData} handleRequest={handleRequest} EduStatus={EduStatus}/>
-  </div>
+ <div className='m-4' >
+   <div className='sidebar-content'  >
+     Raza:
+   </div>
+   <Sidebar sidebarData={razaData} handleRequest={handleRequest} EduStatus={EduStatus}/>
+ </div>
 
-  <div className='m-4' >
-    <div className='sidebar-content' >
-    Quran Sanad:
-    </div>
-    <Sidebar sidebarData={quranSanad} handleRequest={handleRequest} EduStatus={EduStatus}/>
-  </div>
+ <div className='m-4' >
+   <div className='sidebar-content' >
+   Quran Sanad:
+   </div>
+   <Sidebar sidebarData={quranSanad} handleRequest={handleRequest} EduStatus={EduStatus}/>
+ </div>  </> :
+ <div className='loader-content' >
+   <HashLoader color={color} size={30} />
+ </div>
+
+  }
+
 </Col>
 <Col xs={9} style={{marginTop:"20px"}}  >
-   <h5>Showing results for "{EduStatus}" in Surat Jamaat.</h5>
-   <EducationDetail dropoutList={dropoutList} />
+   <h5>Showing results for "{EduStatus}" in Surat Jamaat</h5>
+    {
+      dropoutList ?  <EducationDetail dropoutList={dropoutList} /> :
+      <div className='loader-content' >
+       <HashLoader color={color} size={78} />
+
+      </div>
+    }
+
 </Col>
 </Row>
 </>
