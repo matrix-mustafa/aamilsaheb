@@ -23,20 +23,22 @@ export default function useFetch(url){
   } , [])
 
   const apiFn = (url) => {
-    fetch(`https://www.talabulilm.com/${url}`, {
-      method: "GET",
-      headers: {
-        'Content-Type': "application/json",
-        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
-      },
-    })
-    .then((response) => response?.json())
-    .then((result) => {
-        setData(result);
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    console.log(url)
+    setData(null)
+      fetch(`https://www.talabulilm.com/${url}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': "application/json",
+          'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+        },
+      })
+      .then((response) => response?.json())
+      .then((result) => {
+         setData(result);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
     return [data,apiFn]

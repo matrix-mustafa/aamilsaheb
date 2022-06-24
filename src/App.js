@@ -44,6 +44,7 @@ export default function App() {
   const handleRequest = (verb , lable) => {
     setDropoutList(`api2022/profile/aamilsaheb/${verb}`);
     setEduStatus(lable);
+
   }
 
   const onLoad = {
