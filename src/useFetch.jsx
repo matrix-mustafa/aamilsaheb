@@ -3,6 +3,7 @@ import { useState } from "react";
 
 
 
+
 function useFetch(url){
     // debugger;
     const [data, setData] = useState(null);
@@ -15,7 +16,7 @@ function useFetch(url){
         'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
       },
     })
-    .then((response) => response.json())
+    .then((response) => response?.json())
     .then((result) => {
         setData(result)
     })
