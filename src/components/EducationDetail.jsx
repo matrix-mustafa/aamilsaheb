@@ -1,31 +1,34 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import CourseDetails from './CourseDetails';
 
-export default function (props) {
-
-    const {dropoutList} = props;
-    console.log(props)
-
+export default function EducationDetail (props) {
+  const {dropoutList} = props;
   return (
     <>
     {
-        dropoutList && dropoutList.map((item) => (
-       <div className='user-card'>
+        dropoutList && dropoutList.map((item, idx) => (
+       <div key={idx} className='user-card'>
          <div className='d-flex'>
            <div className='d-flex' style={{alignItems:"center" , height:"100%" , width:"42%"}} >
-             <img src={`https://www.talabulilm.com/mumin_images/${item.its_id}.png`} className="user-img"/>
+             <img src={`https://www.talabulilm.com/mumin_images/${item.its_id}.png`} alt="user" className="user-img"/>
              <div className='user-details'>
                <p>{item.its_id}</p>
                <p>{item.name}</p>
-               <p>{item.gender == 'M' ? 'Male' : 'Female'} {item.age} years</p>
+               <p>{item.gender.toLowerCase() === 'm' ? 'Male' : 'Female'} {item.age} years</p>
                <p>{item.email}</p>
                <p>{item.mobile}</p>
              </div>
            </div>
 
         <div style={{width:"58%"}} >
+          <CourseDetails
+            course={item.future_edu_course}
+            institute={item.future_edu_institute}
+            jawab={item.future_edu_jawab}
+            period={'future'}
+          />
          {item.future_edu_course !== " " &&
          <div className='d-flex user-courses-container future'>
            <div style={{fontWeight:700 , fontSize:"16px" , lineHeight:"19px" , fontFamily:"Inter"}}>Future Education</div>
