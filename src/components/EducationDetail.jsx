@@ -1,6 +1,4 @@
 import React from 'react'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import CourseDetails from './CourseDetails';
 
 export default function EducationDetail (props) {
@@ -28,18 +26,21 @@ export default function EducationDetail (props) {
             institute={item.future_edu_institute}
             jawab={item.future_edu_jawab}
             period={'future'}
+            title={"Future Education"}
           />
           <CourseDetails
             course={item.current_edu_course}
             institute={item.current_edu_institute}
             jawab={item.current_edu_jawab}
             period={'current'}
+            title={"Current Education"}
           />
           <CourseDetails
             course={item.last_edu_course}
             institute={item.last_edu_institute}
             jawab={item.last_edu_jawab}
             period={'last'}
+            title={"Last Education"}
           />
          </div>
          </div>

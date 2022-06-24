@@ -16,11 +16,11 @@
     justify-content: space-around;
     border: 0.5px solid #5A7651;
     align-items: center;
-    padding: 10px 2px 9px 2px;
+    padding: 0.1em;
 }
 
 .course-category {
-    padding: 0.3em;
+    padding: 0.3em 0.5em;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
@@ -42,6 +42,20 @@
     cursor: pointer
 }
 
+.danger-btn {
+    background-color: #6B3B26;
+    cursor: pointer
+}
+
+.success-btn {
+    background-color: #315A23;
+    cursor: pointer
+}
+
 .hide {
     display: none;
+}
+
+.cursor-block {
+    cursor: not-allowed;
 }

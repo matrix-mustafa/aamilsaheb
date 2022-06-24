@@ -23,7 +23,6 @@ export default function useFetch(url){
   } , [])
 
   const apiFn = (url) => {
-    console.log(url)
     setData(null)
       fetch(`https://www.talabulilm.com/${url}`, {
         method: "GET",

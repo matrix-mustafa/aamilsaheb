@@ -3,15 +3,18 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import "./CourseDetails.css"
 
-export default function CourseDetails({course, institute, jawab, period})
+export default function CourseDetails({course, institute, jawab, period, title})
 {
+    const openJawab = url => {
+        window.open(`https://www.talabulilm.com/araiz/araz_jawab.php?code=${url}`, '_blank', 'noopener,noreferrer');
+    };
     let courseName = ""
     let instituteName = ""
-    courseName = (course.length > 40) ? course.slice(0, 40) + '...' : course
-    instituteName = (institute.length > 40) ? institute.slice(0, 40) + '...' : institute
+    courseName = (course.length > 30) ? course.slice(0, 30) + '...' : course
+    instituteName = (institute.length > 30) ? institute.slice(0, 30) + '...' : institute
     return (
         <div className={`user-courses-container ${period}`}>
-            <div className='course-category'>Future Education</div>
+            <div className='course-category'>{title}</div>
             <div className='course-container'>
                 {course ?
                 <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{course}</Tooltip>}>
@@ -26,9 +29,10 @@ export default function CourseDetails({course, institute, jawab, period})
                 <div className='course-text'>---</div>
                 }
             </div>
-            <div className={`jawab-button ${jawab === "" ? "danger-btn" : "success-btn"} ${!course && "hide"}`}>
-                {jawab === "" ? "No Araz" : "View Jawab"}
-            </div>
+            {jawab !== "" ?
+            <div className={`jawab-button success-btn`} onClick={() => openJawab(jawab)}>View Jawab</div> :
+            <div className={`jawab-button danger-btn cursor-block ${!course && "hide"}`}>No Araz</div>
+            }
         </div>
     )
 }

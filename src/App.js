@@ -94,7 +94,7 @@ export default function App() {
           }
         </Col>
         <Col xs={9} style={{marginTop:"20px"}}>
-          <h5>Showing results for "{EduStatus}" in Surat Jamaat</h5>
+          <h2 className='page-title'>Showing results for "{EduStatus}" in Surat Jamaat</h2>
           {dropoutList ?
           <EducationDetail dropoutList={dropoutList} /> :
           <div className='loader-content' >
