@@ -4,7 +4,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import "./CourseDetails.css"
 
-export default function CourseDetails()
+export default function CourseDetails(course)
 {
     return (
         <div className='d-flex user-courses-container future'>
@@ -13,7 +13,7 @@ export default function CourseDetails()
              <div>
              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{item.future_edu_course}</Tooltip>}>
              <div className='course-text'>
-               { item.future_edu_course ? item.future_edu_course.slice(0,40) + "...." : "No data available"}
+               { course ? course.slice(0,40) + "...." : "No data available"}
              </div>
              </OverlayTrigger>
              <div className='course-text'>
