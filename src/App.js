@@ -49,6 +49,7 @@ useEffect(() => {
     console.log(verb , lable)
     setDropoutList(`api2022/profile/aamilsaheb/${verb}`);
     setEduStatus(lable);
+    
   }
 
 
@@ -113,7 +114,6 @@ useEffect(() => {
       dropoutList ?  <EducationDetail dropoutList={dropoutList} /> :
       <div className='loader-content' >
        <HashLoader color={color} size={78} />
-
       </div>
     }
 
