@@ -95,11 +95,12 @@ export default function App() {
         </Col>
         <Col xs={9} style={{marginTop:"20px"}}>
           <h2 className='page-title'>Showing results for "{EduStatus}" in Surat Jamaat</h2>
-          {dropoutList ?
-          <EducationDetail dropoutList={dropoutList} /> :
-          <div className='loader-content' >
-            <HashLoader color={color} size={78} />
-          </div>
+          {
+            dropoutList && dropoutList.length !== 0 ?  <EducationDetail dropoutList={dropoutList} /> :
+            dropoutList && dropoutList.length  === 0 ? <div className='loader-content'>No data found ....</div> :
+            <div className='loader-content' >
+              <HashLoader color={color} size={78} />
+            </div>
           }
         </Col>
       </Row>
