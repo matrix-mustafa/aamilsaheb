@@ -64,7 +64,7 @@ useEffect(() => {
       <Container fluid >
         <div style={{width:"40%"}} ></div>
       <div className="d-flex justify-content-around" style={{width:"100%" , color:"#fff" , alignItems:"center" , cursor:"pointer" }} >
-        <div  style={{fontWeight:700 , fontSize:"18px" , lineHeight:"24px" , fontFamily:"Inter"}} >Talabulilm Aamil Saheb Dashboard - Surat Jamaat</div>
+        <div  style={{fontWeight:700 , fontSize:"18px" , lineHeight:"24px" , fontFamily:"Inter"}} >Live Education Status of Surat Jamaat (Age: 3-27)</div>
         <div className='d-flex'>
       <div className="p-2 " style={{fontWeight:700 , fontSize:"14px" , lineHeight:"17px" , fontFamily:"Roboto"}}>Flex item 1</div>
       <img src='' />
@@ -102,7 +102,7 @@ useEffect(() => {
   </div>
 </Col>
 <Col xs={9} style={{marginTop:"20px"}}  >
-   <h5>Showing results for "{EduStatus}" in Surat Jamaat</h5>
+   <h5>Showing results for "{EduStatus}" in Surat Jamaat.</h5>
    <EducationDetail dropoutList={dropoutList} />
 </Col>
 </Row>
