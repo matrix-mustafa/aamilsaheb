@@ -18,7 +18,7 @@ export default function Sidebar(props) {
     <>
       {
       sidebarData && sidebarData.map((item) => (
-    <div className='d-flex '  style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px"}} onClick={() => handleRequest(item.verb , item.label)}   >
+    <div className='d-flex '  style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px" , cursor:"pointer"}} onClick={() => handleRequest(item.verb , item.label)}   >
     <div className='d-flex justify-content-between' style={{width:"100%"}} >
      <div>{item.label}</div>
       <Badge bg={EduStatus === item.label  ?"light": 'secondary' } text={EduStatus  === item.label ? "dark" : "light"}>{ item.count}</Badge>
