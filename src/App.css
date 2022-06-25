@@ -6,6 +6,14 @@
   margin-bottom: 0.4em;
 }
 
+.nav-container{
+  width:100%;
+   color:#fff ;
+   align-Items:center;
+   cursor:pointer; 
+   margin:10px
+}
+
 .user-img {
   border: 0.5px solid #bdbdbd;
   max-height:118px;
@@ -46,6 +54,20 @@
   height: 100%;
   justify-content:center;
   align-items: center;
+}
+
+.image-content{
+  width: 60px;
+    height: 80px;
+    margin-left: 10px;
+    border-radius: 25px;
+}
+
+.image-header{
+  color: #ffffff;
+    font-weight: 700;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
 @keyframes App-logo-spin {
