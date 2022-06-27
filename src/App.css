@@ -70,6 +70,12 @@
     margin-top: 10px;
 }
 
+.button-downlaod{
+  margin-left: 100px;
+  color: #002146
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
