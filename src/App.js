@@ -76,7 +76,7 @@ export default function App() {
         </Col>
         <Col xs={9} style={{marginTop:"20px"}}>
           <h3 className='page-title'> <span> Showing results for "{EduStatus}" in Surat Jamaat </span> 
-          <Button  variant="secondary" className="button-downlaod">
+          <Button   className="button-downlaod">
           <a  style={{textDecoration:"none" , color:"#ffff" }} href="https://talabulilm.com/profile/csvdownload.php" target = "_blank" > Downlaod full file</a> 
            </Button>
           </h3>
