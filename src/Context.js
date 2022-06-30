@@ -5,7 +5,6 @@ const UserContext = React.createContext({
   getCookie : (name) => {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
-    console.log(ca)
     for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == " ") c = c.substring(1, c.length);
@@ -23,15 +22,14 @@ const UserContext = React.createContext({
          // window.location.replace('https://www.its52.com/Login.aspx?OneLogin=MHB&r=aHR0cHM6Ly90ZXN0YmNoZXQudGFsYWJ1bGlsbS5jb20vaXRzLWxvZ2lu')
              return
            }
-   
+
        var username = this.getCookie("user_its")
        var password = this.getCookie("ver")
          // this.getCookie("ver") != null
          //   ?
          //   : "c665872b7193541130e89d2ecbc8dc33";
-   
-         console.log(username , password);
-   
+
+
              const token = Buffer.from(`${username}:${password}`, "utf8").toString(
                "base64"
              );

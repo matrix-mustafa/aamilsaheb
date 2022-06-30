@@ -11,7 +11,7 @@ export default function AppRoutes() {
   const getCookie =  (name) => {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
-    console.log(ca)
+
     for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == " ") c = c.substring(1, c.length);
@@ -28,19 +28,17 @@ export default function AppRoutes() {
          return
        }
 
-   var username = getCookie("user_its")
-   var password = getCookie("ver")
+    var username = getCookie("user_its")
+    var password = getCookie("ver")
 
-
-         const token = Buffer.from(`${username}:${password}`, "utf8").toString(
-           "base64"
-         );
-         console.log(token)
-         localStorage.setItem("profile-token", token);
-         return token;
+    const token = Buffer.from(`${username}:${password}`, "utf8").toString(
+      "base64"
+    );
+    localStorage.setItem("profile-token", token);
+    return token;
  }
 
-  console.log(setToken())
+  setToken()
 
   return (
     <>
@@ -49,7 +47,7 @@ export default function AppRoutes() {
         <Routes>
             {/* <Route path="/its-login" component={ItsLoginUser} />
              */}
-            <Route path="/" element={<LandingPage/>} /> 
+            <Route path="/" element={<LandingPage/>} />
         </Routes>
      </BrowserRouter>
        {/* </UserProvider> */}
