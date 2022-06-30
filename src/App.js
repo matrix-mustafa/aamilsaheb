@@ -1,5 +1,7 @@
 import './App.css';
+import { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+<<<<<<< HEAD
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
@@ -56,6 +58,22 @@ export default function App() {
           }
         </Col>
       </Row>
+=======
+import Routes from "./Routes/AppRoutes";
+import UserContext from './Context';
+import { UserProvider } from './Context';
+
+
+export default function App() {
+  const user = useContext(UserContext);
+
+
+  return (
+    <>
+    <UserProvider value={user}>
+    <Routes/>
+    </UserProvider>
+>>>>>>> 18abd418391c86d57a7113e773676fb3f2a718af
     </>
   );
 }
