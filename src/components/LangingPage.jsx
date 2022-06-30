@@ -17,7 +17,9 @@ export default function LandingPage() {
   const [sidebarData  , setSideBarData] = useFetch("https://www.talabulilm.com/api2022/profile/aamilsaheb/filters/170");
   const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/dropOutUserList/170');
   const [EduStatus , setEduStatus] = useState("Drop Outs");
-  let [color, setColor] = useState("#00336D");
+  const [color, setColor] = useState("#00336D");
+  const [downloadRecord , setDownloadRecord] = useState(null);
+
   
 
 
@@ -25,17 +27,17 @@ export default function LandingPage() {
 
   
 
-  const handleRequest = (verb , lable) => {
+  const handleRequest = (verb , lable , downlaod) => {
     setDropoutList(`api2022/profile/aamilsaheb/${verb}`);
     setEduStatus(lable);
-
+    setDownloadRecord(downlaod);
   }
 
   const onLoad = {
     height: "100vh"
   }
 
-  console.log(sidebarData)
+  console.log(downloadRecord)
   // console.log(dropoutList)
 
   return (
@@ -83,7 +85,7 @@ export default function LandingPage() {
         <Col xs={9} style={{marginTop:"20px"}}>
           <h3 className='page-title'> <span> Showing results for "{EduStatus}" in Surat Jamaat </span> 
           <Button   className="button-downlaod">
-          <a  style={{textDecoration:"none" , color:"#ffff" }} href="https://talabulilm.com/profile/csvdownload.php" target = "_blank" > Downlaod full file</a> 
+          <a  style={{textDecoration:"none" , color:"#ffff" }} href={`https://talabulilm.com/profile/csvdownload.php${downloadRecord}`} target = "_blank" > Downlaod full file</a> 
            </Button>
           </h3>
           

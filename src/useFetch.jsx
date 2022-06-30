@@ -4,12 +4,14 @@ export default function useFetch(url){
     // debugger;
     const [data, setData] = useState(null);
 
+    const getToken = localStorage.getItem("profile-token")
+
     useEffect(() => {
     fetch(url, {
       method: "GET",
       headers: {
         'Content-Type': "application/json",
-        'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+        'Authorization': `Basic ${getToken}`,
       },
     })
     .then((response) => response?.json())
@@ -28,7 +30,7 @@ export default function useFetch(url){
         method: "GET",
         headers: {
           'Content-Type': "application/json",
-          'Authorization': `Basic NTA0NzY3MzM6YzY2NTg3MmI3MTkzNTQxMTMwZTg5ZDJlY2JjOGRjMzM=`,
+          'Authorization': `Basic ${getToken}`,
         },
       })
       .then((response) => response?.json())

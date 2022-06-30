@@ -7,14 +7,15 @@ import { UserProvider } from './Context';
 
 
 export default function App() {
-  const user = useContext(UserContext);
+  // const user = useContext(UserContext);
 
+  // console.log(user)
 
   return (
     <>
-    <UserProvider value={user}>
+    {/* <UserProvider value={user}> */}
     <Routes/>
-    </UserProvider>
+    {/* </UserProvider> */}
     </>
   );
 }
