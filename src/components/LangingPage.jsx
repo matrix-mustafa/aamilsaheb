@@ -18,9 +18,9 @@ export default function LandingPage() {
   const [EduStatus , setEduStatus] = useState("Drop Outs");
   const [color, setColor] = useState("#00336D");
   const [downloadRecord , setDownloadRecord] = useState(null);
-  const [headerData , setHeaderData] = useFetch("aamilsaheb/details"); 
+  const [headerData , setHeaderData] = useFetch("aamilsaheb/details");
   const [userFullName , setUserFullName] = useFetch("");
- 
+
   const userName =  localStorage.getItem("username");
 
   const handleRequest = (verb , lable , downlaod) => {
@@ -48,9 +48,12 @@ export default function LandingPage() {
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
           <img className="" src={logo} alt='img' />
-          <div>Live Education Status of {`Ahmedabad ${headerData && headerData[0]?.jamaat}`} Jamaat (Age: 3-27)</div>
+          <div>Current Education Status of {`${headerData && headerData[0]?.jamaat}`} Jamaat (Age: 3-27)</div>
             <div className='d-flex'>
-              <div className="image-header" >{userFullName?.name}</div>
+              <div className="image-header" >
+                {userFullName?.name}<br />
+                <a href='https://www.talabulilm.com/1443Shehrullah/' target={'_blank'}>Mamureen Page</a>
+              </div>
               <img className='image-content' src={`https://www.talabulilm.com/mumin_images/${userName}.png`} alt='img' />
             </div>
           </div>
@@ -85,7 +88,7 @@ export default function LandingPage() {
           }
         </Col>
         <Col xs={9} style={{marginTop:"20px"}}>
-          <h3 className='page-title'> <span> Showing results for "{EduStatus}" in Surat Jamaat </span>
+          <h3 className='page-title'> <span> Showing results for "{EduStatus}" in {`${headerData && headerData[0]?.jamaat}`} Jamaat </span>
           <Button   className="button-downlaod">
           <a  style={{textDecoration:"none" , color:"#ffff" }} href={`https://talabulilm.com/profile/csvdownload.php${downloadRecord}`} target = "_blank" > Downlaod</a>
            </Button>
