@@ -13,13 +13,15 @@ import HashLoader from "react-spinners/HashLoader";
 import logo from "../logotal.png";
 
 export default function LandingPage() {
-  const jamatId = 170 // make dynamic from {{live}}aamilsaheb/details - jamaat_id
-  // Update all APIs to use this jamat id instaed of 170
-  const [sidebarData  , setSideBarData] = useFetch("aamilsaheb/filters/170");
-  const [dropoutList , setDropoutList] = useFetch('aamilsaheb/dropOutUserList/170');
+  const [sidebarData  , setSideBarData] = useFetch();
+  const [dropoutList , setDropoutList] = useFetch();
   const [EduStatus , setEduStatus] = useState("Drop Outs");
   const [color, setColor] = useState("#00336D");
   const [downloadRecord , setDownloadRecord] = useState(null);
+  const [headerData , setHeaderData] = useFetch("aamilsaheb/details"); 
+  const [userFullName , setUserFullName] = useFetch("");
+ 
+  const userName =  localStorage.getItem("username");
 
   const handleRequest = (verb , lable , downlaod) => {
     setDropoutList(`aamilsaheb/${verb}`);
@@ -27,13 +29,18 @@ export default function LandingPage() {
     setDownloadRecord(downlaod);
   }
 
+  useEffect(() => {
+    if(headerData && headerData[0].jamaat_id){
+      setSideBarData(`aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
+      setDropoutList(`aamilsaheb/dropOutUserList/${headerData && headerData[0].jamaat_id}`)
+    }
+
+  },[headerData])
+
+
   const onLoad = {
     height: "100vh"
   }
-
-  const jamat = 'Surat' // this needs to come from {{live}}aamilsaheb/details - jamaat
-  const userName = 50476733 // Make dynamic from cookie username
-  const userFullName = 'Mulla Mustafa Rampurawala' // Make dynamic from {{live}} - name
 
   return (
     <>
@@ -41,9 +48,9 @@ export default function LandingPage() {
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
           <img className="" src={logo} alt='img' />
-          <div>Live Education Status of {`Ahmedabad${jamat}`} Jamaat (Age: 3-27)</div>
+          <div>Live Education Status of {`Ahmedabad ${headerData && headerData[0]?.jamaat}`} Jamaat (Age: 3-27)</div>
             <div className='d-flex'>
-              <div className="image-header" >{userFullName}</div>
+              <div className="image-header" >{userFullName?.name}</div>
               <img className='image-content' src={`https://www.talabulilm.com/mumin_images/${userName}.png`} alt='img' />
             </div>
           </div>

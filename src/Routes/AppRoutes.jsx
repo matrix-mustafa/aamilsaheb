@@ -31,6 +31,8 @@ export default function AppRoutes() {
     var username = getCookie("user_its")
     var password = getCookie("ver")
 
+    localStorage.setItem("username", username);
+
     const token = Buffer.from(`${username}:${password}`, "utf8").toString(
       "base64"
     );
