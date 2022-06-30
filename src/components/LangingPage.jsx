@@ -2,7 +2,7 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';  
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useEffect, useState , useContext } from 'react';
@@ -18,12 +18,12 @@ export default function LandingPage() {
   const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/dropOutUserList/170');
   const [EduStatus , setEduStatus] = useState("Drop Outs");
   let [color, setColor] = useState("#00336D");
-  
+
 
 
   // console.log(user)
 
-  
+
 
   const handleRequest = (verb , lable) => {
     setDropoutList(`api2022/profile/aamilsaheb/${verb}`);
@@ -40,7 +40,7 @@ export default function LandingPage() {
 
   return (
     <>
-     
+
       <Navbar style={{backgroundColor:"#002147" , height: "120px" }} >
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
@@ -57,10 +57,6 @@ export default function LandingPage() {
           {sidebarData ?
           <>
             <div className='m-4' >
-              <Sidebar sidebarData={sidebarData.main_menu} handleRequest={handleRequest} EduStatus={EduStatus}/>
-            </div>
-
-            <div className='m-4' >
               <div className='sidebar-content'>Stream:</div>
               <Sidebar sidebarData={ sidebarData.Stream} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
@@ -74,6 +70,10 @@ export default function LandingPage() {
               <div className='sidebar-content'>Quran Sanad:</div>
               <Sidebar sidebarData={sidebarData.Quran_Sanad} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
+
+            <div className='m-4' >
+              <Sidebar sidebarData={sidebarData.main_menu} handleRequest={handleRequest} EduStatus={EduStatus}/>
+            </div>
           </> :
           <div className='loader-content' >
             <HashLoader color={color} size={30} />
@@ -81,12 +81,12 @@ export default function LandingPage() {
           }
         </Col>
         <Col xs={9} style={{marginTop:"20px"}}>
-          <h3 className='page-title'> <span> Showing results for "{EduStatus}" in Surat Jamaat </span> 
+          <h3 className='page-title'> <span> Showing results for "{EduStatus}" in Surat Jamaat </span>
           <Button   className="button-downlaod">
-          <a  style={{textDecoration:"none" , color:"#ffff" }} href="https://talabulilm.com/profile/csvdownload.php" target = "_blank" > Downlaod full file</a> 
+          <a  style={{textDecoration:"none" , color:"#ffff" }} href="https://talabulilm.com/profile/csvdownload.php" target = "_blank" > Downlaod full file</a>
            </Button>
           </h3>
-          
+
           {
             dropoutList && dropoutList.length !== 0 ?  <EducationDetail dropoutList={dropoutList} /> :
             dropoutList && dropoutList.length  === 0 ? <div className='loader-content'>No data found ....</div> :
