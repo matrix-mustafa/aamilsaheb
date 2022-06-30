@@ -1,10 +1,8 @@
 import React from 'react'
 import Badge from 'react-bootstrap/Badge';
 
-export default function Sidebar(props) {
+export default function LinkElement(props) {
     const {sidebarData , handleRequest , EduStatus, streamData} = props;
-
-
     const darkColor = {
         background:"#00336D",
         color:"#fff"

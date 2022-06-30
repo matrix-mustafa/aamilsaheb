@@ -5,33 +5,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {useEffect, useState } from 'react';
+import { useState } from 'react';
 import useFetch from "./useFetch";
 import EducationDetail from './components/EducationDetail';
 import Sidebar from './components/Sidebar';
 import HashLoader from "react-spinners/HashLoader";
 import logo from "./logotal.png"
+import LinkElement from './components/Sidebar/LinkElement';
 
 export default function App() {
-  const [sidebarData  , setSideBarData] = useFetch("https://www.talabulilm.com/api2022/profile/aamilsaheb/filters/170");
   const [dropoutList , setDropoutList] = useFetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/dropOutUserList/170');
   const [EduStatus , setEduStatus] = useState("Drop Outs");
   let [color, setColor] = useState("#00336D");
 
-
-
-  const handleRequest = (verb , lable) => {
-    setDropoutList(`api2022/profile/aamilsaheb/${verb}`);
-    setEduStatus(lable);
-
-  }
-
   const onLoad = {
     height: "100vh"
   }
-
-  console.log(sidebarData)
-  // console.log(dropoutList)
 
   return (
     <>
@@ -47,33 +36,9 @@ export default function App() {
           </div>
         </Container>
       </Navbar>
-      <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }}>
+      <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" }}>
         <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
-          {sidebarData ?
-          <>
-            <div className='m-4' >
-              <div className='sidebar-content'>Stream:</div>
-              <Sidebar sidebarData={ sidebarData.Stream} handleRequest={handleRequest} EduStatus={EduStatus}/>
-            </div>
-
-            <div className='m-4' >
-              <div className='sidebar-content'>Raza:</div>
-              <Sidebar sidebarData={sidebarData.Raza_Status} handleRequest={handleRequest} EduStatus={EduStatus}/>
-            </div>
-
-            <div className='m-4' >
-              <Sidebar sidebarData={sidebarData.main_menu} handleRequest={handleRequest} EduStatus={EduStatus}/>
-            </div>
-
-            {/* <div className='m-4' >
-              <div className='sidebar-content'>Quran Sanad:</div>
-              <Sidebar sidebarData={sidebarData.Quran_Sanad} handleRequest={handleRequest} EduStatus={EduStatus}/>
-            </div> */}
-          </> :
-          <div className='loader-content' >
-            <HashLoader color={color} size={30} />
-          </div>
-          }
+          <LinkElement />
         </Col>
         <Col xs={9} style={{marginTop:"20px"}}>
           <h3 className='page-title'> <span> Showing results for "{EduStatus}" in Ahmedabad Jamaat </span>
