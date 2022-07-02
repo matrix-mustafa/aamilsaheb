@@ -15,7 +15,7 @@ import logo from "../logotal.png";
 export default function LandingPage() {
   const [sidebarData  , setSideBarData] = useFetch();
   const [dropoutList , setDropoutList] = useFetch();
-  const [EduStatus , setEduStatus] = useState("Drop Outs");
+  const [EduStatus , setEduStatus] = useState("Araz done");
   const [color, setColor] = useState("#00336D");
   const [downloadRecord , setDownloadRecord] = useState(null);
   const [headerData , setHeaderData] = useFetch("aamilsaheb/details");
@@ -32,7 +32,7 @@ export default function LandingPage() {
   useEffect(() => {
     if(headerData && headerData[0].jamaat_id){
       setSideBarData(`aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
-      setDropoutList(`aamilsaheb/dropOutUserList/${headerData && headerData[0].jamaat_id}`)
+      setDropoutList(`aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
     }
 
   },[headerData])
@@ -42,17 +42,26 @@ export default function LandingPage() {
     height: "100vh"
   }
 
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"]
+  const today = new Date()
+  const month = monthNames[today.getMonth()]
+  const currentDate = month + ', ' + today.getFullYear();
   return (
     <>
       <Navbar style={{backgroundColor:"#002147" , height: "120px" }} >
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
-          <img className="" src={logo} alt='img' />
-          <div>Current Education Status of {`${headerData && headerData[0]?.jamaat}`} Jamaat (Age: 3-27)</div>
+            <a href='https://www.talabulilm.com'><img className="" src={logo} alt='img' /></a>
+          <h3>Current Education Status of {`${headerData && headerData[0]?.jamaat}`} (Age: 3-27) </h3>
             <div className='d-flex'>
               <div className="image-header" >
                 {userFullName?.name}<br />
-                <a href='https://www.talabulilm.com/1443Shehrullah/' target={'_blank'}>Mamureen Page</a>
+                <div>
+                  <a className='top-nav-link active' href='https://aamilsaheb.talabulilm.com/' target={'_blank'}>Home</a>
+                  <a className='top-nav-link' href='https://www.talabulilm.com/1443Shehrullah/' target={'_blank'}>Bulk Entry</a>
+                  <a className='top-nav-link' href='https://www.talabulilm.com' target={'_blank'}>Talabulilm Home</a>
+                </div>
               </div>
               <img className='image-content' src={`https://www.talabulilm.com/mumin_images/${userName}.png`} alt='img' />
             </div>
@@ -64,13 +73,13 @@ export default function LandingPage() {
           {sidebarData ?
           <>
             <div className='m-4' >
-              <div className='sidebar-content'>Stream:</div>
-              <Sidebar sidebarData={ sidebarData.Stream} handleRequest={handleRequest} EduStatus={EduStatus}/>
+              <div className='sidebar-content'>Raza:</div>
+              <Sidebar sidebarData={sidebarData.Raza_Status} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
             <div className='m-4' >
-              <div className='sidebar-content'>Raza:</div>
-              <Sidebar sidebarData={sidebarData.Raza_Status} handleRequest={handleRequest} EduStatus={EduStatus}/>
+              <div className='sidebar-content'>Stream:</div>
+              <Sidebar sidebarData={ sidebarData.Stream} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
             <div className='m-4' >
@@ -87,12 +96,11 @@ export default function LandingPage() {
           </div>
           }
         </Col>
-        <Col xs={9} style={{marginTop:"20px"}}>
-          <h3 className='page-title'> <span> Showing results for "{EduStatus}" in {`${headerData && headerData[0]?.jamaat}`} Jamaat </span>
-          <Button   className="button-downlaod">
-          <a  style={{textDecoration:"none" , color:"#ffff" }} href={`https://talabulilm.com/profile/csvdownload.php${downloadRecord}`} target = "_blank" > Downlaod</a>
-           </Button>
+        <Col xs={9} className='main-content' style={{marginTop:"20px"}}>
+          <h3 className='page-title'>
+            Showing results for "{EduStatus}" as of {currentDate}
           </h3>
+          <a className='btn-download' href={`https://talabulilm.com/profile/csvdownload.php${downloadRecord}`} target = "_blank" > Download</a>
           {
             dropoutList && dropoutList.length !== 0 ?  <EducationDetail dropoutList={dropoutList} /> :
             dropoutList && dropoutList.length  === 0 ? <div className='loader-content'>No data found ....</div> :
