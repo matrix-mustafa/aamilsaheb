@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./MuzeForm.css";
+import DatePick from "./Datepick";
 
 export default function MuzeProfileForm() {
   return (
@@ -79,7 +80,46 @@ export default function MuzeProfileForm() {
       <option value="3">Three</option>
   </Form.Select>
     </div>
+    <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
+    <label for="marhala-selectized">Course Start Date</label>	
+    <DatePick/>
+    </div>
+    <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
+    <label for="marhala-selectized">Course End Date</label>	
+    <DatePick/>
+    </div>
+
+    <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
+		<label for="course">Annual Fees</label>		
+		<select id="course" name="course" required="" className="form-control">
+		</select>
+    </div>
+
+    <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
+		<label for="marhala-selectized">Currency</label>		
+		<Form.Select aria-label="Default select example">
+      <option>INR Indian Rupee</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+  </Form.Select>
+    </div>
+
+    <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
+		<label for="marhala-selectized">Scholarship</label>		
+		<Form.Select aria-label="Default select example">
+      <option>Self Arranged</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+  </Form.Select>
+    </div>
+   <div style={{marginLeft:"20px" , marginBottom:"20px"}} >
+    <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Submit</button>
+   </div>
+
        </div >
+      
        </div>
     </div>
     </div>
