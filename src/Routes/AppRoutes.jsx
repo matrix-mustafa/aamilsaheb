@@ -4,6 +4,7 @@ import LandingPage from '../components/LangingPage';
 import UserContext from '../Context';
 import { UserProvider } from "../Context";
 import { Buffer } from "buffer";
+import MuzeProfileForm from "../components/MuzeProfileForm";
 
 export default function AppRoutes() {
   // const user = useContext(UserContext);
@@ -31,6 +32,8 @@ export default function AppRoutes() {
     var username = getCookie("user_its")
     var password = getCookie("ver")
 
+    console.log(username , password);
+
     localStorage.setItem("username", username);
 
     const token = Buffer.from(`${username}:${password}`, "utf8").toString(
@@ -49,6 +52,7 @@ export default function AppRoutes() {
         <Routes>
             {/* <Route path="/its-login" component={ItsLoginUser} />
              */}
+             <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
             <Route path="/" element={<LandingPage/>} />
         </Routes>
      </BrowserRouter>

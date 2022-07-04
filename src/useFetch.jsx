@@ -12,6 +12,7 @@ export default function useFetch(url){
 
   const apiFn = (url) => {
     setData(null)
+    if(url !== undefined){
       fetch(`https://www.talabulilm.com/api2022/profile/${url}`, {
         method: "GET",
         headers: {
@@ -27,6 +28,7 @@ export default function useFetch(url){
         setData([])
         console.log(error)
       })
+    }
   }
 
     return [data,apiFn]
