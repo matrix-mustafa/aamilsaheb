@@ -16,3 +16,15 @@
 .form-input-container{
     display: flex;
 }
+
+.itsDataListDiv{
+    background-color: white;
+    padding: 1em;
+    border-radius: 4px;
+}
+
+.text-note{
+    font-size: 0.8em;
+    color: #888;
+    padding-bottom: 1em;
+}

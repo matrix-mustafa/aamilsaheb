@@ -9,13 +9,16 @@ import MainNavbar from './MainNavbar';
 export default function MuzeProfileForm() {
   return (
     <>
-    <MainNavbar/>
+    <MainNavbar />
     <div className='form-container'>
     <div className='container mt-3 row form-cotent' >
-       <div className='form-header' >
+       <div className='form-header'>
         <h2>
-        1443 Shehrullah - Mustafa Rampuarawala - AMRELI
+        Student's Education Details - Survey Form
         </h2>
+        <div className="text-note">
+          This form has been prepared for Ummal Kiraam/Masool al-Mawaze &nbsp; Umoor Talimiyyah Committees for the survey of student's current educational details in their respective mawaze. You may add students details individually and also in bulk.
+        </div>
        </div>
 
        <div className='form-input-container' >
@@ -23,10 +26,11 @@ export default function MuzeProfileForm() {
         <div>
             <label>Check ITS ID</label>
             <textarea class="form-control" id="its_id_list" required="" name="its_id_list" rows="8"></textarea>
-            <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Check</button>
+            <button type="submit" id="checkItsIdBtn" class="btn btn-primary mt-3">Check</button>
         </div>
 
     <div className="mb-3 mt-3 itsDataListDiv d-block" >
+      <h2>List of Students Currently Studing</h2>
 		<table className="table">
 			<tbody>
         <tr>
@@ -42,7 +46,7 @@ export default function MuzeProfileForm() {
 						<td>9th</td>
 						<td>Egypt</td>
 						<td>Cairo</td>
-					</tr>  
+					</tr>
 					</tbody>
 		</table>
     </div>
@@ -55,7 +59,7 @@ export default function MuzeProfileForm() {
         </div>
 
         <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="marhala-selectized">Marhala</label>		
+		<label for="marhala-selectized">Marhala</label>
 		<Form.Select aria-label="Default select example">
       <option>Select Marala</option>
       <option value="1">One</option>
@@ -65,13 +69,13 @@ export default function MuzeProfileForm() {
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="course">Course</label>		
+		<label for="course">Course</label>
 		<select id="course" name="course" required="" className="form-control">
 		</select>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="marhala-selectized">Country</label>		
+		<label for="marhala-selectized">Country</label>
 		<Form.Select aria-label="Default select example">
       <option>India</option>
       <option value="1">One</option>
@@ -81,7 +85,7 @@ export default function MuzeProfileForm() {
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="marhala-selectized">City</label>		
+		<label for="marhala-selectized">City</label>
 		<Form.Select aria-label="Default select example">
       <option>Surat</option>
       <option value="1">One</option>
@@ -91,13 +95,13 @@ export default function MuzeProfileForm() {
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="course">Institute</label>		
+		<label for="course">Institute</label>
 		<select id="course" name="course" required="" className="form-control">
 		</select>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="marhala-selectized">Accommodation</label>		
+		<label for="marhala-selectized">Accommodation</label>
 		<Form.Select aria-label="Default select example">
       <option>Own House</option>
       <option value="1">One</option>
@@ -106,22 +110,22 @@ export default function MuzeProfileForm() {
   </Form.Select>
     </div>
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-    <label for="marhala-selectized">Course Start Date</label>	
+    <label for="marhala-selectized">Course Start Date</label>
     <DatePick/>
     </div>
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-    <label for="marhala-selectized">Course End Date</label>	
+    <label for="marhala-selectized">Course End Date</label>
     <DatePick/>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="course">Annual Fees</label>		
+		<label for="course">Annual Fees</label>
 		<select id="course" name="course" required="" className="form-control">
 		</select>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="marhala-selectized">Currency</label>		
+		<label for="marhala-selectized">Currency</label>
 		<Form.Select aria-label="Default select example">
       <option>INR Indian Rupee</option>
       <option value="1">One</option>
@@ -131,7 +135,7 @@ export default function MuzeProfileForm() {
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
-		<label for="marhala-selectized">Scholarship</label>		
+		<label for="marhala-selectized">Scholarship</label>
 		<Form.Select aria-label="Default select example">
       <option>Self Arranged</option>
       <option value="1">One</option>
@@ -144,7 +148,7 @@ export default function MuzeProfileForm() {
    </div>
 
        </div >
-      
+
        </div>
     </div>
     </div>

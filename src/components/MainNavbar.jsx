@@ -23,9 +23,8 @@ export default function MainNavbar(props) {
               <div className="image-header" >
                 {userFullName?.name}<br />
                 <div>
-                  <a className='top-nav-link active' href='https://aamilsaheb.talabulilm.com/' target={'_blank'}  >Home</a>
-                  <a className='top-nav-link' target={'_blank'} onClick={handleUrl}>Bulk Entry</a>
-                  <a className='top-nav-link' href='https://www.talabulilm.com' target={'_blank'}>Talabulilm Home</a>
+                  <a className='top-nav-link active' href='https://aamilsaheb.talabulilm.com/' >Home</a>
+                  <a className='top-nav-link' onClick={handleUrl}>Education Survey</a>
                 </div>
               </div>
               <img className='image-content' src={`https://www.talabulilm.com/mumin_images/${userName}.png`} alt='img' />
