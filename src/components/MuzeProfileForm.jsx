@@ -4,9 +4,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./MuzeForm.css";
 import DatePick from "./Datepick";
+import MainNavbar from './MainNavbar';
 
 export default function MuzeProfileForm() {
   return (
+    <>
+    <MainNavbar/>
     <div className='form-container'  >
     <div className='container mt-3 row form-cotent' >
        <div className='form-header' >
@@ -123,5 +126,6 @@ export default function MuzeProfileForm() {
        </div>
     </div>
     </div>
+    </>
   )
 }
