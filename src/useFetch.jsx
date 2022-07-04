@@ -7,13 +7,15 @@ export default function useFetch(url){
   const getToken = localStorage.getItem("profile-token")
 
   useEffect(() => {
-    apiFn(url)
+    if(url !== "EmptyUrl"){
+      apiFn(url)
+    }
   } , [])
 
   const apiFn = (url) => {
     setData(null)
     if(url !== undefined){
-      fetch(`https://www.talabulilm.com/api2022/profile/${url}`, {
+      fetch(`https://www.talabulilm.com/api2022/${url}`, {
         method: "GET",
         headers: {
           'Content-Type': "application/json",
@@ -31,6 +33,8 @@ export default function useFetch(url){
     }
   }
 
-    return [data,apiFn]
+
+
+    return [data,apiFn , ]
 
 }

@@ -1,12 +1,92 @@
 import React from 'react';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./MuzeForm.css";
 import DatePick from "./Datepick";
 import MainNavbar from './MainNavbar';
+// import autoComplete from "./autoComplete";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import { useState } from 'react';
+import useFetch from "../useFetch";
+import { useEffect } from 'react';
+
+
 
 export default function MuzeProfileForm() {
+  const [murhala , setMurhala] = useFetch();
+
+  useEffect(() => {
+    setMurhala("araiz/user/marhalaDetails");
+  },[]);
+
+  console.log(murhala)
+
+  const items = [
+    {
+      id: 0,
+      name: 'Cobol'
+    },
+    {
+      id: 1,
+      name: 'JavaScript'
+    },
+    {
+      id: 2,
+      name: 'Basic'
+    },
+    {
+      id: 3,
+      name: 'PHP'
+    },
+    {
+      id: 4,
+      name: 'Java'
+    }
+  ]
+
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results)
+  }
+
+  const handleOnHover = (result) => {
+    // the item hovered
+    console.log(result)
+  }
+
+  const handleOnSelect = (item) => {
+    // the item selected
+    console.log(item)
+  }
+
+  const handleOnFocus = () => {
+    console.log('Focused')
+  }
+
+  const formatResult = (item) => {
+    return (
+      <>
+        <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
+        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
+      </>
+    )
+  }
+
+  const styling = {
+    position:" absolute",
+    display: "flex",
+    flexDirection: "column",
+    width:"84%",
+    border:" 1px solid #dfe1e5",
+    borderRadius: "8px",
+    backgroundColor:" white",
+    color: "#212121",
+    fontSize: "16px",
+    fontFamily:" Arial",
+}
+
+  
+
   return (
     <>
     <MainNavbar />
@@ -60,12 +140,22 @@ export default function MuzeProfileForm() {
 
         <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Marhala</label>
-		<Form.Select aria-label="Default select example">
-      <option>Select Marala</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-  </Form.Select>
+<div style={{ width: "100%" }}>
+          <ReactSearchAutocomplete
+            items={murhala !== null ? murhala : []}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            formatResult={formatResult}
+            styling={styling}
+          />
+
+          </div>
+
+  
+  
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
@@ -76,22 +166,36 @@ export default function MuzeProfileForm() {
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Country</label>
-		<Form.Select aria-label="Default select example">
-      <option>India</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-  </Form.Select>
+    <div style={{ width: "100%" }}>
+          <ReactSearchAutocomplete
+            items={items}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            formatResult={formatResult}
+            styling={styling}
+          />
+
+          </div>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">City</label>
-		<Form.Select aria-label="Default select example">
-      <option>Surat</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-  </Form.Select>
+		<div style={{ width: "100%" }}>
+          <ReactSearchAutocomplete
+            items={items}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            formatResult={formatResult}
+            styling={styling}
+          />
+
+          </div>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
@@ -102,12 +206,19 @@ export default function MuzeProfileForm() {
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Accommodation</label>
-		<Form.Select aria-label="Default select example">
-      <option>Own House</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-  </Form.Select>
+		<div style={{ width: "100%" }}>
+          <ReactSearchAutocomplete
+            items={items}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            formatResult={formatResult}
+            styling={styling}
+          />
+
+          </div>
     </div>
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
     <label for="marhala-selectized">Course Start Date</label>

@@ -11,17 +11,17 @@ import HashLoader from "react-spinners/HashLoader";
 import MainNavbar from './MainNavbar';
 
 export default function LandingPage() {
-  const [sidebarData  , setSideBarData] = useFetch();
-  const [dropoutList , setDropoutList] = useFetch();
+  const [sidebarData  , setSideBarData] = useFetch("profile");
+  const [dropoutList , setDropoutList] = useFetch("profile");
   const [EduStatus , setEduStatus] = useState("Araz done");
   const [color, setColor] = useState("#00336D");
   const [downloadRecord , setDownloadRecord] = useState(null);
-  const [headerData , setHeaderData] = useFetch("aamilsaheb/details");
+  const [headerData , setHeaderData] = useFetch("profile/aamilsaheb/details");
   const [userFullName , setUserFullName] = useFetch("");
 
 
   const handleRequest = (verb , lable , downlaod) => {
-    setDropoutList(`aamilsaheb/${verb}`);
+    setDropoutList(`profile/aamilsaheb/${verb}`);
     setEduStatus(lable);
     setDownloadRecord(downlaod);
   }
@@ -29,8 +29,8 @@ export default function LandingPage() {
 
   useEffect(() => {
     if(headerData && headerData[0].jamaat_id){
-      setSideBarData(`aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
-      setDropoutList(`aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
+      setSideBarData(`profile/aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
+      setDropoutList(`profile/aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
     }
 
   },[headerData])
