@@ -10,7 +10,7 @@ export default function MuzeProfileForm() {
   return (
     <>
     <MainNavbar/>
-    <div className='form-container'  >
+    <div className='form-container'>
     <div className='container mt-3 row form-cotent' >
        <div className='form-header' >
         <h2>
@@ -25,6 +25,28 @@ export default function MuzeProfileForm() {
             <textarea class="form-control" id="its_id_list" required="" name="its_id_list" rows="8"></textarea>
             <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Check</button>
         </div>
+
+    <div className="mb-3 mt-3 itsDataListDiv d-block" >
+		<table className="table">
+			<tbody>
+        <tr>
+				<td>ITS ID</td>
+				<td>Course</td>
+				<td>Country</td>
+				<td>City</td>
+			</tr>
+			</tbody>
+      <tbody id="itsDataList">
+        <tr>
+						<td>50476733</td>
+						<td>9th</td>
+						<td>Egypt</td>
+						<td>Cairo</td>
+					</tr>  
+					</tbody>
+		</table>
+    </div>
+
        </div>
        <div className='col-4' >
         <div style={{marginLeft:"20px" , marginBottom:"20px"}} >
