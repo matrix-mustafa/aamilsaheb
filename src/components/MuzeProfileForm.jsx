@@ -10,70 +10,33 @@ import useFetch from "../useFetch";
 import { useEffect } from 'react';
 import Select from 'react-select'
 
-
-
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
+  const [selectedOptions , setSelectedOptions] = useState([]);
+  const [getCourse , setGetCourse] = useFetch();
 
   useEffect(() => {
     setMurhala("araiz/user/marhalaDetails")
   },[]);
 
+  useEffect(() => {
+    console.log(selectedOptions.value)
+    setGetCourse(`araiz/user/courseDetails/${Number(selectedOptions.value)}`)
+  },[selectedOptions]);
 
-
-  console.log(murhala)
-
-  const items = [
-    {
-      id: 0,
-      name: 'Cobol'
-    },
-    {
-      id: 1,
-      name: 'JavaScript'
-    },
-    {
-      id: 2,
-      name: 'Basic'
-    },
-    {
-      id: 3,
-      name: 'PHP'
-    },
-    {
-      id: 4,
-      name: 'Java'
-    }
-  ]
-
-  const handleOnSearch = (string, results) => {
-    // onSearch will have as the first callback parameter
-    // the string searched and for the second the results.
-    console.log(string, results)
+  const handleChangeMarhala = (selectedOptions) => {
+    console.log("hy")
+    setSelectedOptions( selectedOptions);
   }
 
-  const handleOnHover = (result) => {
-    // the item hovered
-    console.log(result)
-  }
 
-  const handleOnSelect = (item) => {
-    // the item selected
-    console.log(item)
-  }
+  console.log(selectedOptions)
 
-  const handleOnFocus = () => {
-    console.log('Focused')
-  }
 
-  const formatResult = (item) => {
-    return (
-      <>
-        <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
-        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.text}</span>
-      </>
-    )
-  }
+
+  // console.log(murhala)
+
+
 
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -81,19 +44,21 @@ export default function MuzeProfileForm() {
     { value: 'vanilla', label: 'Vanilla' }
   ]
 
-  const styling = {
-    position:" absolute",
-    display: "flex",
-    flexDirection: "column",
-    width:"84%",
-    border:" 1px solid #dfe1e5",
-    borderRadius: "8px",
-    backgroundColor:" white",
-    color: "#212121",
-    fontSize: "16px",
-    fontFamily:" Arial",
-}
+ const  newMurhala = murhala?.map((item) => {
+  return {
+    "value" : item.id,
+    "label": item.text
+  }
+ })
 
+ const  newGetCourse = getCourse?.map((item) => {
+  return {
+    "value" : item.id,
+    "label": item.course_name
+  }
+ })
+
+ console.log(getCourse)
 
 
   return (
@@ -149,18 +114,15 @@ export default function MuzeProfileForm() {
 
         <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Marhala</label>
-    {
-      murhala &&  <div style={{ width: "100%" }}>
-    <Select options={options} defaultValue={options[0]} />
-
+     <div style={{ width: "100%" }}>
+    <Select options={newMurhala} defaultValue={[]}
+        onChange={handleChangeMarhala} />
       </div>
-    }
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="course">Course</label>
-		<select id="course" name="course" required="" className="form-control">
-		</select>
+    <Select options={newGetCourse} defaultValue={[]}/>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
