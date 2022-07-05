@@ -8,15 +8,18 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import { useState } from 'react';
 import useFetch from "../useFetch";
 import { useEffect } from 'react';
+import Select from 'react-select'
 
 
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
-
+  
   useEffect(() => {
-    setMurhala("araiz/user/marhalaDetails");
+    setMurhala("araiz/user/marhalaDetails")
   },[]);
+
+  
 
   console.log(murhala)
 
@@ -67,10 +70,16 @@ export default function MuzeProfileForm() {
     return (
       <>
         <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
-        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
+        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.text}</span>
       </>
     )
   }
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
 
   const styling = {
     position:" absolute",
@@ -140,22 +149,12 @@ export default function MuzeProfileForm() {
 
         <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Marhala</label>
-<div style={{ width: "100%" }}>
-          <ReactSearchAutocomplete
-            items={murhala !== null ? murhala : []}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-            styling={styling}
-          />
+    {
+      murhala &&  <div style={{ width: "100%" }}>
+    <Select options={options} defaultValue={options[0]} />
 
-          </div>
-
-  
-  
+      </div> 
+    }
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
@@ -167,16 +166,7 @@ export default function MuzeProfileForm() {
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Country</label>
     <div style={{ width: "100%" }}>
-          <ReactSearchAutocomplete
-            items={items}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-            styling={styling}
-          />
+    <Select options={options} defaultValue={options[0]} />
 
           </div>
     </div>
@@ -184,16 +174,7 @@ export default function MuzeProfileForm() {
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">City</label>
 		<div style={{ width: "100%" }}>
-          <ReactSearchAutocomplete
-            items={items}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-            styling={styling}
-          />
+    <Select options={options} defaultValue={options[0]} />
 
           </div>
     </div>
@@ -207,16 +188,7 @@ export default function MuzeProfileForm() {
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Accommodation</label>
 		<div style={{ width: "100%" }}>
-          <ReactSearchAutocomplete
-            items={items}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-            styling={styling}
-          />
+    <Select options={options} defaultValue={options[0]} />
 
           </div>
     </div>
@@ -237,22 +209,12 @@ export default function MuzeProfileForm() {
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Currency</label>
-		<Form.Select aria-label="Default select example">
-      <option>INR Indian Rupee</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-  </Form.Select>
+    <Select options={options} defaultValue={options[0]} />
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Scholarship</label>
-		<Form.Select aria-label="Default select example">
-      <option>Self Arranged</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-  </Form.Select>
+    <Select options={options} defaultValue={options[0]} />
     </div>
    <div style={{marginLeft:"20px" , marginBottom:"20px"}} >
     <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Submit</button>
