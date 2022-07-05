@@ -14,12 +14,12 @@ import Select from 'react-select'
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
-  
+
   useEffect(() => {
     setMurhala("araiz/user/marhalaDetails")
   },[]);
 
-  
+
 
   console.log(murhala)
 
@@ -94,7 +94,7 @@ export default function MuzeProfileForm() {
     fontFamily:" Arial",
 }
 
-  
+
 
   return (
     <>
@@ -119,7 +119,7 @@ export default function MuzeProfileForm() {
         </div>
 
     <div className="mb-3 mt-3 itsDataListDiv d-block" >
-      <h2>List of Students Currently Studing</h2>
+      <h2>Past Entries of Students Currently Studying</h2>
 		<table className="table">
 			<tbody>
         <tr>
@@ -153,7 +153,7 @@ export default function MuzeProfileForm() {
       murhala &&  <div style={{ width: "100%" }}>
     <Select options={options} defaultValue={options[0]} />
 
-      </div> 
+      </div>
     }
     </div>
 

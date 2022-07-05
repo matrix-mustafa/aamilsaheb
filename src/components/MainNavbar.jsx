@@ -18,7 +18,7 @@ export default function MainNavbar(props) {
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
             <a href='https://www.talabulilm.com'><img className="" src={logo} alt='img' /></a>
-          <h3>Current Education Status of {`${headerData && headerData[0]?.jamaat}`} (Age: 3-27) </h3>
+          <h3>Current Education Status for Age: 3-27<br />{`${headerData && headerData[0]?.jamaat}`} </h3>
             <div className='d-flex'>
               <div className="image-header" >
                 {userFullName?.name}<br />
