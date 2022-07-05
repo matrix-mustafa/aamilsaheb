@@ -18,6 +18,9 @@ export default function MuzeProfileForm() {
   const [getCity , setGetCity] = useFetch();
   const [getAccommodation , setGetAccommodation] = useFetch();
   const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedCity, setSelectedCity] = useState();
+  const [getInstitute,  setGetInstitute] = useFetch();
+ 
 
   useEffect(() => {
     setMurhala("araiz/user/marhalaDetails")
@@ -26,22 +29,26 @@ export default function MuzeProfileForm() {
   },[]);
 
   useEffect(() => {
-    console.log(selectedOptions.value)
     setGetCourse(`araiz/user/courseDetails/${Number(selectedOptions.value)}`)
   },[selectedOptions]);
 
 
   useEffect(() => {
-    console.log(selectedCountry)
     if(selectedCountry){
       setGetCity(`araiz/user/cityDetailsByCountryISO/${selectedCountry.value}`)
     }
   },[selectedCountry]);
 
+  useEffect(() => {
+    if(selectedCity){
+      setGetInstitute(`araiz/user/instituteDetailsBycityID/${selectedCity.value}`)
+    }
+  },[selectedCity]);
+
+
 
 
   const handleChangeMarhala = (selectedOptions) => {
-    console.log(selectedOptions)
     setSelectedOptions( selectedOptions);
   }
 
@@ -50,20 +57,11 @@ export default function MuzeProfileForm() {
     setSelectedCountry(selectedCountry)
   }
 
-
-  console.log(selectedOptions)
-
-
-
-  // console.log(murhala)
+  const handleChangeCity = (selectedCountry) => {
+    setSelectedCity(selectedCountry)
+  }
 
 
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
 
  const  newMurhala = murhala?.map((item) => {
   return {
@@ -100,7 +98,13 @@ export default function MuzeProfileForm() {
   }
  })
 
- console.log(getCity)
+ const  newGetInstitute = getInstitute?.map((item) => {
+  return {
+    "value" : item.id,
+    "label": item.name
+  }
+ })
+
 
 
   return (
@@ -178,15 +182,14 @@ export default function MuzeProfileForm() {
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">City</label>
 		<div style={{ width: "100%" }}>
-    <Select options={newGetCity} defaultValue={[]} />
+    <Select options={newGetCity} defaultValue={[]}  onChange={handleChangeCity} />
 
           </div>
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="course">Institute</label>
-		<select id="course" name="course" required="" className="form-control">
-		</select>
+		<Select options={newGetInstitute} defaultValue={[]}  />
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
@@ -213,12 +216,12 @@ export default function MuzeProfileForm() {
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Currency</label>
-    <Select options={options} defaultValue={options[0]} />
+    <Select options={[]} defaultValue={[]} />
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Scholarship</label>
-    <Select options={options} defaultValue={options[0]} />
+    <Select options={[]} defaultValue={[]} />
     </div>
    <div style={{marginLeft:"20px" , marginBottom:"20px"}} >
     <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Submit</button>
