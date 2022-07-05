@@ -1,44 +1,21 @@
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {useEffect, useState , useContext } from 'react';
-import useFetch from "../useFetch";
+import { useState  } from 'react';
 import EducationDetail from './EducationDetail';
 import Sidebar from './Sidebar';
 import HashLoader from "react-spinners/HashLoader";
-import MainNavbar from './MainNavbar';
 
-export default function LandingPage() {
-  const [sidebarData  , setSideBarData] = useFetch("profile");
-  const [dropoutList , setDropoutList] = useFetch("profile");
-  const [EduStatus , setEduStatus] = useState("Araz done");
+export default function LandingPage(props) {
+  const {sidebarData , dropoutList  , EduStatus , downloadRecord , handleRequest} = props;
   const [color, setColor] = useState("#00336D");
-  const [downloadRecord , setDownloadRecord] = useState(null);
-  const [headerData , setHeaderData] = useFetch("profile/aamilsaheb/details");
-  const [userFullName , setUserFullName] = useFetch("");
-
-
-  const handleRequest = (verb , lable , downlaod) => {
-    setDropoutList(`profile/aamilsaheb/${verb}`);
-    setEduStatus(lable);
-    setDownloadRecord(downlaod);
-  }
-
-
-  useEffect(() => {
-    if(headerData && headerData[0].jamaat_id){
-      setSideBarData(`profile/aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
-      setDropoutList(`profile/aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
-    }
-
-  },[headerData])
 
 
   const onLoad = {
     height: "100vh"
   }
+
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
@@ -47,7 +24,7 @@ export default function LandingPage() {
   const currentDate = month + ', ' + today.getFullYear();
   return (
     <>
-      <MainNavbar headerData={headerData}  userFullName={userFullName}/>
+     
       <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }}>
         <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
           {sidebarData ?

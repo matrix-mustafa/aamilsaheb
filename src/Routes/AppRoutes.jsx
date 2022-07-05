@@ -1,13 +1,37 @@
 import {  BrowserRouter ,  Routes, Route } from "react-router-dom";
-import React , {useContext} from 'react';
+import React , {useContext , useEffect , useState} from 'react';
 import LandingPage from '../components/LangingPage';
 import UserContext from '../Context';
 import { UserProvider } from "../Context";
 import { Buffer } from "buffer";
 import MuzeProfileForm from "../components/MuzeProfileForm";
+import useFetch from "../useFetch";
+import MainNavbar from "../components/MainNavbar";
 
 export default function AppRoutes() {
-  // const user = useContext(UserContext);
+  const [sidebarData  , setSideBarData] = useFetch("profile");
+  const [dropoutList , setDropoutList] = useFetch("profile");
+  const [headerData , setHeaderData] = useFetch("profile/aamilsaheb/details");
+  const [userFullName , setUserFullName] = useFetch("profile/ ");
+  const [EduStatus , setEduStatus] = useState("Araz done");
+  const [downloadRecord , setDownloadRecord] = useState(null);
+
+
+  const handleRequest = (verb , lable , downlaod) => {
+    setDropoutList(`profile/aamilsaheb/${verb}`);
+    setEduStatus(lable);
+    setDownloadRecord(downlaod);
+  }
+
+
+  useEffect(() => {
+    if(headerData && headerData[0].jamaat_id){
+      setSideBarData(`profile/aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
+      setDropoutList(`profile/aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
+    }
+
+  },[headerData])
+
 
   const getCookie =  (name) => {
     var nameEQ = name + "=";
@@ -22,7 +46,6 @@ export default function AppRoutes() {
   }
 
   const setToken = () => {
-
     if( getCookie("user_its") === null){
      // this URL is for bchet.talabulilm
      window.location.replace('https://www.its52.com/Login.aspx?OneLogin=MHB&r=aHR0cHM6Ly9hYW1pbHNhaGViLnRhbGFidWxpbG0uY29tLw==')
@@ -32,8 +55,6 @@ export default function AppRoutes() {
     var username = getCookie("user_its")
     var password = getCookie("ver")
 
-    console.log(username , password);
-
     localStorage.setItem("username", username);
 
     const token = Buffer.from(`${username}:${password}`, "utf8").toString(
@@ -42,21 +63,17 @@ export default function AppRoutes() {
     localStorage.setItem("profile-token", token);
     return token;
  }
-
   setToken()
 
   return (
     <>
-      {/* <UserProvider value={user}> */}
      <BrowserRouter>
+     <MainNavbar headerData={headerData}  userFullName={userFullName}/>
         <Routes>
-            {/* <Route path="/its-login" component={ItsLoginUser} />
-             */}
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
-            <Route path="/" element={<LandingPage/>} />
+            <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} />} />
         </Routes>
      </BrowserRouter>
-       {/* </UserProvider> */}
     </>
   )
 }

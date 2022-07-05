@@ -2,9 +2,6 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import "./MuzeForm.css";
 import DatePick from "./Datepick";
-import MainNavbar from './MainNavbar';
-// import autoComplete from "./autoComplete";
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import { useState } from 'react';
 import useFetch from "../useFetch";
 import { useEffect } from 'react';
@@ -129,7 +126,6 @@ const Scholarship = [
 
   return (
     <>
-    <MainNavbar />
     <div className='form-container'>
     <div className='container mt-3 row form-cotent' >
        <div className='form-header'>

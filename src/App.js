@@ -9,9 +9,7 @@ import { UserProvider } from './Context';
 export default function App() {
   return (
     <>
-    {/* <UserProvider value={user}> */}
     <Routes/>
-    {/* </UserProvider> */}
     </>
   );
 }
