@@ -1,8 +1,6 @@
 import {  BrowserRouter ,  Routes, Route } from "react-router-dom";
-import React , {useContext , useEffect , useState} from 'react';
+import React , { useEffect , useState} from 'react';
 import LandingPage from '../components/LangingPage';
-import UserContext from '../Context';
-import { UserProvider } from "../Context";
 import { Buffer } from "buffer";
 import MuzeProfileForm from "../components/MuzeProfileForm";
 import useFetch from "../useFetch";
