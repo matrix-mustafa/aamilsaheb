@@ -5,6 +5,7 @@ import { useState } from 'react';
 import useFetch from "../useFetch";
 import { useEffect } from 'react';
 import Select from 'react-select'
+import EducationDetail from './EducationDetail'
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
