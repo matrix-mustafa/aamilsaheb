@@ -20,6 +20,7 @@ export default function MuzeProfileForm() {
   const [selectedCountry, setSelectedCountry] = useState();
   const [selectedCity, setSelectedCity] = useState();
   const [getInstitute,  setGetInstitute] = useFetch();
+  const [ amount , setAmount] = useState();
  
 
   useEffect(() => {
@@ -60,6 +61,11 @@ export default function MuzeProfileForm() {
   const handleChangeCity = (selectedCountry) => {
     setSelectedCity(selectedCountry)
   }
+
+
+  const handleAmount = (e) => [
+    setAmount(e.target.value)
+  ]
 
 
 
@@ -104,6 +110,20 @@ export default function MuzeProfileForm() {
     "label": item.name
   }
  })
+
+ const Currency = [
+  { value: 'chocolate', label: 'INR - Indian Rupee' },
+  { value: 'strawberry', label: 'USD - US Dollar' },
+  { value: 'vanilla', label: 'GBD - British Pound' },
+  { value: 'vanilla', label: 'EUR - Euro' }
+]
+
+const Scholarship = [
+  { value: 'chocolate', label: 'Self Arranged' },
+  { value: 'strawberry', label: 'Quran Hasana by jamaat' },
+  { value: 'vanilla', label: 'Quran Hasana by other source' },
+  { value: 'vanilla', label: 'Scholarship' }
+]
 
 
 
@@ -210,18 +230,19 @@ export default function MuzeProfileForm() {
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="course">Annual Fees</label>
-		<select id="course" name="course" required="" className="form-control">
-		</select>
+		{/* <select id="course" name="course" required="" className="form-control"> */}
+    <input type="number" className="form-control" value={amount} onChange={handleAmount} />
+		{/* </select> */}
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Currency</label>
-    <Select options={[]} defaultValue={[]} />
+    <Select options={Currency} defaultValue={[]} />
     </div>
 
     <div style={{marginLeft:"20px" , marginBottom:"20px"}}>
 		<label for="marhala-selectized">Scholarship</label>
-    <Select options={[]} defaultValue={[]} />
+    <Select options={Scholarship} defaultValue={[]} />
     </div>
    <div style={{marginLeft:"20px" , marginBottom:"20px"}} >
     <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Submit</button>
