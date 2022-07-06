@@ -6,10 +6,15 @@ import useFetch from "../useFetch";
 import { useEffect } from 'react';
 import Select from 'react-select'
 import EducationDetail from './EducationDetail';
+import DatePicker from "react-datepicker";
+import  "./datePicker.css"
+
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
-  const [selectedOptions , setSelectedOptions] = useState([]);
+  const [selectedMarhala , setSelectedMarhala] = useState([]);
   const [getCourse , setGetCourse] = useFetch();
   const [getCountry , setGetCountry] = useFetch();
   const [getCity , setGetCity] = useFetch();
@@ -22,6 +27,21 @@ export default function MuzeProfileForm() {
   const [getIts , setIts] = useState("");
   const [itsData , SetItsData] = useState();
   const [remaingIts , setRemaingIts] = useState();
+  const [entryFormData , setEntryFormData] = useState({
+    its_id: "",
+    marhala:"",
+    course:"",
+    country:"",
+    city:"",
+    institute:"",
+    accommodation:"",
+    course_start_date:"",
+    course_end_date:"",
+    annual_fees:"",
+    currency:"",
+    scholarship:""
+  });
+  const [startDate, setStartDate] = useState(new Date());
 
   const getToken = localStorage.getItem("profile-token")
 
@@ -33,8 +53,8 @@ export default function MuzeProfileForm() {
   },[]);
 
   useEffect(() => {
-    setGetCourse(`araiz/user/courseDetails/${Number(selectedOptions.value)}`)
-  },[selectedOptions]);
+    setGetCourse(`araiz/user/courseDetails/${Number(selectedMarhala.value)}`)
+  },[selectedMarhala]);
 
 
   useEffect(() => {
@@ -66,8 +86,7 @@ export default function MuzeProfileForm() {
    .then((response) => response.json())
    .then((responseJson) => {
     SetItsData(responseJson)
-    var result = Object.values(responseJson?.remaining_its).join("\n");
-    console.log(result)
+    let result = Object.values(responseJson?.remaining_its).join("\n");
     setRemaingIts(result)
    })
    .catch((error) => {
@@ -77,18 +96,55 @@ export default function MuzeProfileForm() {
   }, [getIts])
 
 
-  const handleChangeMarhala = (selectedOptions) => {
-    setSelectedOptions( selectedOptions);
+
+  const handleChange = ( selectedOptions , item) => {
+    console.log(selectedOptions , item)
+    if(item === "marhala"){
+      console.log(selectedOptions)
+      setSelectedMarhala(selectedOptions);
+    }else if(item === "country"){
+      setSelectedCountry(selectedOptions)
+    }else if(item === "city"){
+      setSelectedCity(selectedOptions);
+    }
+    setEntryFormData({...entryFormData , [item]: selectedOptions.label})
+  }
+
+  // const handleChangeCountry = (selectedCountry) => {
+  //   setSelectedCountry(selectedCountry)
+  //   setEntryFormData({...entryFormData , country: selectedCountry.label})
+  // }
+
+  // const handleChangeCity = (selectedCity) => {
+  //   setSelectedCity(selectedCountry);
+  //   setEntryFormData({...entryFormData , city: selectedCity.label})
+  // }
+
+  // const handleChangeCourse = (selectedCourse) => {
+   
+  //   setEntryFormData({...entryFormData , course: selectedCourse.label})
+  // }
+
+  // const handleChangeInstitute = (selectedInstitute) => {
+   
+  //   setEntryFormData({...entryFormData , institute: selectedInstitute.label})
+  // }
+
+  const  handleChangeAccomodation  = (selectedAccomodation) => {
+   
+    setEntryFormData({...entryFormData , accommodation: selectedAccomodation.label})
   }
 
 
-  const handleChangeCountry = (selectedCountry) => {
-    setSelectedCountry(selectedCountry)
+  const handleChangeData = (date) => {
+     console.log(date)
   }
 
-  const handleChangeCity = (selectedCountry) => {
-    setSelectedCity(selectedCountry)
-  }
+  console.log(startDate);
+
+ 
+
+  console.log(entryFormData);
 
 
   const handleAmount = (e) => [
@@ -164,6 +220,17 @@ const Scholarship = [
   { value: 'vanilla', label: 'Scholarship' }
 ]
 
+const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
+  <input
+      onChange={onChange}
+      placeholder={placeholder}
+      value={value}
+      isSecure={isSecure}
+      id={id}
+      onClick={onClick}
+  />
+);
+
 
 
   return (
@@ -205,19 +272,19 @@ const Scholarship = [
 		<label for="marhala-selectized">Marhala</label>
      <div style={{ width: "100%" }}>
     <Select options={newMurhala} defaultValue={[]}
-        onChange={handleChangeMarhala} />
+        onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
       </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="course">Course</label>
-    <Select options={newGetCourse} defaultValue={[]}/>
+    <Select options={newGetCourse} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Country</label>
     <div style={{ width: "100%" }}>
-    <Select options={newGetCountry} defaultValue={[]}  onChange={handleChangeCountry} />
+    <Select options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
 
           </div>
     </div>
@@ -225,30 +292,30 @@ const Scholarship = [
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">City</label>
 		<div style={{ width: "100%" }}>
-    <Select options={newGetCity} defaultValue={[]}  onChange={handleChangeCity} />
+    <Select options={newGetCity} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
 
           </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="course">Institute</label>
-		<Select options={newGetInstitute} defaultValue={[]}  />
+		<Select options={newGetInstitute} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "institute" )} />
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Accommodation</label>
 		<div style={{ width: "100%" }}>
-    <Select options={newGetAccommodation} defaultValue={[]} />
+    <Select options={newGetAccommodation} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "accommodation" )} />
 
           </div>
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course Start Date</label>
-    <DatePick/>
+    <DatePicker selected={startDate}   customInput={<Input />} onChange={(date) => handleChangeData(date)} />
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course End Date</label>
-    <DatePick/>
+    <DatePick startDate={startDate} handleChangeData={handleChangeData} />
     </div>
 
     <div style={{marginBottom:"20px"}}>
@@ -260,12 +327,12 @@ const Scholarship = [
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Currency</label>
-    <Select options={Currency} defaultValue={[]} />
+    <Select options={Currency} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "currency" )} />
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Scholarship</label>
-    <Select options={Scholarship} defaultValue={[]} />
+    <Select options={Scholarship} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "scholarship" )} />
     </div>
    <div style={{marginBottom:"20px"}} >
     <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Submit</button>
