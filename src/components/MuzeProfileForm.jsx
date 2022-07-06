@@ -35,14 +35,12 @@ export default function MuzeProfileForm() {
     city:"",
     institute:"",
     accommodation:"",
-    course_start_date:"",
-    course_end_date:"",
+    course_start_date:new Date(),
+    course_end_date:new Date(),
     annual_fees:"",
     currency:"",
     scholarship:""
   });
-  const [startDate, setStartDate] = useState(new Date());
-
   const getToken = localStorage.getItem("profile-token")
 
   const dropoutList = [{"its_id":"30376756","name":"Murtaza bhai  Aqeel bhai Fatehpurwala","email":"murtaza.f72@gmail.com","mobile":"+13478454084","age":"25","gender":"M","jamaat_id":"325","jamaat":"NEW YORK","jamiat":"USA","future_edu_track_id":"59952","future_edu_marhala":"7","future_edu_course":"Master of Engineering in Mechanical Engineering - M.E. (Mechanical Engineering)","future_edu_institute":"New York University","future_edu_country":"United States","future_edu_city":"New York","future_edu_jawab":"bb532e35e49213f819399599b4395d94","current_edu_track_id":"59952","current_edu_marhala":"7","current_edu_course":"Master of Engineering in Mechanical Engineering - M.E. (Mechanical Engineering)","current_edu_institute":"New York University","current_edu_country":"United States","current_edu_city":"New York","current_edu_jawab":"bb532e35e49213f819399599b4395d94","last_edu_track_id":"0","last_edu_marhala":"0","last_edu_course":"","last_edu_institute":"","last_edu_country":"","last_edu_city":"","last_edu_jawab":"","raza_status":"Araz done"},{"its_id":"30392093","name":"Abdeali bhai  Mustafa bhai Dhuliyawalla","email":"musti1971@gmail.com","mobile":"+16468248711","age":"24","gender":"M","jamaat_id":"325","jamaat":"NEW YORK","jamiat":"USA","future_edu_track_id":"54272","future_edu_marhala":"7","future_edu_course":"Doctor of Philosophy in Bio Mechanics - Ph.D. (Bio Mechanics)","future_edu_institute":"Rice University","future_edu_country":"United States","future_edu_city":"Houston","future_edu_jawab":"33caf3570c54b9aff2eef2876011f7e4","current_edu_track_id":"54272","current_edu_marhala":"7","current_edu_course":"Doctor of Philosophy in Bio Mechanics - Ph.D. (Bio Mechanics)","current_edu_institute":"Rice University","current_edu_country":"United States","current_edu_city":"Houston","current_edu_jawab":"33caf3570c54b9aff2eef2876011f7e4","last_edu_track_id":"0","last_edu_marhala":"0","last_edu_course":"","last_edu_institute":"","last_edu_country":"","last_edu_city":"","last_edu_jawab":"","raza_status":"Araz done"}]
@@ -174,10 +172,7 @@ export default function MuzeProfileForm() {
 
   const handleSubmitIts = () => {
     setIts(itsValue)
-
   }
-
-
 
  const  newMurhala = murhala?.map((item) => {
   return {
@@ -326,11 +321,11 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course Start Date</label>
-    <DatePicker selected={startDate}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
+    <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course End Date</label>
-    <DatePicker selected={startDate}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
+    <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
     </div>
 
     <div style={{marginBottom:"20px"}}>
