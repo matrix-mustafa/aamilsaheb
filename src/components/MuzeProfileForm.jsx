@@ -52,7 +52,7 @@ export default function MuzeProfileForm() {
 
 
   useEffect(() => {
-    let postItsIds = getIts.replace("/\n/g", ",")
+    let postItsIds = getIts.replace(/\n/gi, ",")
     fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/currentEducationDetails', {
     method: 'post',
     headers: {
