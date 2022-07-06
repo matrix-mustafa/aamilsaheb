@@ -88,6 +88,8 @@ export default function MuzeProfileForm() {
     SetItsData(responseJson)
     let result = Object.values(responseJson?.remaining_its).join("\n");
     setRemaingIts(result)
+    let Itsresult = Object.values(responseJson?.remaining_its).join(",");
+    setEntryFormData({...entryFormData , its_id: Itsresult})
    })
    .catch((error) => {
      console.error(error);
@@ -97,10 +99,30 @@ export default function MuzeProfileForm() {
 
 
 
+  const handleSubmit = () => {
+    fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/postEducationDetails', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${getToken}`,
+     },
+     body: JSON.stringify({
+      ...entryFormData
+ })
+   })
+   .then((response) => response.json())
+   .then((responseJson) => {
+     console.log(responseJson)
+   })
+   .catch((error) => {
+     console.error(error);
+   });
+
+  }
+
+  
   const handleChange = ( selectedOptions , item) => {
-    console.log(selectedOptions , item)
     if(item === "marhala"){
-      console.log(selectedOptions)
       setSelectedMarhala(selectedOptions);
     }else if(item === "country"){
       setSelectedCountry(selectedOptions)
@@ -136,31 +158,24 @@ export default function MuzeProfileForm() {
   }
 
 
-  const handleChangeData = (date) => {
-     console.log(date)
+  const handleChangeData = (date , dateLabel) => {
+    setEntryFormData({...entryFormData ,  [dateLabel]:date })
+
   }
 
-  console.log(startDate);
 
- 
-
-  console.log(entryFormData);
-
-
-  const handleAmount = (e) => [
-    setAmount(e.target.value)
-  ]
+  const handleAmount = (e) => {
+    setEntryFormData({...entryFormData , annual_fees : e.target.value})
+  }
 
   const handleChangeIts = (e) => {
     setItsValue(e.target.value)
-         console.log(e.target.value)
   }
 
   const handleSubmitIts = () => {
     setIts(itsValue)
 
   }
-  console.log(itsData);
 
 
 
@@ -311,11 +326,11 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course Start Date</label>
-    <DatePicker selected={startDate}   customInput={<Input />} onChange={(date) => handleChangeData(date)} />
+    <DatePicker selected={startDate}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course End Date</label>
-    <DatePick startDate={startDate} handleChangeData={handleChangeData} />
+    <DatePicker selected={startDate}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
     </div>
 
     <div style={{marginBottom:"20px"}}>
@@ -335,7 +350,7 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
     <Select options={Scholarship} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "scholarship" )} />
     </div>
    <div style={{marginBottom:"20px"}} >
-    <button type="submit" id="checkItsIdBtn" class="btn btn-primary">Submit</button>
+    <button type="submit" id="checkItsIdBtn" class="btn btn-primary" onClick={handleSubmit} >Submit</button>
    </div>
 
        </div >
