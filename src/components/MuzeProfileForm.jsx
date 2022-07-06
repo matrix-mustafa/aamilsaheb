@@ -66,7 +66,7 @@ export default function MuzeProfileForm() {
    .then((response) => response.json())
    .then((responseJson) => {
     SetItsData(responseJson)
-    var result = Object.values(responseJson?.remaining_its).join(",");
+    var result = Object.values(responseJson?.remaining_its).join("\n");
     console.log(result)
     setRemaingIts(result)
    })
