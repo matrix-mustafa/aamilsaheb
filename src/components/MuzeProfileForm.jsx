@@ -6,6 +6,7 @@ import { useState } from 'react';
 import useFetch from "../useFetch";
 import { useEffect } from 'react';
 import Select from 'react-select'
+import EducationDetail from './EducationDetail';
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
@@ -18,6 +19,12 @@ export default function MuzeProfileForm() {
   const [selectedCity, setSelectedCity] = useState();
   const [getInstitute,  setGetInstitute] = useFetch();
   const [ amount , setAmount] = useState();
+  const [itsValue , setItsValue] = useState("");
+  const [getIts , setIts] = useState("");
+  const [itsData , SetItsData] = useState();
+  const [remaingIts , setRemaingIts] = useState();
+
+  const getToken = localStorage.getItem("profile-token")
 
   const dropoutList = [{"its_id":"30376756","name":"Murtaza bhai  Aqeel bhai Fatehpurwala","email":"murtaza.f72@gmail.com","mobile":"+13478454084","age":"25","gender":"M","jamaat_id":"325","jamaat":"NEW YORK","jamiat":"USA","future_edu_track_id":"59952","future_edu_marhala":"7","future_edu_course":"Master of Engineering in Mechanical Engineering - M.E. (Mechanical Engineering)","future_edu_institute":"New York University","future_edu_country":"United States","future_edu_city":"New York","future_edu_jawab":"bb532e35e49213f819399599b4395d94","current_edu_track_id":"59952","current_edu_marhala":"7","current_edu_course":"Master of Engineering in Mechanical Engineering - M.E. (Mechanical Engineering)","current_edu_institute":"New York University","current_edu_country":"United States","current_edu_city":"New York","current_edu_jawab":"bb532e35e49213f819399599b4395d94","last_edu_track_id":"0","last_edu_marhala":"0","last_edu_course":"","last_edu_institute":"","last_edu_country":"","last_edu_city":"","last_edu_jawab":"","raza_status":"Araz done"},{"its_id":"30392093","name":"Abdeali bhai  Mustafa bhai Dhuliyawalla","email":"musti1971@gmail.com","mobile":"+16468248711","age":"24","gender":"M","jamaat_id":"325","jamaat":"NEW YORK","jamiat":"USA","future_edu_track_id":"54272","future_edu_marhala":"7","future_edu_course":"Doctor of Philosophy in Bio Mechanics - Ph.D. (Bio Mechanics)","future_edu_institute":"Rice University","future_edu_country":"United States","future_edu_city":"Houston","future_edu_jawab":"33caf3570c54b9aff2eef2876011f7e4","current_edu_track_id":"54272","current_edu_marhala":"7","current_edu_course":"Doctor of Philosophy in Bio Mechanics - Ph.D. (Bio Mechanics)","current_edu_institute":"Rice University","current_edu_country":"United States","current_edu_city":"Houston","current_edu_jawab":"33caf3570c54b9aff2eef2876011f7e4","last_edu_track_id":"0","last_edu_marhala":"0","last_edu_course":"","last_edu_institute":"","last_edu_country":"","last_edu_city":"","last_edu_jawab":"","raza_status":"Araz done"}]
   useEffect(() => {
@@ -45,7 +52,31 @@ export default function MuzeProfileForm() {
 
 
 
+  useEffect(() => {
+    fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/currentEducationDetails', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${getToken}`,
+     },
+     body: JSON.stringify({
+      "its_id": getIts
+ })
+   })
+   .then((response) => response.json())
+   .then((responseJson) => {
+    SetItsData(responseJson)
+    var result = Object.values(responseJson?.remaining_its).join(",");
+    console.log(result)
+    setRemaingIts(result)
+   })
+   .catch((error) => {
+     console.error(error);
+   });
 
+  }, [getIts])
+
+  
   const handleChangeMarhala = (selectedOptions) => {
     setSelectedOptions( selectedOptions);
   }
@@ -63,6 +94,17 @@ export default function MuzeProfileForm() {
   const handleAmount = (e) => [
     setAmount(e.target.value)
   ]
+
+  const handleChangeIts = (e) => {
+    setItsValue(e.target.value)
+         console.log(e.target.value)
+  }
+
+  const handleSubmitIts = () => {
+    setIts(itsValue)
+   
+  }
+  console.log(itsData);
 
 
 
@@ -142,13 +184,13 @@ const Scholarship = [
         <h3>Enter or copy paste list of ITS ids of a group of students to check their current education status</h3>
         <div>
             <label>Check ITS ID</label>
-            <textarea class="form-control" id="its_id_list" required="" name="its_id_list" rows="8"></textarea>
-            <button type="submit" id="checkItsIdBtn" class="btn btn-primary mt-3">Check</button>
+            <textarea class="form-control" id="its_id_list" required="" name="its_id_list" rows="8" value={itsValue} onChange={handleChangeIts} ></textarea>
+            <button type="submit" id="checkItsIdBtn" class="btn btn-primary mt-3" onClick={handleSubmitIts} >Check</button>
         </div>
 
     <div className="mb-3 mt-3 itsDataListDiv d-block" >
       <h2>Past Entries of Students Currently Studying</h2>
-      <EducationDetail dropoutList={dropoutList} />
+      <EducationDetail dropoutList={itsData?.currently_studing} />
     </div>
 
        </div>
@@ -156,7 +198,7 @@ const Scholarship = [
         <h3>Data Entry Form</h3>
         <div style={{marginBottom:"20px"}} >
           <label>ITS ID</label>
-          <textarea class="form-control" id="its_id" required="" name="its_id" rows="8"></textarea>
+          <textarea class="form-control" id="its_id" required="" name="its_id" rows="8" value={remaingIts} ></textarea>
         </div>
 
         <div style={{marginBottom:"20px"}}>
