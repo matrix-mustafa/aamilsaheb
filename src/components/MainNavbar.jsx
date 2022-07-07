@@ -19,15 +19,15 @@ export default function MainNavbar(props) {
         navigate('/mauze-profile-entry');
         setActive(1)
       }
-        
+
       }
 
       const onActive = {
-        backgroundColor:"#fff" , 
-        color:"#000" 
+        backgroundColor:"#fff" ,
+        color:"#000"
 
       }
-      
+
   return (
     <Navbar style={{backgroundColor:"#002147" , height: "120px" }} >
         <Container fluid >

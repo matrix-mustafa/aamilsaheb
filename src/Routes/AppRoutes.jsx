@@ -64,9 +64,6 @@ export default function AppRoutes() {
  }
   setToken()
 
-
-  console.log(sidebarData);
-
   return (
     <>
      <BrowserRouter>
