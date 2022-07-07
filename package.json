@@ -19,6 +19,7 @@
     "react-search-autocomplete": "^7.2.2",
     "react-select": "^5.4.0",
     "react-spinners": "^0.12.0",
+    "react-toastify": "^9.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

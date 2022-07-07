@@ -4,6 +4,7 @@ import LandingPage from '../components/LangingPage';
 import { Buffer } from "buffer";
 import MuzeProfileForm from "../components/MuzeProfileForm";
 import useFetch from "../useFetch";
+import { ToastContainer } from "react-toastify";
 import MainNavbar from "../components/MainNavbar";
 
 export default function AppRoutes() {
@@ -72,6 +73,7 @@ export default function AppRoutes() {
             <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} />} />
         </Routes>
      </BrowserRouter>
+     <ToastContainer />
     </>
   )
 }
