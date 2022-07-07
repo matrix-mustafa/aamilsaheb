@@ -11,11 +11,12 @@ export default function LandingPage(props) {
   const {sidebarData , dropoutList  , EduStatus , downloadRecord , handleRequest} = props;
   const [color, setColor] = useState("#00336D");
 
+  // const loggedInUser = JSON.parse(localStorage.getItem("user"))
+  const tanzeemId = 440;
 
   const onLoad = {
     height: "100vh"
   }
-
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
@@ -24,7 +25,7 @@ export default function LandingPage(props) {
   const currentDate = month + ', ' + today.getFullYear();
   return (
     <>
-     
+
       <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }}>
         <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
           {sidebarData ?
@@ -42,11 +43,11 @@ export default function LandingPage(props) {
             <div className='m-4' >
               <Sidebar sidebarData={sidebarData.main_menu} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
-              
+
             <div className='m-4' >
-            <a className='btn-download' style={{position:"static"}} href={`https://talabulilm.com/profile/csvdownload.php`} target = "_blank" > Download All Record</a>
+            <a className='btn-download' style={{position:"static"}} href={`https://talabulilm.com/profile/csvdownload.php?jamaat=${tanzeemId}`} target = "_blank" > Download All Record</a>
             </div>
-          
+
 
             {/* <div className='m-4' >
               <div className='sidebar-content'>Quran Sanad:</div>
@@ -57,7 +58,7 @@ export default function LandingPage(props) {
             <HashLoader color={color} size={30} />
           </div>
           }
-          
+
         </Col>
         <Col xs={9} className='main-content' style={{marginTop:"20px"}}>
           <h3 className='page-title'>
