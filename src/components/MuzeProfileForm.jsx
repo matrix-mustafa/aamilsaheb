@@ -44,12 +44,10 @@ export default function MuzeProfileForm() {
     currency:"",
     scholarship:""
   });
-  const [isLoading , setIsLoading] = useState("false");
   const getToken = localStorage.getItem("profile-token");
 
-  const dropoutList = [{"its_id":"30376756","name":"Murtaza bhai  Aqeel bhai Fatehpurwala","email":"murtaza.f72@gmail.com","mobile":"+13478454084","age":"25","gender":"M","jamaat_id":"325","jamaat":"NEW YORK","jamiat":"USA","future_edu_track_id":"59952","future_edu_marhala":"7","future_edu_course":"Master of Engineering in Mechanical Engineering - M.E. (Mechanical Engineering)","future_edu_institute":"New York University","future_edu_country":"United States","future_edu_city":"New York","future_edu_jawab":"bb532e35e49213f819399599b4395d94","current_edu_track_id":"59952","current_edu_marhala":"7","current_edu_course":"Master of Engineering in Mechanical Engineering - M.E. (Mechanical Engineering)","current_edu_institute":"New York University","current_edu_country":"United States","current_edu_city":"New York","current_edu_jawab":"bb532e35e49213f819399599b4395d94","last_edu_track_id":"0","last_edu_marhala":"0","last_edu_course":"","last_edu_institute":"","last_edu_country":"","last_edu_city":"","last_edu_jawab":"","raza_status":"Araz done"},{"its_id":"30392093","name":"Abdeali bhai  Mustafa bhai Dhuliyawalla","email":"musti1971@gmail.com","mobile":"+16468248711","age":"24","gender":"M","jamaat_id":"325","jamaat":"NEW YORK","jamiat":"USA","future_edu_track_id":"54272","future_edu_marhala":"7","future_edu_course":"Doctor of Philosophy in Bio Mechanics - Ph.D. (Bio Mechanics)","future_edu_institute":"Rice University","future_edu_country":"United States","future_edu_city":"Houston","future_edu_jawab":"33caf3570c54b9aff2eef2876011f7e4","current_edu_track_id":"54272","current_edu_marhala":"7","current_edu_course":"Doctor of Philosophy in Bio Mechanics - Ph.D. (Bio Mechanics)","current_edu_institute":"Rice University","current_edu_country":"United States","current_edu_city":"Houston","current_edu_jawab":"33caf3570c54b9aff2eef2876011f7e4","last_edu_track_id":"0","last_edu_marhala":"0","last_edu_course":"","last_edu_institute":"","last_edu_country":"","last_edu_city":"","last_edu_jawab":"","raza_status":"Araz done"}]
   useEffect(() => {
-    setMurhala("araiz/user/marhalaDetails")
+    setMurhala("araiz/user/marhalaDetails");
     setGetCountry("araiz/user/countryDetails");
     setGetAccommodation("araiz/user/accomodationDetails")
   },[]);
@@ -88,6 +86,7 @@ export default function MuzeProfileForm() {
    .then((response) => response.json())
    .then((responseJson) => {
     SetItsData(responseJson)
+    console.log(responseJson);
     let result = Object.values(responseJson?.remaining_its).join("\n");
     setRemaingIts(result)
     let Itsresult = Object.values(responseJson?.remaining_its).join(",");
@@ -248,6 +247,8 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
 );
 
 
+console.log(newGetCourse)
+
 
   return (
     <>
@@ -272,7 +273,7 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
         </div>
 
     <div className="mb-3 mt-3 itsDataListDiv d-block" >
-      <h2>Past Entries of Students Currently Studying</h2>
+      <h2> {itsData?.currently_studing.length > 0 ? "Past Entries of Students Currently Studying" : "Past Entries Not Found" } </h2>
       <EducationDetail dropoutList={itsData?.currently_studing} />
     </div>
 
@@ -287,14 +288,14 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
         <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Marhala</label>
      <div style={{ width: "100%" }}>
-    <Select options={newMurhala} defaultValue={[]}   isLoading={isLoading}
+    <Select options={newMurhala} defaultValue={[]}   isLoading={ newMurhala === [] ? "false": "true"}
         onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
       </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="course">Course</label>
-    <Select options={newGetCourse} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
+    <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined ? "true": "false"} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
     </div>
 
     <div style={{marginBottom:"20px"}}>

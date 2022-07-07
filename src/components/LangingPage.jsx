@@ -42,6 +42,11 @@ export default function LandingPage(props) {
             <div className='m-4' >
               <Sidebar sidebarData={sidebarData.main_menu} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
+              
+            <div className='m-4' >
+            <a className='btn-download' style={{position:"static"}} href={`https://talabulilm.com/profile/csvdownload.php`} target = "_blank" > Download All Record</a>
+            </div>
+          
 
             {/* <div className='m-4' >
               <div className='sidebar-content'>Quran Sanad:</div>
@@ -52,6 +57,7 @@ export default function LandingPage(props) {
             <HashLoader color={color} size={30} />
           </div>
           }
+          
         </Col>
         <Col xs={9} className='main-content' style={{marginTop:"20px"}}>
           <h3 className='page-title'>
