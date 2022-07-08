@@ -14,10 +14,14 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import "react-datepicker/dist/react-datepicker.css";
 
+// const ErrorsMessage = {
+//   errorMessage: ''
+// }
+
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
-  const [selectedMarhala , setSelectedMarhala] = useState([]);
+  const [selectedMarhala , setSelectedMarhala] = useState({});
   const [getCourse , setGetCourse] = useFetch();
   const [getCountry , setGetCountry] = useFetch();
   const [getCity , setGetCity] = useFetch();
@@ -44,6 +48,18 @@ export default function MuzeProfileForm() {
     currency:"",
     scholarship:""
   });
+  const [errorsMessage, setErrorMessage] = useState({
+    its_id: "",
+    marhala:"",
+    course:"",
+    country:"",
+    city:"",
+    institute:"",
+    accommodation:"",
+    annual_fees:"",
+    currency:"",
+    scholarship:""
+  })
   const getToken = localStorage.getItem("profile-token");
 
   useEffect(() => {
@@ -98,29 +114,48 @@ export default function MuzeProfileForm() {
 
   }, [getIts])
 
+const checkValidation = () => {
+  let validated = true
+  const validationErrors = Object.keys(entryFormData).map(e => {
+    if(!entryFormData[e] ){
+      validated = false
+      return {[e] : 'Please fill this field'}
+    }else if(e === 'course_start_date' || e === 'course_end_date'){
+      validated = false
+      return {[e] : ''}
+    }
+  })
+  if(!validated){
+    setErrorMessage(validationErrors)
+  }
+  return validated
+}
 
+// console.log(errorsMessage[0].its_id)
 
   const handleSubmit = () => {
-  fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/postEducationDetails', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${getToken}`,
-     },
-     body: JSON.stringify({
-      ...entryFormData
- })
-   })
-   .then((response) => response.json())
-   .then((responseJson) => {
-    toast.success("Records added successfully");
-     console.log(responseJson);
-   })
-   .catch((error) => {
-     console.error(error);
-     toast.error("Some Error occured while saving the data");
-   });
-
+    const isValidated = checkValidation()
+    // if(isValidated){
+    fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/postEducationDetails', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${getToken}`,
+      },
+      body: JSON.stringify({
+        ...entryFormData
+  })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      toast.success("Records added successfully");
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+      toast.error("Some Error occured while saving the data");
+    });
+  // }
   }
 
   
@@ -133,31 +168,6 @@ export default function MuzeProfileForm() {
       setSelectedCity(selectedOptions);
     }
     setEntryFormData({...entryFormData , [item]: selectedOptions.label})
-  }
-
-  // const handleChangeCountry = (selectedCountry) => {
-  //   setSelectedCountry(selectedCountry)
-  //   setEntryFormData({...entryFormData , country: selectedCountry.label})
-  // }
-
-  // const handleChangeCity = (selectedCity) => {
-  //   setSelectedCity(selectedCountry);
-  //   setEntryFormData({...entryFormData , city: selectedCity.label})
-  // }
-
-  // const handleChangeCourse = (selectedCourse) => {
-   
-  //   setEntryFormData({...entryFormData , course: selectedCourse.label})
-  // }
-
-  // const handleChangeInstitute = (selectedInstitute) => {
-   
-  //   setEntryFormData({...entryFormData , institute: selectedInstitute.label})
-  // }
-
-  const  handleChangeAccomodation  = (selectedAccomodation) => {
-   
-    setEntryFormData({...entryFormData , accommodation: selectedAccomodation.label})
   }
 
 
@@ -247,7 +257,9 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
 );
 
 
-console.log(newGetCourse)
+console.log(entryFormData);
+
+
 
 
   return (
@@ -288,51 +300,56 @@ console.log(newGetCourse)
         <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Marhala</label>
      <div style={{ width: "100%" }}>
-    <Select options={newMurhala} defaultValue={[]}   isLoading={ newMurhala === [] ? "false": "true"}
+    <Select options={newMurhala}   isLoading={ newMurhala === undefined ? true : false}
         onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
+        <span style={{color:	"#ff0000"}} >{errorsMessage[1]?.marhala}</span>
       </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="course">Course</label>
-    <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined ? "true": "false"} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
+    <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
+    <span style={{color:	"#ff0000"}} >{errorsMessage[2]?.course}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Country</label>
     <div style={{ width: "100%" }}>
     <Select options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
-
+    <span style={{color:	"#ff0000"}} >{errorsMessage[3]?.country}</span>
           </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">City</label>
 		<div style={{ width: "100%" }}>
-    <Select options={newGetCity} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
-
+    <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined ? true: false}   onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
+    <span style={{color:	"#ff0000"}} >{errorsMessage[4]?.city}</span>
           </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="course">Institute</label>
 		<Select options={newGetInstitute} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "institute" )} />
+    <span style={{color:	"#ff0000"}} >{errorsMessage[5]?.institute}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Accommodation</label>
 		<div style={{ width: "100%" }}>
     <Select options={newGetAccommodation} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "accommodation" )} />
-
+    <span style={{color:	"#ff0000"}} >{errorsMessage[6]?.accommodation}</span>
           </div>
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course Start Date</label>
     <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
+    <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
     </div>
     <div style={{marginBottom:"20px"}}>
     <label for="marhala-selectized">Course End Date</label>
     <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
+    <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>

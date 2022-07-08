@@ -8,8 +8,8 @@ import { ToastContainer } from "react-toastify";
 import MainNavbar from "../components/MainNavbar";
 
 export default function AppRoutes() {
-  const [sidebarData  , setSideBarData] = useFetch("profile");
-  const [dropoutList , setDropoutList] = useFetch("profile");
+  const [sidebarData  , setSideBarData] = useFetch();
+  const [dropoutList , setDropoutList] = useFetch();
   const [headerData , setHeaderData] = useFetch("profile/aamilsaheb/details");
   const [userFullName , setUserFullName] = useFetch("profile/ ");
   const [EduStatus , setEduStatus] = useState("Araz done");
