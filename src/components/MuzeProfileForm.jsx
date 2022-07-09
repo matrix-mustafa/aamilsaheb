@@ -9,15 +9,11 @@ import EducationDetail from './EducationDetail';
 import DatePicker from "react-datepicker";
 import  "./datePicker.css"
 import { toast } from 'react-toastify';
+import Modals from "./Modals";
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import "react-datepicker/dist/react-datepicker.css";
-
-// const ErrorsMessage = {
-//   errorMessage: ''
-// }
-
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
@@ -60,6 +56,18 @@ export default function MuzeProfileForm() {
     currency:"",
     scholarship:""
   })
+  // const [modalCountry  , setModalCountry] = useState("");
+  // const [modalCity , setModalCity] = useState({
+  //   country:"",
+  //   city:""
+  // })
+
+  const [modalValue , setModalValue] = useState({
+    country:"",
+    city:"",
+    institute :""
+  })
+
   const getToken = localStorage.getItem("profile-token");
 
   useEffect(() => {
@@ -158,6 +166,31 @@ const checkValidation = () => {
   // }
   }
 
+
+  const handleSubmitModal = (url , getData) => {
+    console.log(url , getData)
+    fetch(`https://www.talabulilm.com/api2022/araiz/${url}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${getToken}`,
+      },
+      body: JSON.stringify({
+        ...getData
+  })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      toast.success("Records added successfully");
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+      toast.error("Some Error occured while saving the data");
+    });
+
+  }
+
   
   const handleChange = ( selectedOptions , item) => {
     if(item === "marhala"){
@@ -176,6 +209,9 @@ const checkValidation = () => {
 
   }
 
+  const handleChangeModal = (e) => {
+    setModalValue({...modalValue ,[e.target.name] : e.target.value})
+  }
 
   const handleAmount = (e) => {
     setEntryFormData({...entryFormData , annual_fees : e.target.value})
@@ -257,7 +293,8 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
 );
 
 
-console.log(entryFormData);
+// console.log(modalCity);]
+
 
 
 
@@ -315,7 +352,8 @@ console.log(entryFormData);
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">Country</label>
     <div style={{ width: "100%" }}>
-    <Select options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
+      <Modals type={"country"} handleChangeModal={handleChangeModal} handleSubmitModal={handleSubmitModal} modalValue={modalValue} />
+    <Select  options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
     <span style={{color:	"#ff0000"}} >{errorsMessage[3]?.country}</span>
           </div>
     </div>
@@ -323,6 +361,7 @@ console.log(entryFormData);
     <div style={{marginBottom:"20px"}}>
 		<label for="marhala-selectized">City</label>
 		<div style={{ width: "100%" }}>
+    <Modals type={"city"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal}/>
     <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined ? true: false}   onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
     <span style={{color:	"#ff0000"}} >{errorsMessage[4]?.city}</span>
           </div>
@@ -330,8 +369,11 @@ console.log(entryFormData);
 
     <div style={{marginBottom:"20px"}}>
 		<label for="course">Institute</label>
+    <div style={{ width: "100%" }}>
+    <Modals type={"institute"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal} />
 		<Select options={newGetInstitute} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "institute" )} />
     <span style={{color:	"#ff0000"}} >{errorsMessage[5]?.institute}</span>
+    </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
