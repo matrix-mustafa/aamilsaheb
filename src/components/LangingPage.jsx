@@ -8,11 +8,8 @@ import Sidebar from './Sidebar';
 import HashLoader from "react-spinners/HashLoader";
 
 export default function LandingPage(props) {
-  const {sidebarData , dropoutList  , EduStatus , downloadRecord , handleRequest} = props;
+  const {sidebarData , dropoutList  , EduStatus , downloadRecord , handleRequest, jamaatId} = props;
   const [color, setColor] = useState("#00336D");
-
-  // const loggedInUser = JSON.parse(localStorage.getItem("user"))
-  const tanzeemId = 440;
 
   const onLoad = {
     height: "100vh"
@@ -31,12 +28,12 @@ export default function LandingPage(props) {
           {sidebarData ?
           <>
             <div className='m-4' >
-              <div className='sidebar-content'>Raza:</div>
+              <div className='sidebar-content'><strong>Raza Status:</strong></div>
               <Sidebar sidebarData={sidebarData.Raza_Status} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
             <div className='m-4' >
-              <div className='sidebar-content'>Stream:</div>
+              <div className='sidebar-content'><strong>Streams / Marhala:</strong></div>
               <Sidebar sidebarData={ sidebarData.Stream} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
@@ -45,7 +42,7 @@ export default function LandingPage(props) {
             </div>
 
             <div className='m-4' >
-            <a className='btn-download' style={{position:"static"}} href={`https://talabulilm.com/profile/csvdownload.php?jamaat=${tanzeemId}`} target = "_blank" > Download All Record</a>
+            <a className='btn-download' style={{position:"static"}} href={`https://talabulilm.com/profile/csvdownload.php?jamaat=${jamaatId}`} target = "_blank" > Download All Record</a>
             </div>
 
 
@@ -64,6 +61,10 @@ export default function LandingPage(props) {
           <h3 className='page-title'>
             Showing results for "{EduStatus}" as of {currentDate}
           </h3>
+          <div className='explaination-box'>
+            <strong>Note:</strong> All the data displayed on this page is fetched from the Araiz mumineen send to Hadrat Aaliyah for their Education, and through the Educational Profile where mumineen update their data.
+Any discrepancy in this data can be resolved through www.talabulilm.com/profile. Mumineen will be able to edit or remove any incorrect data. Currently, Amil saheb will not be able to delete any incorrect entries. But, Amil saheb can add data/survey of students whose data is incomplete through the Education Survey tab
+          </div>
           <a className='btn-download' href={`https://talabulilm.com/profile/csvdownload.php${downloadRecord}`} target = "_blank" > Download</a>
           {
             dropoutList && dropoutList.length !== 0 ?  <EducationDetail dropoutList={dropoutList} /> :

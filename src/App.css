@@ -52,7 +52,7 @@
 
 .loader-content{
   display:flex;
-  height: 100%;
+  min-height: 50vh;
   justify-content:center;
   align-items: center;
 }
@@ -91,6 +91,7 @@
 
 .main-content {
   position: relative;
+  min-height: 80vh;
 }
 
 @keyframes App-logo-spin {
@@ -125,4 +126,12 @@
 
 .top-nav-link:last-child {
   border-bottom-right-radius: 2px;
+}
+
+.explaination-box{
+  padding: 1em;
+  background-color: white;
+  margin-bottom: 0.5em;
+  border-radius: 4px;
+  color: #555;
 }

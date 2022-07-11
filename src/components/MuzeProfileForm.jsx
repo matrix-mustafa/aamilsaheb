@@ -123,7 +123,7 @@ export default function MuzeProfileForm() {
 
   }
 
-  
+
   const handleChange = ( selectedOptions , item) => {
     if(item === "marhala"){
       setSelectedMarhala(selectedOptions);
@@ -146,17 +146,17 @@ export default function MuzeProfileForm() {
   // }
 
   // const handleChangeCourse = (selectedCourse) => {
-   
+
   //   setEntryFormData({...entryFormData , course: selectedCourse.label})
   // }
 
   // const handleChangeInstitute = (selectedInstitute) => {
-   
+
   //   setEntryFormData({...entryFormData , institute: selectedInstitute.label})
   // }
 
   const  handleChangeAccomodation  = (selectedAccomodation) => {
-   
+
     setEntryFormData({...entryFormData , accommodation: selectedAccomodation.label})
   }
 
@@ -259,13 +259,16 @@ console.log(newGetCourse)
         Student's Education Details - Survey Form
         </h2>
         <div className="text-note">
-          This form has been prepared for Ummal Kiraam/Masool al-Mawaze &nbsp; Umoor Talimiyyah Committees for the survey of student's current educational details in their respective mawaze. You may add students details individually and also in bulk.
+          This form has been prepared for Ummal Kiraam/Masool al-Mawaze and Umoor Talimiyyah Committees for the survey of student's current educational details in their respective mawaze. You may add students details individually and also in bulk.
         </div>
        </div>
 
        <div className='form-input-container' >
        <div className='col-8 past-entries' >
-        <h3>Enter or copy paste list of ITS ids of a group of students to check their current education status</h3>
+        <h3>Verify ITS IDs</h3>
+        <div className="text-note">
+          Enter or paste ITS IDs of students whose Education data needs to be updated. The students whose current education data already exists will be shown below in the table. Students with no data, their ITS IDs will be added to the Data Entry Form for entry.
+        </div>
         <div>
             <label>Check ITS ID</label>
             <textarea class="form-control" id="its_id_list" required="" name="its_id_list" rows="8" value={itsValue} onChange={handleChangeIts} ></textarea>
@@ -273,7 +276,7 @@ console.log(newGetCourse)
         </div>
 
     <div className="mb-3 mt-3 itsDataListDiv d-block" >
-      <h2> {itsData?.currently_studing.length > 0 ? "Past Entries of Students Currently Studying" : "Past Entries Not Found" } </h2>
+      <h2> {itsData?.currently_studing.length > 0 ? "Existing entries of these students" : "" } </h2>
       <EducationDetail dropoutList={itsData?.currently_studing} />
     </div>
 
