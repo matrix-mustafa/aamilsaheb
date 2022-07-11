@@ -13,7 +13,7 @@ export default function AppRoutes() {
   const [headerData , setHeaderData] = useFetch("profile/aamilsaheb/details");
   const [userFullName , setUserFullName] = useFetch("profile/ ");
   const [EduStatus , setEduStatus] = useState("Araz done");
-  const [downloadRecord , setDownloadRecord] = useState(null);
+  const [downloadRecord , setDownloadRecord] = useState("/?cmd=razastatus&jamaat=426&raza_status=Araz%20done");
 
 
   const handleRequest = (verb , lable , downlaod) => {
