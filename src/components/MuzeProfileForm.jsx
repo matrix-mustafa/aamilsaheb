@@ -1,6 +1,5 @@
 import React from 'react';
 import "./MuzeForm.css";
-import DatePick from "./Datepick";
 import { useState } from 'react';
 import useFetch from "../useFetch";
 import { useEffect } from 'react';
@@ -56,11 +55,6 @@ export default function MuzeProfileForm() {
     currency:"",
     scholarship:""
   })
-  // const [modalCountry  , setModalCountry] = useState("");
-  // const [modalCity , setModalCity] = useState({
-  //   country:"",
-  //   city:""
-  // })
 
   const [modalValue , setModalValue] = useState({
     country:"",
@@ -77,9 +71,8 @@ export default function MuzeProfileForm() {
   },[]);
 
   useEffect(() => {
-    setGetCourse(`araiz/user/courseDetails/${Number(selectedMarhala.value)}`)
+    selectedMarhala?.value && setGetCourse(`araiz/user/courseDetails/${Number(selectedMarhala.value)}`)
   },[selectedMarhala]);
-
 
   useEffect(() => {
     if(selectedCountry){
@@ -93,29 +86,26 @@ export default function MuzeProfileForm() {
     }
   },[selectedCity]);
 
-
-
   useEffect(() => {
     let postItsIds = getIts.replace(/\n/gi, ",")
     fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/currentEducationDetails', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${getToken}`,
-     },
-     body: JSON.stringify({
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${getToken}`,
+      },
+      body: JSON.stringify({
       "its_id": postItsIds
- })
-   })
-   .then((response) => response.json())
-   .then((responseJson) => {
-    SetItsData(responseJson)
-    console.log(responseJson);
-    let result = Object.values(responseJson?.remaining_its).join("\n");
-    setRemaingIts(result)
-    let Itsresult = Object.values(responseJson?.remaining_its).join(",");
-    setEntryFormData({...entryFormData , its_id: Itsresult})
-   })
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      SetItsData(responseJson)
+      let result = Object.values(responseJson?.remaining_its).join("\n");
+      setRemaingIts(result)
+      let Itsresult = Object.values(responseJson?.remaining_its).join(",");
+      setEntryFormData({...entryFormData , its_id: Itsresult})
+    })
    .catch((error) => {
      console.error(error);
    });
@@ -139,11 +129,8 @@ const checkValidation = () => {
   return validated
 }
 
-// console.log(errorsMessage[0].its_id)
-
   const handleSubmit = () => {
     const isValidated = checkValidation()
-    // if(isValidated){
     fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/postEducationDetails', {
       method: 'post',
       headers: {
@@ -152,7 +139,7 @@ const checkValidation = () => {
       },
       body: JSON.stringify({
         ...entryFormData
-  })
+      })
     })
     .then((response) => response.json())
     .then((responseJson) => {
@@ -163,9 +150,7 @@ const checkValidation = () => {
       console.error(error);
       toast.error("Some Error occured while saving the data");
     });
-  // }
   }
-
 
   const handleSubmitModal = (url , getData) => {
     console.log(url , getData)
@@ -190,7 +175,6 @@ const checkValidation = () => {
     });
 
   }
-
 
   const handleChange = ( selectedOptions , item) => {
     if(item === "marhala"){
@@ -280,24 +264,16 @@ const Scholarship = [
   { value: 'vanilla', label: 'Scholarship' }
 ]
 
-const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
+const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onClick}, ref) => (
   <input
       onChange={onChange}
       placeholder={placeholder}
       value={value}
-      isSecure={isSecure}
+      issecure={issecure}
       id={id}
       onClick={onClick}
   />
-);
-
-
-// console.log(modalCity);]
-
-
-
-
-
+));
   return (
     <>
     <div className='form-container'>
@@ -319,8 +295,8 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
         </div>
         <div>
             <label>Check ITS ID</label>
-            <textarea class="form-control" id="its_id_list" required="" name="its_id_list" rows="8" value={itsValue} onChange={handleChangeIts} ></textarea>
-            <button type="submit" id="checkItsIdBtn" class="btn btn-primary mt-3" onClick={handleSubmitIts} >Check</button>
+            <textarea className="form-control" id="its_id_list" required="" name="its_id_list" rows="8" value={itsValue} onChange={handleChangeIts} ></textarea>
+            <button type="submit" id="checkItsIdBtn" className="btn btn-primary mt-3" onClick={handleSubmitIts} >Check</button>
         </div>
 
     <div className="mb-3 mt-3 itsDataListDiv d-block" >
@@ -333,11 +309,11 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
         <h3>Data Entry Form</h3>
         <div style={{marginBottom:"20px"}} >
           <label>ITS ID</label>
-          <textarea class="form-control" id="its_id" required="" name="its_id" rows="8" value={remaingIts} ></textarea>
+          <textarea className="form-control" id="its_id" required="" name="its_id" rows="8" value={remaingIts} ></textarea>
         </div>
 
         <div style={{marginBottom:"20px"}}>
-		<label for="marhala-selectized">Marhala</label>
+		<label htmlFor="marhala-selectized">Marhala</label>
      <div style={{ width: "100%" }}>
     <Select options={newMurhala}   isLoading={ newMurhala === undefined ? true : false}
         onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
@@ -346,74 +322,64 @@ const Input = ({onChange, placeholder, value, isSecure, id, onClick}) => (
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="course">Course</label>
-    <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
+		<label htmlFor="course">Course</label>
+    <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined && Object.keys(selectedMarhala).length !== 0 ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
     <span style={{color:	"#ff0000"}} >{errorsMessage[2]?.course}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="marhala-selectized">Country</label>
-    <div style={{ width: "100%" }}>
+		  <label htmlFor="marhala-selectized">Country</label>
       <Modals type={"country"} handleChangeModal={handleChangeModal} handleSubmitModal={handleSubmitModal} modalValue={modalValue} />
-    <Select  options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
-    <span style={{color:	"#ff0000"}} >{errorsMessage[3]?.country}</span>
-          </div>
+      <Select  options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
+      <span style={{color:	"#ff0000"}} >{errorsMessage[3]?.country}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="marhala-selectized">City</label>
-		<div style={{ width: "100%" }}>
+		<label htmlFor="marhala-selectized">City</label>
     <Modals type={"city"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal}/>
     <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined ? true: false}   onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
     <span style={{color:	"#ff0000"}} >{errorsMessage[4]?.city}</span>
-          </div>
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="course">Institute</label>
-    <div style={{ width: "100%" }}>
-    <Modals type={"institute"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal} />
-		<Select options={newGetInstitute} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "institute" )} />
-    <span style={{color:	"#ff0000"}} >{errorsMessage[5]?.institute}</span>
-    </div>
+		  <label htmlFor="course">Institute</label>
+        <Modals type={"institute"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal} />
+		    <Select options={newGetInstitute} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "institute" )} />
+        <span style={{color:	"#ff0000"}} >{errorsMessage[5]?.institute}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="marhala-selectized">Accommodation</label>
-		<div style={{ width: "100%" }}>
-    <Select options={newGetAccommodation} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "accommodation" )} />
-    <span style={{color:	"#ff0000"}} >{errorsMessage[6]?.accommodation}</span>
-          </div>
+		  <label htmlFor="marhala-selectized">Accommodation</label>
+        <Select options={newGetAccommodation} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "accommodation" )} />
+        <span style={{color:	"#ff0000"}} >{errorsMessage[6]?.accommodation}</span>
     </div>
     <div style={{marginBottom:"20px"}}>
-    <label for="marhala-selectized">Course Start Date</label>
-    <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
-    <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
+      <label htmlFor="marhala-selectized">Course Start Date</label>
+      <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
+      <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
     </div>
     <div style={{marginBottom:"20px"}}>
-    <label for="marhala-selectized">Course End Date</label>
-    <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
-    <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
+      <label htmlFor="marhala-selectized">Course End Date</label>
+      <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
+      <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="course">Annual Fees</label>
-		{/* <select id="course" name="course" required="" className="form-control"> */}
+		<label htmlFor="course">Annual Fees</label>
     <input type="number" className="form-control" value={amount} onChange={handleAmount} />
-		{/* </select> */}
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="marhala-selectized">Currency</label>
+		<label htmlFor="marhala-selectized">Currency</label>
     <Select options={Currency} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "currency" )} />
     </div>
 
     <div style={{marginBottom:"20px"}}>
-		<label for="marhala-selectized">Scholarship</label>
+		<label htmlFor="marhala-selectized">Scholarship</label>
     <Select options={Scholarship} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "scholarship" )} />
     </div>
    <div style={{marginBottom:"20px"}} >
-    <button type="submit" id="checkItsIdBtn" class="btn btn-primary" onClick={handleSubmit} >Submit</button>
+    <button type="submit" id="checkItsIdBtn" className="btn btn-primary" onClick={handleSubmit} >Submit</button>
    </div>
 
        </div >
