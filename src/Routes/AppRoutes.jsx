@@ -9,6 +9,7 @@ import MainNavbar from "../components/MainNavbar";
 import MobileNavbar from "../components/MobileNavbar";
 import AccordionFilter from "../components/AccordionFilter";
 import HashLoader from "react-spinners/HashLoader";
+import MyTask from "../components/MyTask";
 
 export default function AppRoutes() {
   const [sidebarData  , setSideBarData] = useFetch();
@@ -83,6 +84,7 @@ export default function AppRoutes() {
     </div>
      }
         <Routes>
+             <Route path="/task" element={<MyTask/>} />
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
             <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData[0].jamaat_id} />} />
         </Routes>

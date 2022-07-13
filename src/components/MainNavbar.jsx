@@ -19,6 +19,9 @@ export default function MainNavbar(props) {
       }else if(url === "mauze"){
         navigate('/mauze-profile-entry');
         setActive(1)
+      }else if(url === "task"){
+        navigate('/task');
+        setActive(2)
       }
 
       }
@@ -41,6 +44,7 @@ export default function MainNavbar(props) {
                 <div>
                   <a className='top-nav-link ' style={{...(active === 0 ? onActive : "")}} onClick={ () => handleUrl("home")}  >Home</a>
                   <a className='top-nav-link' style={{...(active === 1 ? onActive : "")}}  onClick={ () => handleUrl("mauze")}>Education Survey</a>
+                  <a className='top-nav-link' style={{...(active === 2 ? onActive : "")}}  onClick={ () => handleUrl("task")}>My Task</a>
                 </div>
               </div>
               <img className='image-content' src={`https://www.talabulilm.com/mumin_images/${userName}.png`} alt='img' />
