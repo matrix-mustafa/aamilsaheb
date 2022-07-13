@@ -26,6 +26,9 @@ export default function LandingPage(props) {
 
       <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }}>
         <Col className='sidebarMedia'  xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
+
+      
+
           {sidebarData ?
           <>
             <div className='m-4' >
@@ -57,7 +60,16 @@ export default function LandingPage(props) {
           </div>
           }
 
+
         </Col>
+        {
+      sidebarData ?
+      <AccordionFilter sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
+        : <div className='loader-content' >
+        <HashLoader  size={30} />
+         </div>
+        }
+
         <Col xs={12} lg={9} className='main-content' style={{marginTop:"20px"}}>
           <h3 className='page-title'>
             Showing results for "{EduStatus}" as of {currentDate}

@@ -75,14 +75,14 @@ export default function AppRoutes() {
      <BrowserRouter>
      <MainNavbar headerData={headerData}  userFullName={userFullName}/>
      <MobileNavbar/>
-     {
+     {/* {
       sidebarData ?
       <AccordionFilter sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
       : <div className='loader-content' >
       <HashLoader  size={30} />
 
     </div>
-     }
+     } */}
         <Routes>
              <Route path="/task" element={<MyTask/>} />
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
