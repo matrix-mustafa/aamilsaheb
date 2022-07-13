@@ -1,5 +1,6 @@
 import React from 'react'
 import CourseDetails from './CourseDetails';
+import "./EducationDetail.css"
 
 export default function EducationDetail (props) {
   const {dropoutList} = props;
@@ -8,7 +9,7 @@ export default function EducationDetail (props) {
     {
         dropoutList && dropoutList.map((item, idx) => (
        <div key={idx} className='user-card'>
-         <div className='d-flex'>
+         <div className='user-card-content'>
            <div className='d-flex' style={{alignItems:"center" , height:"100%" , width:"42%"}} >
              <img src={`https://www.talabulilm.com/mumin_images/${item.its_id}.png`} alt="user" className="user-img"/>
              <div className='user-details'>
@@ -20,7 +21,7 @@ export default function EducationDetail (props) {
              </div>
            </div>
 
-        <div style={{width:"58%"}} >
+        <div className='study-history' >
           <CourseDetails
             course={item.future_edu_course}
             institute={item.future_edu_institute}

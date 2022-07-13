@@ -3,6 +3,7 @@ import logo from "../logotal.png";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router-dom';
+import "./MainNavbar.css"
 
 export default function MainNavbar(props) {
     const {headerData , userFullName} = props
@@ -29,7 +30,7 @@ export default function MainNavbar(props) {
       }
 
   return (
-    <Navbar style={{backgroundColor:"#002147" , height: "120px" }} >
+    <Navbar className='largeContainer' style={{backgroundColor:"#002147" , height: "120px" }} >
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
             <a href='https://www.talabulilm.com'><img className="" src={logo} alt='img' /></a>

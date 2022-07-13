@@ -6,6 +6,9 @@ import MuzeProfileForm from "../components/MuzeProfileForm";
 import useFetch from "../useFetch";
 import { ToastContainer } from "react-toastify";
 import MainNavbar from "../components/MainNavbar";
+import MobileNavbar from "../components/MobileNavbar";
+import AccordionFilter from "../components/AccordionFilter";
+import HashLoader from "react-spinners/HashLoader";
 
 export default function AppRoutes() {
   const [sidebarData  , setSideBarData] = useFetch();
@@ -64,10 +67,29 @@ export default function AppRoutes() {
  }
   setToken()
 
+  console.log(window.innerWidth);
+
   return (
     <>
      <BrowserRouter>
      <MainNavbar headerData={headerData}  userFullName={userFullName}/>
+     <MobileNavbar/>
+     {
+      sidebarData ? 
+
+      <>
+            <div className='m-4' >
+              <AccordionFilter sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
+              </div>  
+      </>
+      
+      : <div className='loader-content' >
+      <HashLoader  size={30} />
+
+             
+    </div>
+     }
+     
         <Routes>
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
             <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData[0].jamaat_id} />} />
@@ -77,3 +99,5 @@ export default function AppRoutes() {
     </>
   )
 }
+
+

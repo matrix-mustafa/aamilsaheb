@@ -6,6 +6,7 @@ import { useState  } from 'react';
 import EducationDetail from './EducationDetail';
 import Sidebar from './Sidebar';
 import HashLoader from "react-spinners/HashLoader";
+import AccordionFilter from './AccordionFilter';
 
 export default function LandingPage(props) {
   const {sidebarData , dropoutList  , EduStatus , downloadRecord , handleRequest, jamaatId} = props;
@@ -24,7 +25,7 @@ export default function LandingPage(props) {
     <>
 
       <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }}>
-        <Col xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
+        <Col className='sidebarMedia'  xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
           {sidebarData ?
           <>
             <div className='m-4' >
@@ -57,7 +58,7 @@ export default function LandingPage(props) {
           }
 
         </Col>
-        <Col xs={9} className='main-content' style={{marginTop:"20px"}}>
+        <Col xs={12} lg={9} className='main-content' style={{marginTop:"20px"}}>
           <h3 className='page-title'>
             Showing results for "{EduStatus}" as of {currentDate}
           </h3>
