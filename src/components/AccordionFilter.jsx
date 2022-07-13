@@ -47,7 +47,7 @@ function AccordionFilter(props) {
 
   console.log(sidebarData)
   return (
-    <div className='hide-in-big'  >
+    <div className=' mt-3 d-block d-sm-none'  >
     <Accordion  defaultActiveKey="0">
       <Card>
         <Card.Header style={{display:"flex" , justifyContent:"space-between" }} >
