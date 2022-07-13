@@ -15,7 +15,7 @@ function CustomToggle({ children, eventKey }) {
 
   return (
     <>
-  
+
     <button
       type="button"
       style={{ backgroundColor: '#00336D' , color:"#fff" , borderRadius:"5px" , textDecoration:"none"  }}
@@ -47,14 +47,14 @@ function AccordionFilter(props) {
 
   console.log(sidebarData)
   return (
-    <div className='hide-in-big'  >
+    <div className='d-block d-sm-none'  >
     <Accordion  defaultActiveKey="0">
-      <Card> 
+      <Card>
         <Card.Header style={{display:"flex" , justifyContent:"space-between" }} >
           <CustomToggle eventKey="1">
           <FontAwesomeIcon color={"#fff"} icon={faFilter} />
             Apply Filter</CustomToggle>
-            <div>{filterText}</div>
+            <div className='font-weight-bold'>{filterText}</div>
         </Card.Header>
         <Accordion.Collapse eventKey="1">
           <Card.Body>

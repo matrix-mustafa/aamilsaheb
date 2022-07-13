@@ -75,21 +75,13 @@ export default function AppRoutes() {
      <MainNavbar headerData={headerData}  userFullName={userFullName}/>
      <MobileNavbar/>
      {
-      sidebarData ? 
-
-      <>
-            <div className='m-4' >
-              <AccordionFilter sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
-              </div>  
-      </>
-      
+      sidebarData ?
+      <AccordionFilter sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
       : <div className='loader-content' >
       <HashLoader  size={30} />
 
-             
     </div>
      }
-     
         <Routes>
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
             <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData[0].jamaat_id} />} />
@@ -99,5 +91,3 @@ export default function AppRoutes() {
     </>
   )
 }
-
-

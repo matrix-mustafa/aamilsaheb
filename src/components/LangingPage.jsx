@@ -62,7 +62,7 @@ export default function LandingPage(props) {
           <h3 className='page-title'>
             Showing results for "{EduStatus}" as of {currentDate}
           </h3>
-          <div className='explaination-box'>
+          <div className='explaination-box d-none d-sm-block'>
             <strong>Note:</strong> All the data displayed on this page is fetched from the Araiz mumineen send to Hadrat Aaliyah for their Education, and through the Educational Profile where mumineen update their data.
 Any discrepancy in this data can be resolved through www.talabulilm.com/profile. Mumineen will be able to edit or remove any incorrect data. Currently, Amil saheb will not be able to delete any incorrect entries. But, Amil saheb can add data/survey of students whose data is incomplete through the Education Survey tab
           </div>
