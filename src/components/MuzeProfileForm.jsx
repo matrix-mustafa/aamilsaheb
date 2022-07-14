@@ -22,7 +22,7 @@ export default function MuzeProfileForm() {
   const [getCity , setGetCity] = useFetch();
   const [getAccommodation , setGetAccommodation] = useFetch();
   const [selectedCountry, setSelectedCountry] = useState();
-  const [selectedCity, setSelectedCity] = useState({});
+  const [selectedCity, setSelectedCity] = useState();
   const [getInstitute,  setGetInstitute] = useFetch();
   const [ amount , setAmount] = useState();
   const [itsValue , setItsValue] = useState("");
@@ -153,7 +153,6 @@ const checkValidation = () => {
   }
 
   const handleSubmitModal = (url , getData) => {
-    console.log(url , getData)
     fetch(`https://www.talabulilm.com/api2022/araiz/${url}`, {
       method: 'post',
       headers: {
@@ -341,7 +340,7 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
 		<label htmlFor="marhala-selectized">City</label>
     <span style={{color:"red"}} >*</span>
     <Modals type={"city"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal}  />
-    <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined && Object.keys(selectedCity).length !== 0 ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
+    <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined  ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
     <span style={{color:	"#ff0000"}} >{errorsMessage[4]?.city}</span>
     </div>
 

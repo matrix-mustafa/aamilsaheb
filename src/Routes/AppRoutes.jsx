@@ -37,7 +37,6 @@ export default function AppRoutes() {
 
   },[headerData])
 
-  console.log(myTask);
 
 
   const getCookie =  (name) => {
@@ -72,7 +71,6 @@ export default function AppRoutes() {
  }
   setToken()
 
-  console.log(window.innerWidth);
 
   return (
     <>
@@ -88,7 +86,7 @@ export default function AppRoutes() {
     </div>
      } */}
         <Routes>
-             <Route path="/task" element={<MyTask myTask={myTask} />} />
+             <Route path="/task" element={<MyTask myTask={myTask} jamaatId={headerData && headerData[0].jamaat_id}/>} />
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
             <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData[0].jamaat_id} />} />
         </Routes>
