@@ -45,7 +45,6 @@ function AccordionFilter(props) {
     color:"#000"
   }
 
-  console.log(sidebarData)
   return (
     <div className=' mt-3 d-block d-sm-none'  >
     <Accordion  defaultActiveKey="0">

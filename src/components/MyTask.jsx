@@ -6,6 +6,8 @@ import { useState } from 'react';
 import DatePicker from "react-datepicker";
 import { Accordion, Button, Form, Row } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 function CustomToggle({ children, eventKey }) {
@@ -28,15 +30,70 @@ function CustomToggle({ children, eventKey }) {
 }
 
 function MyTask(props) {
-   const {myTask} = props;
+   const {myTask , jamaatId } = props;
     const [startDate, setStartDate] = useState(new Date());
+    const [getTaskId , setTaskId] = useState(); 
+    const [taskData , setTaskData] = useState({
+      task_id:"",
+      jamaat_id:"",
+      sub_text:"",
+      sub_date:new Date(),
+      sub_file:""
+    });
+
+
+    useEffect(() => {
+      setTaskData({...taskData , jamaat_id:jamaatId})
+    }, []);
+
+
+    const getToken = localStorage.getItem("profile-token");
+    
+
+    const handleSubmit = () => {
+      fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/reportUpload', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${getToken}`,
+        },
+        body: JSON.stringify({
+          ...taskData
+        })
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        toast.success("Records added successfully");
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Some Error occured while saving the data");
+      });
+    }
+
+    const handleComment = (e) => {
+      setTaskData({...taskData , sub_text: e.target.value})
+    }
+
+    const handleChangeData = (date) => {
+      setTaskData({...taskData , sub_date: date})
+    }
+
+    const handleFile = (e) => {
+      setTaskData({...taskData , sub_file:e.target.value })
+    }
+
+    
+
+  
 
   return (
     <div  className="col-12 px-2 mt-3 " >
       {
         myTask?.map((item, idx) => (
 
-          <Accordion key={idx}>
+          <Accordion key={idx} onClick={() => setTaskId({...taskData , task_id: item.task_id})} >
           <Accordion.Item eventKey="0" className={`mb-2 ${item.sub_id === null ? 'border-warning' : 'border-success'}`} >
             <Accordion.Header className='border-bottom' >
               {
@@ -53,25 +110,26 @@ function MyTask(props) {
                   item.sub_id === null ?   <Form>
                   <Row className='m-2' >
                   <Form.Group className="p-2  col-12 " controlId="formBasicEmail">
-                    <Form.Label>Attach Report</Form.Label>
-                    <Form.Control as="textarea" placeholder="Leave a comment here" />
+                    <Form.Control as="textarea" placeholder="Leave a comment here" onChange={handleComment} />
                   </Form.Group>
 
                   <Form.Group className="p-2  col-12 col-md-6" controlId="formBasicEmail">
                     <Form.Label>Attach Report</Form.Label>
                     <div>
-                    <input
+                    <input 
                       type="file"
                       aria-describedby="inputGroupFileAddon01"
+                      onChange={handleFile} 
                     />
                     </div>
                   </Form.Group>
             
                   <Form.Group className="p-2  col-12  col-md-6" controlId="formBasicPassword">
                     <Form.Label>Date of Barnamaj</Form.Label>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                    {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                    <DatePicker selected={taskData.sub_date}  onChange={(date) => handleChangeData(date)} />
                   </Form.Group>
-                  <Button   variant="primary" type="submit">
+                  <Button   variant="primary"  onClick={  handleSubmit} >
                     Submit
                   </Button>
                   </Row>
