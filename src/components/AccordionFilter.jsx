@@ -47,7 +47,7 @@ function AccordionFilter(props) {
 
   console.log(sidebarData)
   return (
-    <div className=' mt-3 d-block d-sm-none'  >
+    <div className=' mt-1 d-block d-sm-none'  >
     <Accordion  defaultActiveKey="0">
       <Card>
         <Card.Header style={{display:"flex" , justifyContent:"space-between" }} >
@@ -83,7 +83,7 @@ function AccordionFilter(props) {
     }
 
 
-<div className='m-4' >
+<div className='sidebar-content'><strong>Other:</strong></div>
 {
       sidebarData && sidebarData?.main_menu.map((item, idx) => (
     <div key={idx} className='d-flex '  style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px" , cursor:"pointer"}} onClick={() => handleRequest(item.verb , item.label , item.download)}   >
@@ -94,7 +94,6 @@ function AccordionFilter(props) {
     </div>
       ))
     }
-</div>
           </Card.Body>
         </Accordion.Collapse>
       </Card>
