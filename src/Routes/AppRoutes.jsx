@@ -18,6 +18,7 @@ export default function AppRoutes() {
   const [userFullName , setUserFullName] = useFetch("profile/ ");
   const [EduStatus , setEduStatus] = useState("Araz done");
   const [downloadRecord , setDownloadRecord] = useState("/?cmd=razastatus&jamaat=426&raza_status=Araz%20done");
+  const [myTask , setMyTask] = useFetch();
 
 
   const handleRequest = (verb , lable , downlaod) => {
@@ -29,11 +30,14 @@ export default function AppRoutes() {
 
   useEffect(() => {
     if(headerData && headerData[0].jamaat_id){
+      setMyTask(`profile/aamilsaheb/taskList/${headerData && headerData[0].jamaat_id}`)
       setSideBarData(`profile/aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
       setDropoutList(`profile/aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
     }
 
   },[headerData])
+
+  console.log(myTask);
 
 
   const getCookie =  (name) => {
@@ -84,7 +88,7 @@ export default function AppRoutes() {
     </div>
      } */}
         <Routes>
-             <Route path="/task" element={<MyTask/>} />
+             <Route path="/task" element={<MyTask myTask={myTask} />} />
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
             <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData[0].jamaat_id} />} />
         </Routes>

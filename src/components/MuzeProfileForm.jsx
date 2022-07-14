@@ -22,7 +22,7 @@ export default function MuzeProfileForm() {
   const [getCity , setGetCity] = useFetch();
   const [getAccommodation , setGetAccommodation] = useFetch();
   const [selectedCountry, setSelectedCountry] = useState();
-  const [selectedCity, setSelectedCity] = useState();
+  const [selectedCity, setSelectedCity] = useState({});
   const [getInstitute,  setGetInstitute] = useFetch();
   const [ amount , setAmount] = useState();
   const [itsValue , setItsValue] = useState("");
@@ -314,6 +314,7 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
 
         <div style={{marginBottom:"20px"}}>
 		<label htmlFor="marhala-selectized">Marhala</label>
+    <span style={{color:"red"}} >*</span>
      <div style={{ width: "100%" }}>
     <Select options={newMurhala}   isLoading={ newMurhala === undefined ? true : false}
         onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
@@ -323,12 +324,14 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
 
     <div style={{marginBottom:"20px"}}>
 		<label htmlFor="course">Course</label>
+    <span style={{color:"red"}} >*</span>
     <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined && Object.keys(selectedMarhala).length !== 0 ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
     <span style={{color:	"#ff0000"}} >{errorsMessage[2]?.course}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		  <label htmlFor="marhala-selectized">Country</label>
+      <span style={{color:"red"}} >*</span>
       <Modals type={"country"} handleChangeModal={handleChangeModal} handleSubmitModal={handleSubmitModal} modalValue={modalValue} />
       <Select  options={newGetCountry} defaultValue={[]}   onChange={ (selectedOptions) => handleChange(selectedOptions , "country" )} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[3]?.country}</span>
@@ -336,13 +339,15 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
 
     <div style={{marginBottom:"20px"}}>
 		<label htmlFor="marhala-selectized">City</label>
-    <Modals type={"city"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal}/>
-    <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined ? true: false}   onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
+    <span style={{color:"red"}} >*</span>
+    <Modals type={"city"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal}  />
+    <Select options={newGetCity} defaultValue={[]}  isLoading={ newGetCity === undefined && Object.keys(selectedCity).length !== 0 ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "city" )} />
     <span style={{color:	"#ff0000"}} >{errorsMessage[4]?.city}</span>
     </div>
 
     <div style={{marginBottom:"20px"}}>
 		  <label htmlFor="course">Institute</label>
+      <span style={{color:"red"}} >*</span>
         <Modals type={"institute"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal} />
 		    <Select options={newGetInstitute} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "institute" )} />
         <span style={{color:	"#ff0000"}} >{errorsMessage[5]?.institute}</span>
@@ -350,16 +355,19 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
 
     <div style={{marginBottom:"20px"}}>
 		  <label htmlFor="marhala-selectized">Accommodation</label>
+      <span style={{color:"red"}} >*</span>
         <Select options={newGetAccommodation} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "accommodation" )} />
         <span style={{color:	"#ff0000"}} >{errorsMessage[6]?.accommodation}</span>
     </div>
     <div style={{marginBottom:"20px"}}>
       <label htmlFor="marhala-selectized">Course Start Date</label>
+      <span style={{color:"red"}} >*</span>
       <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
     </div>
     <div style={{marginBottom:"20px"}}>
       <label htmlFor="marhala-selectized">Course End Date</label>
+      <span style={{color:"red"}} >*</span>
       <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
     </div>
