@@ -57,7 +57,7 @@ function MyTask(props) {
 
           <Accordion >
           <Accordion.Item eventKey="0"    style={{marginBottom:"20px" ,  ...(item.sub_id === null ? SubIdNull: GetSubId)}} >
-            <Accordion.Header>
+            <Accordion.Header className='border-bottom border-warning' >
               {
                 item.sub_id === null ? <FontAwesomeIcon color={"#957B2E"} icon={faCircleNotch} /> : <FontAwesomeIcon color={"#6E777F"} icon={faCheck} />
               }
