@@ -86,14 +86,14 @@ function MyTask(props) {
 
     
 
-  
+  console.log(taskData)
 
   return (
     <div  className="col-12 px-2 mt-3 " >
       {
         myTask?.map((item, idx) => (
 
-          <Accordion key={idx} onClick={() => setTaskId({...taskData , task_id: item.task_id})} >
+          <Accordion key={idx} onClick={() => setTaskData({...taskData , task_id: item.task_id})} >
           <Accordion.Item eventKey="0" className={`mb-2 ${item.sub_id === null ? 'border-warning' : 'border-success'}`} >
             <Accordion.Header className='border-bottom' >
               {
