@@ -46,48 +46,28 @@ function MyTask(props) {
               </Accordion.Header>
             <Accordion.Body className='p-0' >
               <div className="text-muted p-3" >
-                {item.task_description}
+              <div dangerouslySetInnerHTML={{__html: item.task_description}} />
               </div>
-              <div className='row border-top' >
-    <Form>
-      <Row>
-      <Form.Group className="p-2 col-12 col-md-6" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-
-      <Form.Group className="p-2 col-12 col-md-6" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-      </Row>
-    </Form>
-                  <div className='col-12 col-md-7'>
-                    <textarea style={{ height:"72px" }} className="form-control" id="its_id_list" required="" name="its_id_list" rows="8" ></textarea>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <div className='row'>
-                      <div className='col-12 col-md-6' >
-                          <div className='mx-2' >Attach Report</div>
-                          <input type="file" />
-                      </div>
-                      <div className='col-12 col-md-6'>
-                        <div className='mx-2' >Date of Barnamaj</div>
-                        <div>
-                          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-                        </div>
-                          <Button className='mx-3' variant="success" >Submit</Button>
-                        </div>
-                      </div>
-
-                  </div>
-
+              <div className=' border-top' >
+                {
+                  item.sub_id === null ?   <Form>
+                  <Row className='m-2' >
+                  <Form.Group className="p-2  col-12 col-md-6" controlId="formBasicEmail">
+                    <Form.Label>Attach Report</Form.Label>
+                    <Form.Control as="textarea" placeholder="Leave a comment here" />
+                  </Form.Group>
+            
+                  <Form.Group className="p-2  col-12  col-md-6" controlId="formBasicPassword">
+                    <Form.Label>Date of Barnamaj</Form.Label>
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                  </Form.Group>
+                  <Button   variant="primary" type="submit">
+                    Submit
+                  </Button>
+                  </Row>
+                </Form> : ""
+                }
+   
               </div>
 
             </Accordion.Body>
