@@ -35,14 +35,17 @@ export default function MobileNavbar() {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav">
       <FontAwesomeIcon color={"#fff"} icon={faBars} />
-</Navbar.Toggle>
+      </Navbar.Toggle>
       <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Toggle aria-controls="basic-navbar-nav">
         <Nav className="mr-auto">
-          <div className="text-light"  onClick={ () => handleNavigate("home")} >Home</div>
-          <div className="text-light"  onClick={ () => handleNavigate("mauze")} >Education Survey</div>
-          <div className="text-light"  onClick={ () => handleNavigate("task")} >My Tasks</div>
+          <Nav.Link className="text-light text-start"   onClick={ () => handleNavigate("home")} >Home</Nav.Link>
+          <Nav.Link className="text-light text-start"   onClick={ () => handleNavigate("mauze")} >Education Survey</Nav.Link>
+          <Nav.Link className="text-light text-start"  onClick={ () => handleNavigate("task")} >My Tasks</Nav.Link>
         </Nav>
+      </Navbar.Toggle>
       </Navbar.Collapse>
+    
     </Navbar>
   );
 }

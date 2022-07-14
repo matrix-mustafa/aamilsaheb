@@ -52,9 +52,19 @@ function MyTask(props) {
                 {
                   item.sub_id === null ?   <Form>
                   <Row className='m-2' >
-                  <Form.Group className="p-2  col-12 col-md-6" controlId="formBasicEmail">
+                  <Form.Group className="p-2  col-12 " controlId="formBasicEmail">
                     <Form.Label>Attach Report</Form.Label>
                     <Form.Control as="textarea" placeholder="Leave a comment here" />
+                  </Form.Group>
+
+                  <Form.Group className="p-2  col-12 col-md-6" controlId="formBasicEmail">
+                    <Form.Label>Attach Report</Form.Label>
+                    <div>
+                    <input
+                      type="file"
+                      aria-describedby="inputGroupFileAddon01"
+                    />
+                    </div>
                   </Form.Group>
             
                   <Form.Group className="p-2  col-12  col-md-6" controlId="formBasicPassword">
