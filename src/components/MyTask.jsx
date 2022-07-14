@@ -51,12 +51,12 @@ function MyTask(props) {
 
 
   return (
-    <div style={{marginLeft:"70px" , marginTop:"50px" }} className="col-10" >
+    <div  className="col-12 px-5 mt-3 " >
       {
         myTask?.map((item) => (
 
           <Accordion >
-          <Accordion.Item eventKey="0"    style={{marginBottom:"20px" ,  ...(item.sub_id === null ? SubIdNull: GetSubId)}} >
+          <Accordion.Item eventKey="0" className='mb-3'   style={{ ...(item.sub_id === null ? SubIdNull: GetSubId)}} >
             <Accordion.Header className='border-bottom border-warning' >
               {
                 item.sub_id === null ? <FontAwesomeIcon color={"#957B2E"} icon={faCircleNotch} /> : <FontAwesomeIcon color={"#6E777F"} icon={faCheck} />
