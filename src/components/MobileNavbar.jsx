@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function MobileNavbar() {
+export default function MobileNavbar(props) {
+  const {headerData} = props
   const navigate = useNavigate();
 
   const handleNavigate = (url) => {
@@ -31,7 +32,7 @@ export default function MobileNavbar() {
           height="30"
           className="d-inline-block align-top"
         /> */}
-        Ummal Module
+         Age: 3-27<br />{`${headerData ? headerData[0]?.jamaat : ""}`}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav">
       <FontAwesomeIcon color={"#fff"} icon={faBars} />

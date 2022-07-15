@@ -56,6 +56,7 @@ function AccordionFilter(props) {
             <div className='font-weight-bold'>{filterText}</div>
         </Card.Header>
         <Accordion.Collapse eventKey="1">
+        <CustomToggle  className="toggle-element" eventKey="1">
           <Card.Body>
           <div className='sidebar-content'><strong>Raza Status:</strong></div>
       {
@@ -82,7 +83,6 @@ function AccordionFilter(props) {
     }
 
 
-<div className='m-4' >
 {
       sidebarData && sidebarData?.main_menu.map((item, idx) => (
     <div key={idx} className='d-flex '  style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px" , cursor:"pointer"}} onClick={() => handleRequest(item.verb , item.label , item.download)}   >
@@ -93,8 +93,8 @@ function AccordionFilter(props) {
     </div>
       ))
     }
-</div>
           </Card.Body>
+          </CustomToggle>
         </Accordion.Collapse>
       </Card>
     </Accordion>
