@@ -32,7 +32,7 @@ export default function MobileNavbar(props) {
           height="30"
           className="d-inline-block align-top"
         /> */}
-         Age: 3-27<br />{`${headerData ? headerData[0]?.jamaat : ""}`}
+        {`${headerData ? headerData[0]?.jamaat : ""}`} Age Group: 3-27
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav">
       <FontAwesomeIcon color={"#fff"} icon={faBars} />
@@ -46,7 +46,7 @@ export default function MobileNavbar(props) {
         </Nav>
       </Navbar.Toggle>
       </Navbar.Collapse>
-    
+
     </Navbar>
   );
 }
