@@ -18,6 +18,25 @@ function CustomToggle({ children, eventKey }) {
 
     <button
       type="button"
+      className="toggle-element"
+      onClick={decoratedOnClick}
+    >
+      {children}
+    </button>
+    </>
+  );
+}
+
+function CustomToggleOne({ children, eventKey }) {
+  const decoratedOnClick = useAccordionButton(eventKey, () =>
+    console.log('totally custom!'),
+  );
+
+  return (
+    <>
+
+    <button
+      type="button"
       style={{ backgroundColor: '#00336D' , color:"#fff" , borderRadius:"5px" , textDecoration:"none"  }}
       onClick={decoratedOnClick}
     >
@@ -50,13 +69,13 @@ function AccordionFilter(props) {
     <Accordion  defaultActiveKey="0">
       <Card>
         <Card.Header style={{display:"flex" , justifyContent:"space-between" }} >
-          <CustomToggle eventKey="1">
+          <CustomToggleOne eventKey="1">
           <FontAwesomeIcon color={"#fff"} icon={faFilter} />
-            Apply Filter</CustomToggle>
+            Apply Filter</CustomToggleOne>
             <div className='font-weight-bold'>{filterText}</div>
         </Card.Header>
         <Accordion.Collapse eventKey="1">
-        <CustomToggle  className="toggle-element" eventKey="1">
+        <CustomToggle   eventKey="1">
           <Card.Body>
           <div className='sidebar-content'><strong>Raza Status:</strong></div>
       {

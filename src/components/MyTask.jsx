@@ -31,7 +31,7 @@ function CustomToggle({ children, eventKey }) {
 }
 
 function MyTask(props) {
-   const { jamaatId } = props;
+   const {jamaatId } = props;
     const [startDate, setStartDate] = useState(new Date());
     const [myTask , setMyTask] = useFetch();
     const [getTaskId , setTaskId] = useState(); 
@@ -43,11 +43,6 @@ function MyTask(props) {
       sub_date:new Date(),
       sub_file:""
     });
-
-
-    useEffect(() => {
-      setTaskData(jamaatId && jamaatId)
-    }, []);
 
     useEffect(() => {
       if(jamaatId && jamaatId){
@@ -61,7 +56,7 @@ function MyTask(props) {
     
 
     const handleSubmit = () => {
-      setCallMyTask(!callMytask);
+      // setCallMyTask(!callMytask);
       fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/reportUpload', {
         method: 'post',
         headers: {
@@ -138,7 +133,7 @@ function MyTask(props) {
                   <Form.Group className="p-2  col-12  col-md-6" controlId="formBasicPassword">
                     <Form.Label>Date of Barnamaj</Form.Label>
                     {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                    <DatePicker selected={taskData.sub_date}  onChange={(date) => handleChangeData(date)} />
+                    <DatePicker selected={taskData?.sub_date}  onChange={(date) => handleChangeData(date)} />
                   </Form.Group>
                   <Button   variant="primary"  onClick={  handleSubmit} >
                     Submit
