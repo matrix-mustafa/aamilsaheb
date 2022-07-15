@@ -8,6 +8,7 @@ import { Accordion, Button, Form, Row } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import useFetch from '../useFetch';
 
 
 function CustomToggle({ children, eventKey }) {
@@ -30,9 +31,11 @@ function CustomToggle({ children, eventKey }) {
 }
 
 function MyTask(props) {
-   const {myTask , jamaatId } = props;
+   const { jamaatId } = props;
     const [startDate, setStartDate] = useState(new Date());
+    const [myTask , setMyTask] = useFetch();
     const [getTaskId , setTaskId] = useState(); 
+    const [callMytask , setCallMyTask] = useState(true);
     const [taskData , setTaskData] = useState({
       task_id:"",
       jamaat_id:"",
@@ -43,14 +46,22 @@ function MyTask(props) {
 
 
     useEffect(() => {
-      setTaskData({...taskData , jamaat_id:jamaatId})
+      setTaskData(jamaatId && jamaatId)
     }, []);
+
+    useEffect(() => {
+      if(jamaatId && jamaatId){
+        setMyTask(`profile/aamilsaheb/taskList/${jamaatId && jamaatId}`)
+      }
+  
+    },[jamaatId , callMytask ])
 
 
     const getToken = localStorage.getItem("profile-token");
     
 
     const handleSubmit = () => {
+      setCallMyTask(!callMytask);
       fetch('https://www.talabulilm.com/api2022/profile/aamilsaheb/reportUpload', {
         method: 'post',
         headers: {
