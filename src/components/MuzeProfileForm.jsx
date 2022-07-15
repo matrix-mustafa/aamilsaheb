@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import  "./datePicker.css"
 import { toast } from 'react-toastify';
 import Modals from "./Modals";
+import  {Col , Row} from 'react-bootstrap';
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -287,7 +288,8 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
        </div>
 
        <div className='form-input-container' >
-       <div className='col-8 past-entries' >
+        <Row>
+       <Col sm={12} lg={8} className=' past-entries' >
         <h3>Verify ITS IDs</h3>
         <div className="text-note">
           Enter or paste ITS IDs of students whose Education data needs to be updated. The students whose current education data already exists will be shown below in the table. Students with no data, their ITS IDs will be added to the Data Entry Form for entry.
@@ -303,8 +305,8 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
       <EducationDetail dropoutList={itsData?.currently_studing} />
     </div>
 
-       </div>
-       <div className='col-4 entry-form' >
+       </Col>
+       <Col sm={12} lg={3} className=' entry-form' >
         <h3>Data Entry Form</h3>
         <div style={{marginBottom:"20px"}} >
           <label>ITS ID</label>
@@ -389,7 +391,8 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
     <button type="submit" id="checkItsIdBtn" className="btn btn-primary" onClick={handleSubmit} >Submit</button>
    </div>
 
-       </div >
+       </Col >
+        </Row>
 
        </div>
     </div>
