@@ -65,7 +65,7 @@ export default function LandingPage(props) {
         {
       sidebarData ?
       <AccordionFilter sidebarData={sidebarData} handleRequest={handleRequest} EduStatus={EduStatus}/>
-        : <div className='loader-content' >
+        : <div className='loader-content text-center mt-5 d-block d-sm-none' >
         <HashLoader  size={30} />
          </div>
         }

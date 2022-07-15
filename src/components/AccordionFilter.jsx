@@ -56,6 +56,7 @@ function AccordionFilter(props) {
             <div className='font-weight-bold'>{filterText}</div>
         </Card.Header>
         <Accordion.Collapse eventKey="1">
+        <CustomToggle  className="toggle-element" eventKey="1">
           <Card.Body>
           <div className='sidebar-content'><strong>Raza Status:</strong></div>
       {
@@ -94,6 +95,7 @@ function AccordionFilter(props) {
       ))
     }
           </Card.Body>
+          </CustomToggle>
         </Accordion.Collapse>
       </Card>
     </Accordion>
