@@ -25,9 +25,7 @@ export default function LandingPage(props) {
     <>
 
       <Row style={{backgroundColor:"#E5E5E5" , margin:"0px" , ...(!sidebarData ? onLoad : "") }}>
-        <Col className='sidebarMedia'  xs={3} style={{backgroundColor:"#fff" , marginTop:"20px"}}>
-
-
+        <Col className='sidebarMedia mt-1'  xs={3} style={{backgroundColor:"#fff"}}>
 
           {sidebarData ?
           <>
@@ -36,12 +34,13 @@ export default function LandingPage(props) {
               <Sidebar sidebarData={sidebarData.Raza_Status} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
-            <div className='m-4' >
+            <div className={`m-4 ${Array.isArray(sidebarData.Stream) && sidebarData.Stream.length > 0 ? '' : 'd-none'}`} >
               <div className='sidebar-content'><strong>Streams / Marhala:</strong></div>
               <Sidebar sidebarData={ sidebarData.Stream} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
             <div className='m-4' >
+              <div className='sidebar-content'><strong>Other Categories:</strong></div>
               <Sidebar sidebarData={sidebarData.main_menu} handleRequest={handleRequest} EduStatus={EduStatus}/>
             </div>
 
@@ -75,8 +74,11 @@ export default function LandingPage(props) {
             Showing results for "{EduStatus}" as of {currentDate}
           </h3>
           <div className='explaination-box d-none d-sm-block'>
-            <strong>Note:</strong> All the data displayed on this page is fetched from the Araiz mumineen send to Hadrat Aaliyah for their Education, and through the Educational Profile where mumineen update their data.
-Any discrepancy in this data can be resolved through www.talabulilm.com/profile. Mumineen will be able to edit or remove any incorrect data. Currently, Amil saheb will not be able to delete any incorrect entries. But, Amil saheb can add data/survey of students whose data is incomplete through the Education Survey tab
+            <p><strong>Note:</strong> All the data displayed on this page is fetched from the Araiz mumineen send to Hadrat Aaliyah for their Education, and through the Educational Profile where mumineen update their data.
+Any discrepancy in this data can be resolved through www.talabulilm.com/profile. Mumineen will be able to edit or remove any incorrect data. Currently, Amil saheb will not be able to delete any incorrect entries. But, Amil saheb can add data/survey of students whose data is incomplete through the Education Survey tab</p>
+            {(EduStatus === 'Migrated In for current education' || EduStatus === 'Migrated Out for current education') &&
+            <p>The data displayed on this page consists of Student's who have migrated from other cities to the Cluster that your mauze belongs to. It cannot be determined that which insitute belongs to which Mohalla or Mauze, therefore Talabulilm has created Clusters of citites that are geographically very close to the insitutes. And all these insitutes are tagged with its respective clusters. The results currently displayed will be shown to all mawaze in your Cluster</p>
+            }
           </div>
           <a className='btn-download' href={`https://talabulilm.com/profile/csvdownload.php${downloadRecord}`} target = "_blank" > Download</a>
           {

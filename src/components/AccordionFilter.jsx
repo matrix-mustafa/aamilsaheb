@@ -47,7 +47,7 @@ function CustomToggleOne({ children, eventKey }) {
 }
 
 function AccordionFilter(props) {
-  const [filterText , setFilterText] = useState("Araz Done");
+  const [filterText , setFilterText] = useState("Araz done for currently studying");
   const {sidebarData , handleRequest , EduStatus, streamData} = props;
 
   const darkColor = {
@@ -102,7 +102,7 @@ function AccordionFilter(props) {
     }
 
 
-<div className='sidebar-content'><strong>Other:</strong></div>
+<div className='sidebar-content'><strong>Other Categories:</strong></div>
 {
       sidebarData && sidebarData?.main_menu.map((item, idx) => (
     <div key={idx} className='d-flex '  style={{width:"100%" , ...(EduStatus === item.label ? darkColor : whiteColor), borderRadius:"4px" ,padding:"5px", marginBottom:"4px" , cursor:"pointer"}} onClick={() => handleRequest(item.verb , item.label , item.download)}   >

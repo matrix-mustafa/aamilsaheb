@@ -279,58 +279,64 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
     <div className='form-container'>
     <div className='container mt-3 row form-cotent' >
        <div className='form-header'>
-        <h2>
-        Student's Education Details - Survey Form
-        </h2>
-        <div className="text-note">
-          This form has been prepared for Ummal Kiraam/Masool al-Mawaze and Umoor Talimiyyah Committees for the survey of student's current educational details in their respective mawaze. You may add students details individually and also in bulk.
-        </div>
+        <Row>
+          <Col sm={12}>
+            <div className='past-entries'>
+              <h3>Student's Education Details - Survey Form</h3>
+              <div className="text-note">
+                This form has been prepared for Ummal Kiraam/Masool al-Mawaze and Umoor Talimiyyah Committees for the survey of student's current educational details in their respective mawaze. You may add students details individually and also in bulk.
+              </div>
+            </div>
+          </Col>
+        </Row>
        </div>
 
        <div className='form-input-container' >
         <Row>
-       <Col sm={12} lg={8} className=' past-entries' >
-        <h3>Verify ITS IDs</h3>
-        <div className="text-note">
-          Enter or paste ITS IDs of students whose Education data needs to be updated. The students whose current education data already exists will be shown below in the table. Students with no data, their ITS IDs will be added to the Data Entry Form for entry.
-        </div>
-        <div>
-            <label>Check ITS ID</label>
-            <textarea className="form-control" id="its_id_list" required="" name="its_id_list" rows="8" value={itsValue} onChange={handleChangeIts} ></textarea>
-            <button type="submit" id="checkItsIdBtn" className="btn btn-primary mt-3" onClick={handleSubmitIts} >Check</button>
-        </div>
+       <Col sm={12} lg={8}>
+        <div className='past-entries'>
+          <h3>Verify ITS IDs</h3>
+          <div className="text-note">
+            Enter or paste ITS IDs of students whose Education data needs to be updated. The students whose current education data already exists will be shown below in the table. Students with no data, their ITS IDs will be added to the Data Entry Form for entry.
+          </div>
+          <div>
+              <label>Check ITS ID</label>
+              <textarea className="form-control" id="its_id_list" required="" name="its_id_list" rows="8" value={itsValue} onChange={handleChangeIts} ></textarea>
+              <button type="submit" id="checkItsIdBtn" className="btn btn-primary mt-3" onClick={handleSubmitIts} >Check</button>
+          </div>
 
-    <div className="mb-3 mt-3 itsDataListDiv d-block" >
-      <h2> {itsData?.currently_studing.length > 0 ? "Existing entries of these students" : "" } </h2>
-      <EducationDetail dropoutList={itsData?.currently_studing} />
-    </div>
-
+          <div className="mb-3 mt-3 itsDataListDiv d-block" >
+            <h2> {itsData?.currently_studing.length > 0 ? "Existing entries of these students" : "" } </h2>
+            <EducationDetail dropoutList={itsData?.currently_studing} />
+          </div>
+        </div>
        </Col>
-       <Col sm={12} lg={3} className=' entry-form' >
-        <h3>Data Entry Form</h3>
-        <div style={{marginBottom:"20px"}} >
-          <label>ITS ID</label>
-          <textarea className="form-control" id="its_id" required="" name="its_id" rows="8" value={remaingIts} ></textarea>
+       <Col sm={12} lg={4}>
+        <div className='entry-form'>
+          <h3>Data Entry Form</h3>
+          <div style={{marginBottom:"20px"}} >
+            <label>ITS ID</label>
+            <textarea className="form-control" id="its_id" required="" name="its_id" rows="8" value={remaingIts} ></textarea>
+          </div>
+
+        <div className='mb-3'>
+          <label htmlFor="marhala-selectized">Marhala</label>
+          <span style={{color:"red"}} >*</span>
+          <div style={{ width: "100%" }}>
+            <Select options={newMurhala}   isLoading={ newMurhala === undefined ? true : false}
+              onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
+            <span style={{color:	"#ff0000"}} >{errorsMessage[1]?.marhala}</span>
+          </div>
         </div>
 
-        <div style={{marginBottom:"20px"}}>
-		<label htmlFor="marhala-selectized">Marhala</label>
-    <span style={{color:"red"}} >*</span>
-     <div style={{ width: "100%" }}>
-    <Select options={newMurhala}   isLoading={ newMurhala === undefined ? true : false}
-        onChange={ (selectedOptions) => handleChange(selectedOptions , "marhala" )} />
-        <span style={{color:	"#ff0000"}} >{errorsMessage[1]?.marhala}</span>
-      </div>
-    </div>
+        <div className='mb-3'>
+          <label htmlFor="course">Course</label>
+          <span style={{color:"red"}} >*</span>
+          <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined && Object.keys(selectedMarhala).length !== 0 ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
+          <span style={{color:	"#ff0000"}} >{errorsMessage[2]?.course}</span>
+        </div>
 
-    <div style={{marginBottom:"20px"}}>
-		<label htmlFor="course">Course</label>
-    <span style={{color:"red"}} >*</span>
-    <Select options={newGetCourse} defaultValue={[]} isLoading={ newGetCourse === undefined && Object.keys(selectedMarhala).length !== 0 ? true: false} onChange={ (selectedOptions) => handleChange(selectedOptions , "course" )}  />
-    <span style={{color:	"#ff0000"}} >{errorsMessage[2]?.course}</span>
-    </div>
-
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		  <label htmlFor="marhala-selectized">Country</label>
       <span style={{color:"red"}} >*</span>
       <Modals type={"country"} handleChangeModal={handleChangeModal} handleSubmitModal={handleSubmitModal} modalValue={modalValue} />
@@ -338,7 +344,7 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
       <span style={{color:	"#ff0000"}} >{errorsMessage[3]?.country}</span>
     </div>
 
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		<label htmlFor="marhala-selectized">City</label>
     <span style={{color:"red"}} >*</span>
     <Modals type={"city"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal}  />
@@ -346,7 +352,7 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
     <span style={{color:	"#ff0000"}} >{errorsMessage[4]?.city}</span>
     </div>
 
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		  <label htmlFor="course">Institute</label>
       <span style={{color:"red"}} >*</span>
         <Modals type={"institute"} handleChangeModal={handleChangeModal} modalValue={modalValue} handleSubmitModal={handleSubmitModal} />
@@ -354,43 +360,43 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
         <span style={{color:	"#ff0000"}} >{errorsMessage[5]?.institute}</span>
     </div>
 
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		  <label htmlFor="marhala-selectized">Accommodation</label>
       <span style={{color:"red"}} >*</span>
         <Select options={newGetAccommodation} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "accommodation" )} />
         <span style={{color:	"#ff0000"}} >{errorsMessage[6]?.accommodation}</span>
     </div>
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
       <label htmlFor="marhala-selectized">Course Start Date</label>
       <span style={{color:"red"}} >*</span>
       <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
     </div>
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
       <label htmlFor="marhala-selectized">Course End Date</label>
       <span style={{color:"red"}} >*</span>
       <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
     </div>
 
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		<label htmlFor="course">Annual Fees</label>
     <input type="number" className="form-control" value={amount} onChange={handleAmount} />
     </div>
 
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		<label htmlFor="marhala-selectized">Currency</label>
     <Select options={Currency} defaultValue={[]} onChange={ (selectedOptions) => handleChange(selectedOptions , "currency" )} />
     </div>
 
-    <div style={{marginBottom:"20px"}}>
+    <div className='mb-3'>
 		<label htmlFor="marhala-selectized">Scholarship</label>
     <Select options={Scholarship} defaultValue={[]}  onChange={ (selectedOptions) => handleChange(selectedOptions , "scholarship" )} />
     </div>
-   <div style={{marginBottom:"20px"}} >
+   <div className='mb-3'>
     <button type="submit" id="checkItsIdBtn" className="btn btn-primary" onClick={handleSubmit} >Submit</button>
    </div>
-
+        </div>
        </Col >
         </Row>
 

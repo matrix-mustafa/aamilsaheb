@@ -24,28 +24,31 @@
 }
 
 .text-note{
-    font-size: 0.8em;
-    color: #888;
     padding-bottom: 1em;
 }
 
 .entry-form,
 .past-entries {
-    background-color: #ffffffc7;
     padding: 1em;
-    margin: 4px;
     border-radius: 4px;
     box-shadow: 1px 1px 1px 1px #ddd;
+    margin-bottom: 1em;
+}
+
+.entry-form{
+    background-color: #e9f3ff;
+}
+
+.past-entries{
+    background-color: #ffffffc7;
 }
 
 .entry-form h3,
- .past-entries h3 {
-    border-bottom: 2px solid #eee;
-    color: #555;
+.past-entries h3 {
+    border-bottom: 2px solid #002147;
     margin-bottom: 0.5em;
 }
 
 label{
     font-weight: 700;
-    color: #555;
 }

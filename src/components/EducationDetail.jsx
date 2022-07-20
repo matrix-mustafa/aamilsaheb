@@ -18,6 +18,8 @@ export default function EducationDetail (props) {
                <p>{item.gender.toLowerCase() === 'm' ? 'Male' : 'Female'} {item.age} years</p>
                <p>{item.email}</p>
                <p>{item.mobile}</p>
+               <p><strong>Jamaat:</strong> {item.jamaat}</p>
+               <p><strong>Current City:</strong> {item.current_edu_city}</p>
              </div>
            </div>
 
@@ -26,6 +28,8 @@ export default function EducationDetail (props) {
             course={item.future_edu_course}
             institute={item.future_edu_institute}
             jawab={item.future_edu_jawab}
+            startDate={item.future_edu_course_start_date}
+            endDate={item.future_edu_course_end_date}
             period={'future'}
             title={"Future Education"}
           />
@@ -33,6 +37,8 @@ export default function EducationDetail (props) {
             course={item.current_edu_course}
             institute={item.current_edu_institute}
             jawab={item.current_edu_jawab}
+            startDate={item.current_edu_course_start_date}
+            endDate={item.current_edu_course_end_date}
             period={'current'}
             title={"Current Education"}
           />
@@ -40,6 +46,8 @@ export default function EducationDetail (props) {
             course={item.last_edu_course}
             institute={item.last_edu_institute}
             jawab={item.last_edu_jawab}
+            startDate={item.last_edu_course_start_date}
+            endDate={item.last_edu_course_end_date}
             period={'last'}
             title={"Last Education"}
           />

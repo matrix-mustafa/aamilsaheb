@@ -16,7 +16,7 @@ export default function AppRoutes() {
   const [dropoutList , setDropoutList] = useFetch();
   const [headerData , setHeaderData] = useFetch("profile/aamilsaheb/details");
   const [userFullName , setUserFullName] = useFetch("profile/ ");
-  const [EduStatus , setEduStatus] = useState("Araz done");
+  const [EduStatus , setEduStatus] = useState("Araz done for currently studying");
   const [downloadRecord , setDownloadRecord] = useState("/?cmd=razastatus&jamaat=426&raza_status=Araz%20done");
   const [myTask , setMyTask] = useFetch();
 
