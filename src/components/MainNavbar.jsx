@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useEffect, useState} from 'react'
 import logo from "../logotal.png";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -11,6 +11,14 @@ export default function MainNavbar(props) {
     const [active , setActive] = useState(0);
 
     const userName =  localStorage.getItem("username");
+
+    useEffect(() => {
+      setActive(JSON.parse(localStorage.getItem("SelectedOption")));
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem("SelectedOption", active);
+    }, [active]);
 
     const handleUrl = (url) => {
       if(url ==="home"){
@@ -37,7 +45,7 @@ export default function MainNavbar(props) {
         <Container fluid >
           <div className="d-flex justify-content-between nav-container">
             <a href='https://www.talabulilm.com'><img className="" src={logo} alt='img' /></a>
-          <h3>Current Education Status for Age: 3-27<br />{`${headerData ? headerData[0]?.jamaat : ""}`} </h3>
+          <h3>Current Education Status for Age: 3-27<br />{`${headerData ? headerData?.jamaat : ""}`} </h3>
             <div className='d-flex'>
               <div className="image-header" >
                 {userFullName?.name}<br />

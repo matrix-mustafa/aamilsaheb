@@ -29,10 +29,10 @@ export default function AppRoutes() {
 
 
   useEffect(() => {
-    if(headerData && headerData[0].jamaat_id){
-      setMyTask(`profile/aamilsaheb/taskList/${headerData && headerData[0].jamaat_id}`)
-      setSideBarData(`profile/aamilsaheb/filters/${headerData && headerData[0].jamaat_id}`);
-      setDropoutList(`profile/aamilsaheb/razaUserList/${headerData && headerData[0].jamaat_id}/Araz%20done`)
+    if(headerData && headerData?.jamaat_id){
+      setMyTask(`profile/aamilsaheb/taskList/${headerData && headerData?.jamaat_id}`)
+      setSideBarData(`profile/aamilsaheb/filters/${headerData && headerData?.jamaat_id}`);
+      setDropoutList(`profile/aamilsaheb/razaUserList/${headerData && headerData?.jamaat_id}/Araz%20done`)
     }
 
   },[headerData])
@@ -78,9 +78,9 @@ export default function AppRoutes() {
      <MainNavbar headerData={headerData}  userFullName={userFullName}/>
      <MobileNavbar  headerData={headerData} />
         <Routes>
-             <Route path="/task" element={<MyTask myTask={myTask} jamaatId={headerData && headerData[0].jamaat_id}/>} />
+             <Route path="/task" element={<MyTask myTask={myTask} jamaatId={headerData && headerData?.jamaat_id}/>} />
              <Route path="/mauze-profile-entry" element={<MuzeProfileForm/>} />
-            <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData[0].jamaat_id} />} />
+            <Route path="/" element={<LandingPage sidebarData={sidebarData} dropoutList={dropoutList} EduStatus={EduStatus} downloadRecord={downloadRecord} handleRequest={handleRequest} jamaatId={headerData && headerData?.jamaat_id} />} />
         </Routes>
      </BrowserRouter>
      <ToastContainer />

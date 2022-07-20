@@ -92,7 +92,6 @@ function MyTask(props) {
 
     
 
-  console.log(taskData)
 
   return (
     <div  className="col-12 px-2 mt-3 " >

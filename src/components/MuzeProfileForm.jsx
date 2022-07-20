@@ -264,16 +264,7 @@ const Scholarship = [
   { value: 'vanilla', label: 'Scholarship' }
 ]
 
-const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onClick}, ref) => (
-  <input
-      onChange={onChange}
-      placeholder={placeholder}
-      value={value}
-      issecure={issecure}
-      id={id}
-      onClick={onClick}
-  />
-));
+
   return (
     <>
     <div className='form-container'>
@@ -369,13 +360,13 @@ const Input = React.forwardRef(({onChange, placeholder, value, issecure, id, onC
     <div className='mb-3'>
       <label htmlFor="marhala-selectized">Course Start Date</label>
       <span style={{color:"red"}} >*</span>
-      <DatePicker selected={entryFormData.course_start_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_start_date")} />
+      <DatePicker selected={entryFormData.course_start_date}    onChange={(date) => handleChangeData(date ,  "course_start_date")} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
     </div>
     <div className='mb-3'>
       <label htmlFor="marhala-selectized">Course End Date</label>
       <span style={{color:"red"}} >*</span>
-      <DatePicker selected={entryFormData.course_end_date}   customInput={<Input />} onChange={(date) => handleChangeData(date ,  "course_end_date")} />
+      <DatePicker selected={entryFormData.course_end_date}    onChange={(date) => handleChangeData(date ,  "course_end_date")} />
       <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
     </div>
 
