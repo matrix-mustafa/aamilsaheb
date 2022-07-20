@@ -100,11 +100,12 @@ function MyTask(props) {
 
           <Accordion key={idx} onClick={() => setTaskData({...taskData , task_id: item.task_id})} >
           <Accordion.Item eventKey="0" className={`mb-2 ${item.sub_id === null ? 'border-warning' : 'border-success'}`} >
-            <Accordion.Header className='border-bottom' >
+            <Accordion.Header className='border-bottom d-flex ' >
               {
                 item.sub_id === null ? <FontAwesomeIcon color={"#F7D47F"} icon={faCircleNotch} /> : <FontAwesomeIcon color={"#198753"} icon={faCheck} />
               }
              <div className={`mx-2 ${item.sub_id === null ? 'text-warning' : 'text-success'}`}>{item.task_title}</div>
+             <span className='float-end' >1/02/1999</span>
               </Accordion.Header>
             <Accordion.Body className='p-0' >
               <div className="text-muted p-3" >

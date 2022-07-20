@@ -5,15 +5,18 @@ import useFetch from "../useFetch";
 import { useEffect } from 'react';
 import Select from 'react-select';
 import EducationDetail from './EducationDetail';
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import  "./datePicker.css"
 import { toast } from 'react-toastify';
 import Modals from "./Modals";
 import  {Col , Row} from 'react-bootstrap';
+import DatePicker from 'react-date-picker';
+
+import "react-date-picker/dist/DatePicker.css";
+
 
 import 'react-toastify/dist/ReactToastify.css'
 
-import "react-datepicker/dist/react-datepicker.css";
 
 export default function MuzeProfileForm() {
   const [murhala , setMurhala] = useFetch();
@@ -360,13 +363,17 @@ const Scholarship = [
     <div className='mb-3'>
       <label htmlFor="marhala-selectized">Course Start Date</label>
       <span style={{color:"red"}} >*</span>
-      <DatePicker selected={entryFormData.course_start_date}    onChange={(date) => handleChangeData(date ,  "course_start_date")} />
+      <div>
+      <DatePicker  className="inputClass" onChange={(date) => handleChangeData(date ,  "course_start_date")}   value={entryFormData.course_start_date} />
+      </div>
       <span style={{color:	"#ff0000"}} >{errorsMessage[7]?.course_start_date}</span>
     </div>
     <div className='mb-3'>
       <label htmlFor="marhala-selectized">Course End Date</label>
       <span style={{color:"red"}} >*</span>
-      <DatePicker selected={entryFormData.course_end_date}    onChange={(date) => handleChangeData(date ,  "course_end_date")} />
+      <div>
+      <DatePicker className="inputClass" onChange={(date) => handleChangeData(date ,  "course_end_date")}  value={entryFormData.course_end_date} />
+      </div>
       <span style={{color:	"#ff0000"}} >{errorsMessage[8]?.course_end_date}</span>
     </div>
 

@@ -52,3 +52,19 @@
 label{
     font-weight: 700;
 }
+
+.inputClass{
+    width: 100%;
+    background-color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 80%);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+    /* padding: 5px; */
+}
+
+.react-date-picker__wrapper{
+    border: none;
+}
+
