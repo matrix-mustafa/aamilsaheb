@@ -4,32 +4,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router-dom';
 import "./MainNavbar.css"
+import { useLocation } from 'react-router-dom';
 
 export default function MainNavbar(props) {
     const {headerData , userFullName} = props
     const navigate = useNavigate();
-    const [active , setActive] = useState(0);
+    let location = useLocation();
 
     const userName =  localStorage.getItem("username");
 
-    useEffect(() => {
-      setActive(JSON.parse(localStorage.getItem("SelectedOption")));
-    }, []);
-  
-    useEffect(() => {
-      localStorage.setItem("SelectedOption", active);
-    }, [active]);
-
     const handleUrl = (url) => {
-      if(url ==="home"){
+      if(url === "home"){
         navigate('/');
-        setActive(0)
       }else if(url === "mauze"){
         navigate('/mauze-profile-entry');
-        setActive(1)
       }else if(url === "task"){
         navigate('/task');
-        setActive(2)
       }
 
       }
@@ -50,9 +40,9 @@ export default function MainNavbar(props) {
               <div className="image-header" >
                 {userFullName?.name}<br />
                 <div>
-                  <a className='top-nav-link ' style={{...(active === 0 ? onActive : "")}} onClick={ () => handleUrl("home")}  >Home</a>
-                  <a className='top-nav-link' style={{...(active === 1 ? onActive : "")}}  onClick={ () => handleUrl("mauze")}>Education Survey</a>
-                  <a className='top-nav-link' style={{...(active === 2 ? onActive : "")}}  onClick={ () => handleUrl("task")}>My Task</a>
+                  <a className='top-nav-link ' style={{...(location.pathname === "/" ? onActive : "")}} onClick={ () => handleUrl("home")}  >Home</a>
+                  <a className='top-nav-link' style={{...(location.pathname === "/mauze-profile-entry" ?  onActive : "")}}  onClick={ () => handleUrl("mauze")}>Education Survey</a>
+                  <a className='top-nav-link' style={{...(location.pathname === "/task"?onActive : "")}}  onClick={ () => handleUrl("task")}>My Task</a>
                 </div>
               </div>
               <img className='image-content' src={`https://www.talabulilm.com/mumin_images/${userName}.png`} alt='img' />
